@@ -14,6 +14,24 @@ pnpm dev
 bun dev
 ```
 
+After updating prisma tables to actually create the tables in your database, you now can use the following command of the Prisma CLI:
+
+```bash
+npx prisma db push
+```
+
+For Prisma Studio. Run the following command:
+
+```bash
+npx prisma studio
+```
+
+Because Prisma Client is tailored to your own schema, you need to update it every time your Prisma schema file is changing by running the following command:
+
+```bash
+npx prisma generate
+```
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
