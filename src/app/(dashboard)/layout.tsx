@@ -12,7 +12,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className='grid grid-cols-dashboard_body_weights grid-rows-1 gap-3'>
+    <div className='grid grid-cols-dashboard grid-rows-1 gap-3'>
       <div className='h-screen row-span-2 col-span-1'>
        <DashboardNavbar/>
       </div>

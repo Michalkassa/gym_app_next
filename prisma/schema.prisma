@@ -21,8 +21,6 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-
-  body_weights  Body_Weight[]
  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -69,8 +67,15 @@ model VerificationToken {
  
 model Body_Weight {
   id        String     @default(cuid()) @id
-  weight     Int
-  author    User?   @relation(fields: [authorId], references: [id])
-  authorId  String?
+  weight    Float
+  authorId  String? 
   createdAt DateTime @default(now())
+}
+
+model Exercise {
+  id          String     @default(cuid()) @id
+  name        String
+  description String
+  authorId    String? 
+  createdAt   DateTime @default(now())
 }

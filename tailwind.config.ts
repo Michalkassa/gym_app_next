@@ -18,10 +18,12 @@ const config: Config = {
       'atlantis_blue' : '#264d8d',
       'sleek_gray' : '#121212',
       'white' : '#fff',
-      'black' : '#000'
+      'black' : '#000',
+      'red' : "#f00"
     },
     gridTemplateColumns: {
-      'dashboard_body_weights': '200px 1fr',
+      'dashboard': '300px 1fr',
+      'dashboard_body_weights': '1fr 1fr',
     }
   },
   plugins: [],
