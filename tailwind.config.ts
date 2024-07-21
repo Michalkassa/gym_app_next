@@ -24,7 +24,11 @@ const config: Config = {
     gridTemplateColumns: {
       'dashboard': '300px 1fr',
       'dashboard_body_weights': '1fr 1fr',
-    }
+      'dashboard_elements': '1fr 1fr'
+    },
+    width: {
+      '90' : '340px'
+    },
   },
   plugins: [],
 };

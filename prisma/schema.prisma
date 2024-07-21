@@ -21,7 +21,11 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
- 
+  exercises     Exercise[]
+  bodyweights   Body_Weight[] 
+  logs          Log[] 
+  workouts      Workout[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -68,14 +72,54 @@ model VerificationToken {
 model Body_Weight {
   id        String     @default(cuid()) @id
   weight    Float
-  authorId  String? 
+  authorId  String 
   createdAt DateTime @default(now())
+
+  user User @relation(fields: [authorId], references: [id], onDelete: Cascade)
 }
 
 model Exercise {
   id          String     @default(cuid()) @id
   name        String
   description String
-  authorId    String? 
+  authorId    String
   createdAt   DateTime @default(now())
+
+  logs Log[]
+  user User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  workouts  ExercisesOnWorkouts[]
+}
+
+
+model Log {
+  id          String     @default(cuid()) @id
+  weight      Float
+  reps        Int   
+  oneRepMax   Int
+  exerciseId  String 
+  authorId    String
+  createdAt   DateTime @default(now())
+
+  user User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  exercise Exercise @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
+}
+
+
+model Workout {
+  id          String     @default(cuid()) @id 
+  name        String
+  description String
+  authorId    String
+  createdAt   DateTime @default(now())
+
+  user User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  exercises ExercisesOnWorkouts[]
+}
+
+model ExercisesOnWorkouts{
+  @@id([exerciseId, workoutId])
+  exercise    Exercise @relation(fields: [exerciseId], references: [id], onDelete: Cascade)    
+  exerciseId  String
+  workout    Workout @relation(fields: [workoutId], references: [id], onDelete: Cascade)    
+  workoutId  String
 }

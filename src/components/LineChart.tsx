@@ -16,10 +16,11 @@ export default function LineChart({ chartData }) {
 
     Chart.register(LinearScale, CategoryScale, TimeScale);
   return (
-    <div className="chart-container text-white">
-      <h2 style={{ textAlign: "center" }}>Weight Progress over Time</h2>
+    <div className="chart-container text-white h-full w-full">
       <Line
         data={data}
+        width="auto"
+        height="auto"
         options={{
           scales: {
             x: {
@@ -33,7 +34,7 @@ export default function LineChart({ chartData }) {
           plugins: {
             title: {
               display: true,
-              text: "Weight vs Dates"
+              text: ""
             },
             legend: {
               display: false

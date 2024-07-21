@@ -28,15 +28,15 @@ export default async function DashboardNavbar(){
         </div>
         </div>
         <ul className="w-full">
-            <li>
+            <li className="scale-100 hover:scale-105 duration-100">
             <Link href="/dashboard">
-                <div className="flex w-full h-24   ">
+                <div className="flex w-full h-24">
                 <div className="flex justify-center items-center" style={{flex:'40%'}} ><FaHome size={25}/></div>
                 <div className="flex items-center" style={{flex:'60%'}}>Dashboard</div>
                 </div>
             </Link>
             </li>
-            <li>
+            <li className="scale-100 hover:scale-105 duration-100">
             <Link href="/dashboard/workouts">
                 <div className="flex w-full h-24   ">
                 <div className="flex justify-center items-center" style={{flex:'40%'}} ><FaClipboardList size={25}/></div>
@@ -44,7 +44,7 @@ export default async function DashboardNavbar(){
                 </div>
             </Link>
             </li>
-            <li>
+            <li className="scale-100 hover:scale-105 duration-100">
             <Link href="/dashboard/exercises">
                 <div className="flex w-full h-24   ">
                 <div className="flex justify-center items-center" style={{flex:'40%'}} ><IoBody size={25}/></div>
@@ -52,7 +52,7 @@ export default async function DashboardNavbar(){
                 </div>
             </Link>
             </li>
-            <li>
+            <li className="scale-100 hover:scale-105 duration-100">
             <Link href="/dashboard/bodyweights">
                 <div className="flex w-full h-24   ">
                 <div className="flex justify-center items-center" style={{flex:'40%'}} ><FaWeightScale size={25}/></div>
@@ -60,7 +60,7 @@ export default async function DashboardNavbar(){
                 </div>
             </Link>
             </li>
-            <li>
+            <li className="scale-100 hover:scale-105 duration-100">
                 <Link href="/#">
                 <div className="flex w-full h-24   ">
                 <div className="flex justify-center items-center" style={{flex:'40%'}} ><BsSkipStartFill size={30}/></div>
