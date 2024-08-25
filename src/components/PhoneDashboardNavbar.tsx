@@ -30,7 +30,7 @@ export default async function PhoneDashboardNavbar(){
                     </Link>
                 </li>
                 <li className="">
-                    <Link href="/#">
+                    <Link href="/dashboard/runningworkout">
                         <div className="flex flex-col w-full justify-center items-center h-20 gap-2">
                         <div className="flex justify-center items-center"><BsSkipStartFill size={30}/></div>
                         <div className="flex items-center text-xs">Start Workout</div>

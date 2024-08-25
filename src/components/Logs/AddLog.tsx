@@ -1,6 +1,6 @@
 "use client"
 import Modal from "@/components/Modal";
-import { addLog } from "@/app/api/actions";
+import { addLogFromForm } from "@/app/api/actions";
 import {useState, useEffect} from "react"
 
 interface AddLogProps {
@@ -13,7 +13,7 @@ export default function AddLog ({exerciseId}: AddLogProps){
 
     async function handleAdding(data: FormData) {
         console.log(data)
-      await addLog(exerciseId, data )
+      await addLogFromForm(exerciseId, data )
     }
 
   return (

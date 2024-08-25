@@ -181,7 +181,7 @@ export const deleteLogs = async (exerciseId:string) => {
     })
 };
 
-export const addLog = async (exerciseId:string, formData:FormData) => {
+export const addLogFromForm = async (exerciseId:string, formData:FormData) => {
     const session = await auth();
     const weight = Number(formData.get("weight"))
     const reps =  Number(formData.get("reps"))
@@ -196,6 +196,21 @@ export const addLog = async (exerciseId:string, formData:FormData) => {
     })
     revalidatePath(`/dasboard/exercises/${exerciseId}`)
 };
+
+export const createLog = async (exerciseId:string, reps:number, weight:number) => {
+    const session = await auth();
+    const createLog = await prisma.Log.create({ 
+        data: {
+            weight: weight,
+            reps: reps,
+            authorId : session?.user?.id,
+            oneRepMax : oneRepMaxCalculator(weight,reps),
+            exerciseId: exerciseId,
+        }
+    })
+    revalidatePath(`/dasboard/exercises/${exerciseId}`)
+};
+
 
 
 export const getWorkout = async (workoutId : string) => {

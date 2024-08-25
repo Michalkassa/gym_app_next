@@ -61,7 +61,7 @@ export default async function DashboardNavbar(){
             </Link>
             </li>
             <li className="scale-100 hover:scale-105 duration-100">
-                <Link href="/#">
+                <Link href="/dashboard/runningworkout">
                 <div className="flex w-full h-24   ">
                 <div className="flex justify-center items-center" style={{flex:'40%'}} ><BsSkipStartFill size={30}/></div>
                 <div className="flex items-center" style={{flex:'60%'}}>Start Workout</div>
