@@ -39,26 +39,23 @@ export default function AddExerciseToWorkout ({workoutId , exercises} : props){
     exercises.forEach((exercise) => {
         options.push({value : exercise.id , label  : exercise.name})
     });
-     options = [
-      { value: "blues", label: "Blues" },
-      { value: "rock", label: "Rock" },
-      { value: "jazz", label: "Jazz" },
-      { value: "orchestra", label: "Orchestra" },
-    ];
+     options = [];
 
-    async function handleSumbit(){
+    async function handleSumbit(e){
+        e.preventDefault()
         console.log(exerciseId)
         console.log(workoutId)
         await addExerciseToWorkout(workoutId, exerciseId)
         setModalOpen(false)
     }
+
   return (
     <div className="w-full">
       <div className="w-full flex justify-center">
       <button onClick={() => setModalOpen(true)} className='w-auto bg-atlantis_blue rounded-md p-5'> Add new Exercise</button>
       </div>
       <Modal modalOpen={modalOpen} setModalOpen={setModalOpen}>
-        <form autoComplete="off" className="flex flex-col gap-3" onSubmit={handleSumbit()}>
+        <form autoComplete="off" className="flex flex-col gap-3" onSubmit={handleSumbit}>
             <select onChange={e => setExerciseId(e.target.value)}>
             <option></option>
             {exercises.map((exercise) => (

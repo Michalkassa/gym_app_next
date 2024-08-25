@@ -12,7 +12,7 @@ export default async function DashboardNavbar(){
     const session = await auth()
 
     return(
-        <div className="flex flex-col h-full bg-sleek_gray items-center text-white justify-between">
+        <div className="flex flex-col bg-sleek_gray items-center text-white justify-between min-h-screen min-w-72">
         <div>
         <div className="flex justify-center items-center gap-5 h-24">
         {session && <Image

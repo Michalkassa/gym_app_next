@@ -1,18 +1,16 @@
 import { getExercisesFromWorkouts } from "../../app/api/actions"
-
+import  ExerciseWorkout from "@/components/Workouts/ExerciseWorkout"
 interface ExerciseProps {
     id : string
 }
 
 export default async function ExerciseWorkoutList( {id} : ExerciseProps) {
-  const exercises = await getExercisesFromWorkouts(id)
+  const pairs = await getExercisesFromWorkouts(id)
   
   return (
-    <div className="flex flex-col justify-center items-left flex-wrap overflow-y-scroll gap-3">
-          {exercises.map((exercise) => (
-            <div className="flex justify-between p-3 bg-sleek_gray">
-              <p>{exercise.exercise.name}</p>
-            </div>
+    <div className="flex flex-col justify-center items-left flex-wrap gap-3">
+          {pairs.map((pair) => (
+            <ExerciseWorkout key={pair.exercise.id} id={pair.id} workoutId={pair.workoutId.id} name={pair.exercise.name}/>
           ))}
     </div>
     

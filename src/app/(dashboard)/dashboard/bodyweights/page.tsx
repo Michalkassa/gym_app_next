@@ -3,6 +3,8 @@ import BodyWeightList from "@/components/BodyWeights/BodyWeightList"
 import { redirect } from "next/navigation"
 import  AddBodyWeight from "@/components/BodyWeights/AddBodyWeight";
 import BodyWeightChart from "@/components/BodyWeights/BodyWeightChart";
+import { Suspense } from "react";
+import Loading from "@/components/Loading";
 
 
 export default async function BodyWeights() {
@@ -10,14 +12,18 @@ export default async function BodyWeights() {
   if (!session) return redirect("/")
     
   return (
-    <div className="grid grid-rows-1 grid-cols-dashboard_elements justify-center">
-      <div className="">
+    <div className="flex flex-col md:grid md:grid-rows-1 grid-cols-dashboard_elements justify-center">
+      <Suspense fallback={<Loading/>}>
+      <div className="flex w-screen justify-center">
+      <BodyWeightChart/>
+      </div>
+      <div className="flex w-screen justify-center">
+      <div className="flex flex-col justify-center">
       <AddBodyWeight></AddBodyWeight>
       <BodyWeightList></BodyWeightList>
       </div>
-      <div className="">
-      <BodyWeightChart/>
       </div>
+      </Suspense>
     </div>
   )
 }

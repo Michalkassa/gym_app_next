@@ -117,9 +117,9 @@ model Workout {
 }
 
 model ExercisesOnWorkouts{
-  @@id([exerciseId, workoutId])
+  id          String     @default(cuid()) @id 
   exercise    Exercise @relation(fields: [exerciseId], references: [id], onDelete: Cascade)    
   exerciseId  String
-  workout    Workout @relation(fields: [workoutId], references: [id], onDelete: Cascade)    
-  workoutId  String
+  workout     Workout @relation(fields: [workoutId], references: [id], onDelete: Cascade)    
+  workoutId   String
 }

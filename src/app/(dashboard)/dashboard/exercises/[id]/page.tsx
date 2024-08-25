@@ -5,7 +5,8 @@ import AddLog from "@/components/Logs/AddLog";
 import LogList from "@/components/Logs/LogList"
 import { auth } from "@/auth/auth"
 import { redirect } from "next/navigation";
-
+import { Suspense } from "react";
+import Loading from "@/components/Loading";
 
 
 export default async function SingleExercisePage({params}:any){
@@ -16,7 +17,7 @@ export default async function SingleExercisePage({params}:any){
     if (!exercise) return redirect("/dashboard/workouts") 
     
     return(
-        <div className="">
+        <div>
             <ExercisePage id={params.id} name={exercise?.name} description={exercise?.description} />
             <AddLog exerciseId={params.id}/>
             <div className="flex flex-row gap-10 justify-center align-middle w-screen h-full">

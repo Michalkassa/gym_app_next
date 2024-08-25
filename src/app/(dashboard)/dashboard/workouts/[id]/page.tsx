@@ -4,6 +4,8 @@ import ExerciseWorkoutList from "@/components/Workouts/ExerciseWorkoutList";
 import AddExerciseToWorkout from "@/components/Workouts/AddExerciseToWorkout";
 import { auth } from "@/auth/auth"
 import {redirect} from "next/navigation"
+import { Suspense } from "react";
+import Loading from "@/components/Loading"
 
 
 

@@ -6,7 +6,7 @@ export default async function BodyWeightList() {
 
   const data = await getWeights()
   return (
-    <div className="max-h-full overflow-scroll overflow-x-hidden">
+    <div className="max-h-full overflow-x-hidden">
       <table className="items-center bg-transparent w-full border-collapse text-white ">
         <thead>
           <tr>

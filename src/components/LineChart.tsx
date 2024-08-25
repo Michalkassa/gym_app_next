@@ -16,11 +16,11 @@ export default function LineChart({ chartData }) {
 
     Chart.register(LinearScale, CategoryScale, TimeScale);
   return (
-    <div className="chart-container text-white h-full w-full">
+    <div className="chart-container text-white">
       <Line
         data={data}
-        width="auto"
-        height="auto"
+        width="400"
+        height="200"
         options={{
           scales: {
             x: {

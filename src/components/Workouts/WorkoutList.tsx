@@ -6,7 +6,7 @@ export default async function WorkoutList() {
 
   const data = await getWorkouts()
   return (
-    <div className="flex flex-row justify-center items-center flex-wrap overflow-y-scroll gap-3">
+    <div className="flex flex-row justify-center items-center flex-wrap gap-3">
           {data.reverse().map((workout) => (
             <Workout key={workout.id} id={workout.id} name={workout.name} description={workout.description}/>
           ))}

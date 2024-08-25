@@ -6,7 +6,6 @@ import Navbar from "../components/Navbar";
 const inter = Inter({ subsets: ["latin"] });
 
 
-
 export const metadata: Metadata = {
   title: "Tkatlantis Gymapp",
   description: "Keep track of your workouts",

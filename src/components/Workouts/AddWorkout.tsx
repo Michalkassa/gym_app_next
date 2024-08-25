@@ -8,11 +8,11 @@ export default function AddWorkout (){
   return (
     <div className="w-full">
       <div className="w-full flex justify-center">
-      <button onClick={() => setModalOpen(true)} className='w-auto bg-atlantis_blue rounded-md p-5'> Add new Workout</button>
+      <button onClick={() => setModalOpen(true)} className='w-auto bg-atlantis_blue rounded-md p-5'> Add Workout</button>
       </div>
       <Modal modalOpen={modalOpen} setModalOpen={setModalOpen}>
         <form autoComplete="off" action={addWorkout} className="flex flex-col gap-3">
-          <h3 className="font-bold text-lg">Add new Workout</h3>
+          <h3 className="font-bold text-lg">Add Workout</h3>
           <div className="flex flex-col gap-3">
             <input autoComplete="false" id="name" name="name" type="text" placeholder="Type Name of the Exercise Here..." className="input input-bordered w-full text-black p-3"></input>
             <textarea id="description" name="description" placeholder="Description..." className="input input-bordered w-full h-36 text-black p-3"></textarea>

@@ -57,6 +57,9 @@ export const getExercises = async () => {
             where: {
                 authorId : session?.user?.id
             },
+            orderBy: {
+                name: 'desc',
+              },
     })
     return exercises
 }
@@ -151,10 +154,11 @@ export const getLogs = async (exerciseId:string) => {
                 exerciseId: exerciseId,
             },
     })
+    console.log(logs)
     return logs;
 }
 
-export const deleteLog = async (logId:string, exerciseId:String) => {
+export const deleteLog = async (logId:string, exerciseId:string) => {
     const session = await auth();
 
     const deleteLog = await prisma.Log.delete({ 
@@ -279,11 +283,19 @@ export const deleteWorkout = async (workoutId:string) => {
 
 
 export const addExerciseToWorkout = async (workoutId:string , exerciseId:string) => {
-    console.log(exerciseId)
-    const addExerciseToWorkout = await prisma.exercisesOnWorkouts.create({
+    const addExerciseToWorkout = await prisma.ExercisesOnWorkouts.create({
         data: {
             exerciseId: exerciseId,
             workoutId: workoutId
+        }
+    })
+    revalidatePath(`/dasboard/workouts/${workoutId}`)
+}
+
+export const deleteExerciseToWorkout = async (id: string, workoutId:string) => {
+    const addExerciseToWorkout = await prisma.ExercisesOnWorkouts.delete({
+        where: {
+            id: id
         }
     })
     revalidatePath(`/dasboard/workouts/${workoutId}`)

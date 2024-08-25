@@ -19,10 +19,12 @@ const config: Config = {
       'sleek_gray' : '#121212',
       'white' : '#fff',
       'black' : '#000',
-      'red' : "#f00"
+      'red' : "#f00",
+      'light_gray' : '#D3D3D3'
     },
     gridTemplateColumns: {
-      'dashboard': '300px 1fr',
+      'dashboard': '288px 1fr',
+      'dashboard_phone': '288px 1fr',
       'dashboard_body_weights': '1fr 1fr',
       'dashboard_elements': '1fr 1fr'
     },

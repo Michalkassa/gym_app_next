@@ -11,7 +11,10 @@ export default async function Workouts() {
   if (!session) return redirect("/")
   return (
     <div className="flex flex-col align-middle" >
-        <AddWorkout/>
+        <div className="flex justify-around py-6">
+          <h1 className="text-5xl text-white">Workouts</h1>
+          <AddWorkout/>
+        </div>
         <div className="flex w-screen justify-center w-full h-4/6">
         <div className="max-w-6xl">
         <WorkoutList></WorkoutList>

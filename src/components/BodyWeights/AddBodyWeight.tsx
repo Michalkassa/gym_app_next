@@ -6,7 +6,7 @@ import {useState} from "react"
 export default function AddBodyWeight (){
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   return (
-    <div>
+    <div className="flex justify-center align-center">
       <button onClick={() => setModalOpen(true)} className='btn btn-wide w-full bg-atlantis_blue rounded-3xl p-3 mb-5'> Add new BodyWeight</button>
 
       <Modal modalOpen={modalOpen} setModalOpen={setModalOpen}>
