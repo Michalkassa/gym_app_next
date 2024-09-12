@@ -1,18 +1,11 @@
 "use client"
 import Modal from "@/components/Modal";
-import { addExerciseToWorkout , getExercises} from "@/app/api/actions";
+import { addExerciseToWorkout} from "@/app/api/actions";
 import {useState} from "react"
-import Select from "react-select";
-import Exercise from "../Exercises/Exercise";
-
-interface props {
-    workoutId : string
-    exercises : any
-}
+import { ExerciseProps } from "@/Props";
 
 
-
-export default function AddExerciseToWorkout ({workoutId , exercises} : props){
+export default function AddExerciseToWorkout (workoutId: string , exercises: any){
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [exerciseId, setExerciseId] = useState<string>("");
 
@@ -36,12 +29,12 @@ export default function AddExerciseToWorkout ({workoutId , exercises} : props){
         )
     }
     let options = []
-    exercises.forEach((exercise) => {
+    exercises.forEach((exercise:ExerciseProps) => {
         options.push({value : exercise.id , label  : exercise.name})
     });
      options = [];
 
-    async function handleSumbit(e){
+    async function handleSumbit(e: any){
         e.preventDefault()
         console.log(exerciseId)
         console.log(workoutId)
@@ -58,7 +51,7 @@ export default function AddExerciseToWorkout ({workoutId , exercises} : props){
         <form autoComplete="off" className="flex flex-col gap-3" onSubmit={handleSumbit}>
             <select onChange={e => setExerciseId(e.target.value)}>
             <option></option>
-            {exercises.map((exercise) => (
+            {exercises.map((exercise: ExerciseProps) => (
             <option key={exercise.id} value={exercise.id}>{exercise.name}</option>
             ))}
             </select>

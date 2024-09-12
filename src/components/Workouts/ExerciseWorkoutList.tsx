@@ -1,16 +1,14 @@
-import { getExercisesFromWorkouts } from "../../app/api/actions"
+import { getExercisesWorkoutPairs } from "../../app/api/actions"
 import  ExerciseWorkout from "@/components/Workouts/ExerciseWorkout"
-interface ExerciseProps {
-    id : string
-}
+import {ExerciseWorkoutPairProps} from "@/Props"
 
-export default async function ExerciseWorkoutList( {id} : ExerciseProps) {
-  const pairs = await getExercisesFromWorkouts(id)
+export default async function ExerciseWorkoutList( id : string) {
+  const ExercisesWorkoutPairs = await getExercisesWorkoutPairs(id)
   
   return (
     <div className="flex flex-col justify-center items-left flex-wrap gap-3">
-          {pairs.map((pair) => (
-            <ExerciseWorkout key={pair.exercise.id} id={pair.id} workoutId={pair.workoutId.id} name={pair.exercise.name}/>
+          {ExercisesWorkoutPairs.map((pair: ExerciseWorkoutPairProps) => (
+            <ExerciseWorkout key={pair.exercise.id} id={pair.id} workoutId={pair.workoutId} name={pair.exercise.name}/>
           ))}
     </div>
     

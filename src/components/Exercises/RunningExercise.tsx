@@ -1,11 +1,8 @@
 'use client'
-import { FaTrashAlt } from "react-icons/fa";
-import  Modal  from "@/components/Modal"
-import {useEffect, useState} from 'react'
-import {deleteExerciseToWorkout} from "@/app/api/actions"
-import {useRouter} from "next/navigation"
-import {createLog} from "@/app/api/actions"
 
+import {useEffect, useState} from 'react'
+import {createManyLogs} from "@/app/api/actions"
+import {useRouter} from "next/navigation"
 
 interface ExerciseWorkoutProps {
     id: string,
@@ -18,14 +15,13 @@ interface ExerciseWorkoutProps {
 
 export default function RunningExercise({ id , name, workoutId, exerciseId, submit, setSubmit} : ExerciseWorkoutProps) {
     const router = useRouter()
-    let setsFromLocalStorage;
+    let setsFromLocalStorage = [{weight:0,reps:0}];
     try{
         setsFromLocalStorage = JSON.parse(localStorage.getItem('sets') || '[{weight:0,reps:0}]')
     }
     catch{
-        setsFromLocalStorage = []
+        setsFromLocalStorage = [{weight:0,reps:0}]
     }
-    const [openModalDelete , setModalOpenDelete] = useState(false)
     const [setId, setSetId] = useState(3);
     const [sets, setSets] = useState(setsFromLocalStorage);
     useEffect(() => {
@@ -34,26 +30,17 @@ export default function RunningExercise({ id , name, workoutId, exerciseId, subm
 
     useEffect(() => {
         if (submit){
-            for(const set of sets){
-                createLog(exerciseId,set.reps,set.weight)
-                console.log(exerciseId)
-                console.log(set.reps)
-                console.log(set.weight)
-            }
-            setSubmit(false)
+            console.log(sets)
+            createManyLogs(exerciseId,sets)
+
             setSets([{weight:0,reps:0}])
             router.push("/dashboard/runningworkout/")
         }
     }, [submit])
 
-    async function handleDelete() {
-        await deleteExerciseToWorkout(id, workoutId)
-        setModalOpenDelete(false)
-        router.refresh()
-    }
 
     function AddSet(){
-        setSets([...sets,{id:setId, weight:0,reps:0}])
+        setSets([...sets,{weight:0,reps:0}])
         setSetId(setId+1)
     }
     
@@ -91,16 +78,13 @@ export default function RunningExercise({ id , name, workoutId, exerciseId, subm
                     </div>
                     {sets.map((i) => (
                     <div key={sets.indexOf(i)} className="flex flex-row gap-3">
-                        <p>
                         {sets.indexOf(i) + 1}
-                        </p>
-                        <input autoComplete="false" id="weight" name="weight" type="number" placeholder="" value={i.weight} onChange={e => changeWeightValue(sets.indexOf(i),Number(e.target.value))} className="input input-bordered w-full text-black p-3"></input>
-                        <input autoComplete="false" id="reps" name="reps" type="number" placeholder="10" value={i.reps} onChange={e => changeRepsValue(sets.indexOf(i),Number(e.target.value))} className="input input-bordered w-full text-black p-3"></input>
-                        <div>
-                            <button onClick={() => deleteSet(sets.indexOf(i))}>delete</button>
-                        </div>
+                        <input autoComplete="false" id="weight" name="weight" type="number" placeholder="" value={i.weight} onChange={e => changeWeightValue(sets.indexOf(i),Number(e.target.value))} className="input input-bordered w-full text-black p-3"/>
+                        <input autoComplete="false" id="reps" name="reps" type="number" placeholder="10" value={i.reps} onChange={e => changeRepsValue(sets.indexOf(i),Number(e.target.value))} className="input input-bordered w-full text-black p-3"/>
+                        <button onClick={() => deleteSet(sets.indexOf(i))}>delete</button>
                     </div>
                     ))}
+
             </div>
             <button onClick={AddSet}>Add set</button>
         </div>

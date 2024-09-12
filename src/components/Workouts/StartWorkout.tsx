@@ -1,6 +1,6 @@
 import Link from "next/link"
-import { getExercisesFromWorkouts } from "@/app/api/actions"
-import Exercise from "../Exercises/Exercise"
+import { getExercisesWorkoutPairs } from "@/app/api/actions"
+import { ExerciseProps } from "@/Props"
 
 interface WorkoutProps {
     id: string,
@@ -10,7 +10,7 @@ interface WorkoutProps {
 
 
 export default async function StartWorkout({ id , name , description} : WorkoutProps) {
-     const exercises = await getExercisesFromWorkouts(id)
+     const exercises = await getExercisesWorkoutPairs(id)
     return(
         <Link href={`/dashboard/runningworkout/${id}`}>
         <div key={id} className="w-90 h-64 hover:scale-110 duration-200 p-3">
@@ -19,9 +19,9 @@ export default async function StartWorkout({ id , name , description} : WorkoutP
                 <p className="flex text-center justify-center limited-text">{description}</p>
                 <h2>Exercises:</h2>
                 <ul>
-                        {exercises.map((exercise) => (
+                        {exercises.map((exercise: ExerciseProps) => (
                         <li>
-                            <p className="text-sm">- {exercise.exercise.name}</p>
+                            <p className="text-sm">- {exercise.name}</p>
                         </li>
                         ))}
                 </ul>

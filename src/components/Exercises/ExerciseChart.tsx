@@ -3,11 +3,8 @@ import {CategoryScale, TimeScale, LinearScale} from 'chart.js';
 import { useState } from "react";
 import LineChart from "@/components/LineChart";
 
-interface ExerciseChartProp{
-    exerciseId: string
-}
  
-export default async function ExerciseChart({exerciseId}:ExerciseChartProp) { 
+export default async function ExerciseChart(exerciseId: string) { 
 
     async function getData(){
         const data = await getLogs(exerciseId)

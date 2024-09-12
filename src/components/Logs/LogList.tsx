@@ -1,11 +1,8 @@
 import { getLogs } from "../../app/api/actions"
 import Log from "@/components/Logs/Log"
 
-interface LogListProps {
-    exerciseId: string,
-}
 
-export default async function LogList({exerciseId}: LogListProps) {
+export default async function LogList(exerciseId: string) {
 
   const data = await getLogs(exerciseId)
   return (

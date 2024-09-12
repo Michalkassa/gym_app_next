@@ -3,11 +3,8 @@ import Modal from "@/components/Modal";
 import { addLogFromForm } from "@/app/api/actions";
 import {useState, useEffect} from "react"
 
-interface AddLogProps {
-    exerciseId: string,
-}
 
-export default function AddLog ({exerciseId}: AddLogProps){
+export default function AddLog (exerciseId: string){
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
 

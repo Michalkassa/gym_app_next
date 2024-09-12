@@ -197,6 +197,27 @@ export const addLogFromForm = async (exerciseId:string, formData:FormData) => {
     revalidatePath(`/dasboard/exercises/${exerciseId}`)
 };
 
+interface LogProps {
+    weight: Number,
+    reps: Number,
+}
+export const createManyLogs = async (exerciseId:string, logs: LogProps[]) => {
+    const session = await auth();
+    const id = session?.user?.id
+    const data = []
+    for(const log of logs){
+        let weight = log.weight
+        let reps = log.reps
+        data.push({weight: weight, reps: reps, authorId: id, oneRepMax: oneRepMaxCalculator(weight,reps), exerciseId: exerciseId})
+    }
+    const createLog = await prisma.Log.createMany({ 
+        data: data
+    })
+    revalidatePath(`/dasboard/exercises/${exerciseId}`)
+};
+
+
+
 export const createLog = async (exerciseId:string, reps:number, weight:number) => {
     const session = await auth();
     const createLog = await prisma.Log.create({ 
@@ -239,8 +260,8 @@ export const getWorkouts = async () => {
     return workouts
 }
 
-export const getExercisesFromWorkouts = async (workoutId:string,) => {
-    const exercises = await prisma.ExercisesOnWorkouts.findMany(
+export const getExercisesWorkoutPairs = async (workoutId:string,) => {
+    const ExercisesWorkoutPairs = await prisma.ExercisesOnWorkouts.findMany(
         { 
             where: {
                 workoutId: workoutId
@@ -249,7 +270,7 @@ export const getExercisesFromWorkouts = async (workoutId:string,) => {
                 exercise: true,
             }
     })
-    return exercises
+    return ExercisesWorkoutPairs
 }
 
 export const addWorkout = async (formData: FormData) => {
