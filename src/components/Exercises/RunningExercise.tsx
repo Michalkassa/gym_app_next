@@ -6,27 +6,43 @@ import {deleteExerciseToWorkout} from "@/app/api/actions"
 import {useRouter} from "next/navigation"
 import {createLog} from "@/app/api/actions"
 
+
 interface ExerciseWorkoutProps {
     id: string,
     name: string
     workoutId: string;
+    exerciseId: string;
     submit: boolean; 
+    setSubmit: void
 }
 
-export default function RunningExercise({ id , name, workoutId, submit} : ExerciseWorkoutProps) {
+export default function RunningExercise({ id , name, workoutId, exerciseId, submit, setSubmit} : ExerciseWorkoutProps) {
     const router = useRouter()
+    let setsFromLocalStorage;
+    try{
+        setsFromLocalStorage = JSON.parse(localStorage.getItem('sets') || '[{weight:0,reps:0}]')
+    }
+    catch{
+        setsFromLocalStorage = []
+    }
     const [openModalDelete , setModalOpenDelete] = useState(false)
     const [setId, setSetId] = useState(3);
-    const [sets, setSets] = useState(JSON.parse(localStorage.getItem("sets")))
+    const [sets, setSets] = useState(setsFromLocalStorage);
+    useEffect(() => {
+        localStorage.setItem('sets', JSON.stringify(sets))
+    }, [sets]);
 
     useEffect(() => {
-        localStorage.setItem("sets", JSON.stringify(sets))
-    }, [sets])
-    
-    useEffect(() => {
-        for(const set of sets){
-            createLog(id,set.reps,set.weight)
-            console.log("submited")
+        if (submit){
+            for(const set of sets){
+                createLog(exerciseId,set.reps,set.weight)
+                console.log(exerciseId)
+                console.log(set.reps)
+                console.log(set.weight)
+            }
+            setSubmit(false)
+            setSets([{weight:0,reps:0}])
+            router.push("/dashboard/runningworkout/")
         }
     }, [submit])
 
@@ -67,33 +83,25 @@ export default function RunningExercise({ id , name, workoutId, submit} : Exerci
     return(
         <div className="flex flex-col">
             <p className="border-t-0 px-6 align-center border-l-0 border-r-0 text-lg whitespace-nowrap p-4">{name}</p>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Set</th>
-                        <th>kg</th>
-                        <th>reps</th> 
-                    </tr>
-                </thead>
-                <tbody>
+            <div>
+                    <div className="flex flex-row gap-3 ">
+                        <p>Set</p>
+                        <p>kg</p>
+                        <p>reps</p> 
+                    </div>
                     {sets.map((i) => (
-                    <tr key={sets.indexOf(i)}>
-                        <td>
+                    <div key={sets.indexOf(i)} className="flex flex-row gap-3">
+                        <p>
                         {sets.indexOf(i) + 1}
-                        </td>
-                        <td>
+                        </p>
                         <input autoComplete="false" id="weight" name="weight" type="number" placeholder="" value={i.weight} onChange={e => changeWeightValue(sets.indexOf(i),Number(e.target.value))} className="input input-bordered w-full text-black p-3"></input>
-                        </td>
-                        <td>
                         <input autoComplete="false" id="reps" name="reps" type="number" placeholder="10" value={i.reps} onChange={e => changeRepsValue(sets.indexOf(i),Number(e.target.value))} className="input input-bordered w-full text-black p-3"></input>
-                        </td>
-                        <td>
+                        <div>
                             <button onClick={() => deleteSet(sets.indexOf(i))}>delete</button>
-                        </td>
-                    </tr>
+                        </div>
+                    </div>
                     ))}
-                </tbody>
-            </table>
+            </div>
             <button onClick={AddSet}>Add set</button>
         </div>
     )

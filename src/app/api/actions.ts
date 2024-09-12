@@ -52,7 +52,7 @@ export const deleteBodyWeight = async (bodyweightId:string) => {
 
 export const getExercises = async () => {
     const session = await auth();
-    const exercises = await prisma.exercise.findMany(
+    const exercises = await prisma.Exercise.findMany(
         { 
             where: {
                 authorId : session?.user?.id
@@ -68,7 +68,7 @@ export const addExercise = async (formData: FormData) => {
     const session = await auth();
     const name = formData.get('name') as string;
     const description = formData.get('description') as string;
-    const createdExercise = await prisma.exercise.create({ 
+    const createdExercise = await prisma.Exercise.create({ 
         data: {
             name: name,
             description: description,
@@ -82,7 +82,7 @@ export const addExercise = async (formData: FormData) => {
 export const getExercise = async (exerciseId:string) => {
     const session = await auth();
     const id = exerciseId
-    const exercise = await prisma.exercise.findUnique(
+    const exercise = await prisma.Exercise.findUnique(
         { 
             where: {
                 id : id,
@@ -95,7 +95,7 @@ export const getExercise = async (exerciseId:string) => {
 
 export const getMostPopularExercises = async () => {
     const session = await auth();
-    const mostPopularExercises = await prisma.exercise.findMany(
+    const mostPopularExercises = await prisma.Exercise.findMany(
         {
             take: 5,
             where: {
@@ -117,7 +117,7 @@ export const getMostPopularExercises = async () => {
 export const deleteExercise = async (exerciseId:string) => {
     const session = await auth();
 
-    const deleteExercise = await prisma.exercise.delete({ 
+    const deleteExercise = await prisma.Exercise.delete({ 
         where: {
         id: exerciseId,
         authorId : session?.user?.id
@@ -132,7 +132,7 @@ export const editExercise = async (exerciseId:string, exerciseName:string, exerc
     const newName = exerciseName
     const newDescription = exerciseDescription
 
-    const editExercise = await prisma.exercise.update({ 
+    const editExercise = await prisma.Exercise.update({ 
         where: {
         id: id,
         },
@@ -215,7 +215,7 @@ export const createLog = async (exerciseId:string, reps:number, weight:number) =
 
 export const getWorkout = async (workoutId : string) => {
     const session = await auth();
-    const workout = await prisma.workout.findUnique({ 
+    const workout = await prisma.Workout.findUnique({ 
         where: {
             id: workoutId,
             authorId : session?.user?.id,
@@ -230,7 +230,7 @@ export const getWorkout = async (workoutId : string) => {
 
 export const getWorkouts = async () => {
     const session = await auth();
-    const workouts = await prisma.workout.findMany(
+    const workouts = await prisma.Workout.findMany(
         { 
             where: {
                 authorId : session?.user?.id
@@ -240,7 +240,7 @@ export const getWorkouts = async () => {
 }
 
 export const getExercisesFromWorkouts = async (workoutId:string,) => {
-    const exercises = await prisma.exercisesOnWorkouts.findMany(
+    const exercises = await prisma.ExercisesOnWorkouts.findMany(
         { 
             where: {
                 workoutId: workoutId
@@ -256,7 +256,7 @@ export const addWorkout = async (formData: FormData) => {
     const session = await auth();
     const name = formData.get('name') as string;
     const description = formData.get('description') as string;
-    const createdWorkout = await prisma.workout.create({ 
+    const createdWorkout = await prisma.Workout.create({ 
         data: {
             name: name,
             description: description,
@@ -271,7 +271,7 @@ export const editWorkout = async (workoutId:string, workoutName:string, workoutD
     const newName = workoutName
     const newDescription = workoutDescription
 
-    const editWorkout = await prisma.workout.update({ 
+    const editWorkout = await prisma.Workout.update({ 
         where: {
         id: id,
         },
@@ -287,7 +287,7 @@ export const editWorkout = async (workoutId:string, workoutName:string, workoutD
 export const deleteWorkout = async (workoutId:string) => {
     const session = await auth();
 
-    const deleteWorkout = await prisma.workout.delete({ 
+    const deleteWorkout = await prisma.Workout.delete({ 
         where: {
         id: workoutId,
         authorId: session?.user?.id
