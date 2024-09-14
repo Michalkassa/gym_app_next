@@ -30,7 +30,6 @@ export default function RunningExercise({ id , name, workoutId, exerciseId, subm
 
     useEffect(() => {
         if (submit){
-            console.log(sets)
             createManyLogs(exerciseId,sets)
 
             setSets([{weight:0,reps:0}])

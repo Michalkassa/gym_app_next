@@ -154,7 +154,6 @@ export const getLogs = async (exerciseId:string) => {
                 exerciseId: exerciseId,
             },
     })
-    console.log(logs)
     return logs;
 }
 
@@ -270,7 +269,10 @@ export const getExercisesWorkoutPairs = async (workoutId:string,) => {
                 exercise: true,
             }
     })
-    return ExercisesWorkoutPairs
+    if (ExercisesWorkoutPairs) {
+        return ExercisesWorkoutPairs
+    }
+    return []
 }
 
 export const addWorkout = async (formData: FormData) => {

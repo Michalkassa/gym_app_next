@@ -3,7 +3,11 @@ import  ExerciseWorkout from "@/components/Workouts/ExerciseWorkout"
 import {ExerciseWorkoutPairProps} from "@/Props"
 
 export default async function ExerciseWorkoutList( id : string) {
-  const ExercisesWorkoutPairs = await getExercisesWorkoutPairs(id)
+  try{
+    const ExercisesWorkoutPairs = await getExercisesWorkoutPairs(id)
+  }catch{
+    throw new Error("its fucked")
+  }
   
   return (
     <div className="flex flex-col justify-center items-left flex-wrap gap-3">

@@ -1,4 +1,4 @@
-import { getExercises, getWorkout } from "@/app/api/actions";
+import { getExercises, getExercisesWorkoutPairs, getWorkout } from "@/app/api/actions";
 import WorkoutPage from "@/components/Workouts/WorkoutPage";
 import ExerciseWorkoutList from "@/components/Workouts/ExerciseWorkoutList";
 import AddExerciseToWorkout from "@/components/Workouts/AddExerciseToWorkout";
@@ -17,10 +17,15 @@ export default async function SingleWorkoutpage({params}:any){
     if (!workout) return redirect("/dashboard/workouts")
     
     const exercises = await getExercises()
+
+    const exercisesObj = {
+        exercises : exercises
+    }
+    console.log(exercises)
     return(
         <div className="">
             <WorkoutPage id={params.id} name={workout?.name} description={workout?.description} />
-            <AddExerciseToWorkout workoutId={params.id} exercises={exercises}/>
+            <AddExerciseToWorkout workoutId={params.id} exercisesObj={exercisesObj}/>
             <div className="flex flex-row gap-10 justify-center align-middle w-screen h-full">
             <ExerciseWorkoutList id={params.id}></ExerciseWorkoutList>
             </div>

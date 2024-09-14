@@ -9,7 +9,6 @@ export default function AddLog (exerciseId: string){
 
 
     async function handleAdding(data: FormData) {
-        console.log(data)
       await addLogFromForm(exerciseId, data )
     }
 

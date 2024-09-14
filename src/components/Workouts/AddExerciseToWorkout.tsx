@@ -8,7 +8,6 @@ import { ExerciseProps } from "@/Props";
 export default function AddExerciseToWorkout (workoutId: string , exercises: any){
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [exerciseId, setExerciseId] = useState<string>("");
-
     if(!exercises){
         return(
             <div className="w-full">
@@ -28,16 +27,9 @@ export default function AddExerciseToWorkout (workoutId: string , exercises: any
             </div>
         )
     }
-    let options = []
-    exercises.forEach((exercise:ExerciseProps) => {
-        options.push({value : exercise.id , label  : exercise.name})
-    });
-     options = [];
 
     async function handleSumbit(e: any){
         e.preventDefault()
-        console.log(exerciseId)
-        console.log(workoutId)
         await addExerciseToWorkout(workoutId, exerciseId)
         setModalOpen(false)
     }
