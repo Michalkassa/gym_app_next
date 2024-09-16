@@ -4,10 +4,10 @@ import { useState } from "react";
 import LineChart from "@/components/LineChart";
 
  
-export default async function ExerciseChart(exerciseId: string) { 
+export default async function ExerciseChart(props) { 
 
     async function getData(){
-        const data = await getLogs(exerciseId)
+        const data = await getLogs(props.exerciseId)
       
         const dateLables = []
         const oneRepMaxData = []

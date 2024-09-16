@@ -9,20 +9,21 @@ import { Suspense } from "react";
 import Loading from "@/components/Loading";
 
 
-export default async function SingleExercisePage({params}:any){
+export default async function SingleExercisePage({params}){
     const session = await auth();
     if (!session) return redirect("/")
 
     const exercise = await getExercise(params.id)
     if (!exercise) return redirect("/dashboard/workouts") 
     
+    const id = params.id
     return(
         <div>
-            <ExercisePage id={params.id} name={exercise?.name} description={exercise?.description} />
-            <AddLog exerciseId={params.id}/>
+            <ExercisePage id={id} name={exercise?.name} description={exercise?.description} />
+            <AddLog exerciseId={id}/>
             <div className="flex flex-row gap-10 justify-center align-middle w-screen h-full">
-            <LogList exerciseId={params.id}/>
-            <ExerciseChart exerciseId={params.id}/>
+            <LogList exerciseId={id}/>
+            <ExerciseChart exerciseId={id}/>
             </div>
         </div>
     )

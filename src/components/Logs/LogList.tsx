@@ -2,9 +2,9 @@ import { getLogs } from "../../app/api/actions"
 import Log from "@/components/Logs/Log"
 
 
-export default async function LogList(exerciseId: string) {
+export default async function LogList(props) {
 
-  const data = await getLogs(exerciseId)
+  const data = await getLogs(props.exerciseId)
   return (
     <div className="max-h-full overflow-scroll overflow-x-hidden">
       <table className="items-center bg-transparent w-full border-collapse text-white ">

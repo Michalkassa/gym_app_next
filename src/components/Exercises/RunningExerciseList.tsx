@@ -4,7 +4,7 @@ import {ExerciseWorkoutPairProps} from "@/Props"
 import {useState} from 'react'
 
 
-export default function RunningExerciseList(pairs: ExerciseWorkoutPairProps[]) {
+export default function RunningExerciseList(props) {
     const [submit, setSubmit] = useState(false)
   function submitWorkout(){
     setSubmit(true)
@@ -13,7 +13,7 @@ export default function RunningExerciseList(pairs: ExerciseWorkoutPairProps[]) {
   return (
     <div className="flex flex-col justify-center items-left flex-wrap gap-3">
         <button onClick={submitWorkout}> Submit </button>
-          {pairs.map((pair: ExerciseWorkoutPairProps) => (
+          {props.pairs.map((pair: ExerciseWorkoutPairProps) => (
             <RunningExercise key={pair.exercise.id} id={pair.id} exerciseId={pair.exerciseId} workoutId={pair.workoutId} name={pair.exercise.name} submit={submit} setSubmit={setSubmit}/>
           ))}
     </div>
