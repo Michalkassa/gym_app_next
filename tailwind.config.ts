@@ -17,6 +17,7 @@ const config: Config = {
     colors: {
       'atlantis_blue' : '#264d8d',
       'sleek_gray' : '#121212',
+      'dark_gray' : '#0A0A0A',
       'white' : '#fff',
       'black' : '#000',
       'red' : "#f00",
