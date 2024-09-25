@@ -12,7 +12,6 @@ export default async function Workout({ id , name , description} : WorkoutProps)
             <div className="flex flex-col bg-sleek_gray p-10 justify-center text-white h-full">
                 <h1 className="flex text-3xl justify-center">{name}</h1>
                 <p className="flex text-center justify-center limited-text">{description}</p>
-                <h2>Exercises:</h2>
                 <ul>
                         {ExercisesWorkoutPairs.map((pair: ExerciseWorkoutPairProps) => (
                         <li>

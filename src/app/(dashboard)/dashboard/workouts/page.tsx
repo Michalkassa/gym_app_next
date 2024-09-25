@@ -3,7 +3,7 @@ import AddWorkout from "@/components/Workouts/AddWorkout";
 import WorkoutList from "@/components/Workouts/WorkoutList"
 import { redirect } from "next/navigation"
 import {Suspense} from "react"
-import Loading from "@/components/Loading"
+import LoadingComponent from "@/components/Loading"
 
 
 export default async function Workouts() {
@@ -12,7 +12,7 @@ export default async function Workouts() {
   if (!session) return redirect("/")
   return (
     <div className="flex flex-col align-middle" >
-        <Suspense fallback={<Loading/>}>
+        <Suspense fallback={<LoadingComponent/>}>
         <div className="flex justify-around py-6">
           <h1 className="text-5xl text-white">Workouts</h1>
           <AddWorkout/>

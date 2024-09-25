@@ -3,7 +3,7 @@ import RunningExerciseList from "@/components/Exercises/RunningExerciseList";
 import { auth } from "@/auth/auth"
 import {redirect} from "next/navigation"
 import { Suspense } from "react";
-import Loading from "@/components/Loading";
+import LoadingComponent from "@/components/Loading";
 
 
 
@@ -17,7 +17,7 @@ export default async function RunningWorkoutpage({params}:any){
     const ExercisesWorkoutPairs = await getExercisesWorkoutPairs(workout?.id)
     return(
         <div className="text-white flex justify-center align">
-            <Suspense fallback={<Loading />}>
+            <Suspense fallback={<LoadingComponent />}>
             <div className="flex flex-col">
                 <h1 className="text-5xl">{workout?.name}</h1>
                 <RunningExerciseList pairs={ExercisesWorkoutPairs}></RunningExerciseList>

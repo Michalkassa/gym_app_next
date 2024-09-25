@@ -5,10 +5,10 @@ import {useState} from "react"
 import { ExerciseProps } from "@/Props";
 
 
-export default function AddExerciseToWorkout (workoutId: string , exercises: any){
+export default function AddExerciseToWorkout (props){
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [exerciseId, setExerciseId] = useState<string>("");
-    if(!exercises){
+    if(!props.exercises){
         return(
             <div className="w-full">
             <div className="w-full flex justify-center">
@@ -30,9 +30,14 @@ export default function AddExerciseToWorkout (workoutId: string , exercises: any
 
     async function handleSumbit(e: any){
         e.preventDefault()
-        await addExerciseToWorkout(workoutId, exerciseId)
         setModalOpen(false)
+        setExerciseId("")
+        if (!exerciseId || exerciseId == ""){
+          return
+        }
+        await addExerciseToWorkout(props.workoutId, exerciseId)
     }
+
 
   return (
     <div className="w-full">
@@ -43,8 +48,8 @@ export default function AddExerciseToWorkout (workoutId: string , exercises: any
         <form autoComplete="off" className="flex flex-col gap-3" onSubmit={handleSumbit}>
             <select onChange={e => setExerciseId(e.target.value)}>
             <option></option>
-            {exercises.map((exercise: ExerciseProps) => (
-            <option key={exercise.id} value={exercise.id}>{exercise.name}</option>
+            {props.exercises.map((exercise: ExerciseProps) => (
+            <option className="text-black" key={exercise.id} value={exercise.id}>{exercise.name}</option>
             ))}
             </select>
             <button

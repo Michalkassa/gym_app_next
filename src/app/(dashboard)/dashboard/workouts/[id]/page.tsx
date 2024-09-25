@@ -5,7 +5,7 @@ import AddExerciseToWorkout from "@/components/Workouts/AddExerciseToWorkout";
 import { auth } from "@/auth/auth"
 import {redirect} from "next/navigation"
 import { Suspense } from "react";
-import Loading from "@/components/Loading"
+import LoadingComponent from "@/components/Loading"
 
 
 
@@ -18,15 +18,11 @@ export default async function SingleWorkoutpage({params}:any){
     
     const exercises = await getExercises()
 
-    const exercisesObj = {
-        exercises : exercises
-    }
-    console.log(exercises)
     return(
         <div className="">
-            <Suspense fallback={<Loading />}>
+            <Suspense fallback={<LoadingComponent />}>
             <WorkoutPage id={params.id} name={workout?.name} description={workout?.description} />
-            <AddExerciseToWorkout workoutId={params.id} exercisesObj={exercisesObj}/>
+            <AddExerciseToWorkout workoutId={params.id} exercises={exercises}/>
             <div className="flex flex-row gap-10 justify-center align-middle w-screen h-full">
             <ExerciseWorkoutList id={params.id}></ExerciseWorkoutList>
             </div>

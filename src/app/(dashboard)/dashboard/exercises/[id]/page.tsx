@@ -6,7 +6,7 @@ import LogList from "@/components/Logs/LogList"
 import { auth } from "@/auth/auth"
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
-import Loading from "@/components/Loading";
+import LoadingComponent from "@/components/Loading";
 
 
 export default async function SingleExercisePage({params}){
@@ -19,7 +19,7 @@ export default async function SingleExercisePage({params}){
     const id = params.id
     return(
         <div>
-            <Suspense fallback={<Loading/>}>
+            <Suspense fallback={<LoadingComponent/>}>
             <ExercisePage id={id} name={exercise?.name} description={exercise?.description} />
             <AddLog exerciseId={id}/>
             <div className="flex flex-row gap-10 justify-center align-middle w-screen h-full">
