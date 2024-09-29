@@ -20,7 +20,7 @@ export default async function StartWorkout({ id , name , description} : WorkoutP
                 <h2>Exercises:</h2>
                 <ul>
                         {pairs.map((pair) => (
-                        <li>
+                        <li key={pair.id}>
                             <p className="text-sm">- {pair.exercise.name}</p>
                         </li>
                         ))}

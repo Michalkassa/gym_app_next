@@ -14,7 +14,7 @@ export default async function Workout({ id , name , description} : WorkoutProps)
                 <p className="flex text-center justify-center limited-text">{description}</p>
                 <ul>
                         {ExercisesWorkoutPairs.map((pair: ExerciseWorkoutPairProps) => (
-                        <li>
+                        <li key={pair.id}>
                             <p className="text-sm">- {pair.exercise.name}</p>
                         </li>
                         ))}

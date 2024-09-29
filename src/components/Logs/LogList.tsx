@@ -21,9 +21,7 @@ export default async function LogList(props) {
 
         <tbody>
         {data.reverse().map((log) => (
-          <div>
             <Log key={log.id} id={log.id} weight={log.weight} reps={log.reps} exerciseId={log.exerciseId}/>
-          </div>
         ))}
         </tbody>
       </table>
