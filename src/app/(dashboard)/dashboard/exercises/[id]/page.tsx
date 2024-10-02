@@ -9,7 +9,7 @@ import { Suspense } from "react";
 import LoadingComponent from "@/components/Loading";
 
 
-export default async function SingleExercisePage({params}){
+export default async function SingleExercisePage(params:{id:string}){
     const session = await auth();
     if (!session) return redirect("/")
 

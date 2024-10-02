@@ -7,7 +7,7 @@ import LoadingComponent from "@/components/Loading";
 
 
 
-export default async function RunningWorkoutpage({params}:any){
+export default async function RunningWorkoutpage(params: {id:string} ){
     const session = await auth();
     if (!session) return redirect("/")
 

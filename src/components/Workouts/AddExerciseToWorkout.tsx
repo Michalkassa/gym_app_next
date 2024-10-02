@@ -5,7 +5,7 @@ import {useState} from "react"
 import { ExerciseProps } from "@/Props";
 
 
-export default function AddExerciseToWorkout (props){
+export default function AddExerciseToWorkout (props : {exercises: ExerciseProps[], workoutId:string}){
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [exerciseId, setExerciseId] = useState<string>("");
     if(!props.exercises){

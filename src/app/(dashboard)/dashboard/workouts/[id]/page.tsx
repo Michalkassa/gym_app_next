@@ -9,7 +9,7 @@ import LoadingComponent from "@/components/Loading"
 
 
 
-export default async function SingleWorkoutpage({params}:any){
+export default async function SingleWorkoutpage(params:{id:string}){
     const session = await auth();
     if (!session) return redirect("/")
 

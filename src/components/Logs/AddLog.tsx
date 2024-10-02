@@ -4,12 +4,12 @@ import { addLogFromForm } from "@/app/api/actions";
 import {useState, useEffect} from "react"
 
 
-export default function AddLog (exerciseId: string){
+export default function AddLog (props : {exerciseId: string}){
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
 
     async function handleAdding(data: FormData) {
-      await addLogFromForm(exerciseId, data )
+      await addLogFromForm(props.exerciseId, data )
     }
 
   return (

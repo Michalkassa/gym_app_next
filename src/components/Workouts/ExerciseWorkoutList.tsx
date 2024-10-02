@@ -2,7 +2,7 @@ import { getExercisesWorkoutPairs } from "../../app/api/actions"
 import  ExerciseWorkout from "@/components/Workouts/ExerciseWorkout"
 import {ExerciseWorkoutPairProps} from "@/Props"
 
-export default async function ExerciseWorkoutList(props) {
+export default async function ExerciseWorkoutList(props: {id: string}) {
   const ExercisesWorkoutPairs = await getExercisesWorkoutPairs(props.id)
   
   

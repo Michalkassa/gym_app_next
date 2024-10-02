@@ -4,7 +4,7 @@ import {ExerciseWorkoutPairProps} from "@/Props"
 import {useState} from 'react'
 
 
-export default function RunningExerciseList(props) {
+export default function RunningExerciseList(props:{pairs: ExerciseWorkoutPairProps[]}) {
     const [submit, setSubmit] = useState(false)
   function submitWorkout(){
     setSubmit(true)

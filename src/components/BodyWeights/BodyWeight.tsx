@@ -3,16 +3,13 @@ import { deleteBodyWeight } from "@/app/api/actions";
 import { useState } from "react"
 import Modal from "@/components/Modal"
 import {useRouter} from "next/navigation"
-import { revalidatePath } from "next/cache";
 import { FaTrashAlt } from "react-icons/fa";
 
-interface BodyWeightProps {
-    id: string,
-    date: string,
-    weight: number,
-}
 
-export default function BodyWeight({ id , date , weight} : BodyWeightProps) {
+export default function BodyWeight({ id , date , weight} : 
+    {id: string,
+    date: string,
+    weight: number,}) {
     const router = useRouter()
     const [openModalDelete, setModalOpenDelete] = useState(false);
 

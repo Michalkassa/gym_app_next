@@ -31,7 +31,7 @@ export interface LogProps {
     id: string,
     weight: number ,
     reps: number,
-    exerciseId: number,
+    exerciseId: string,
 }
 
 export interface WorkoutProps {

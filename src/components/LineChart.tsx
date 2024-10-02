@@ -5,7 +5,7 @@ import Chart from "chart.js/auto";
 import {LinearScale, CategoryScale , TimeScale } from "chart.js"
 import { Line } from "react-chartjs-2";
 
-export default function LineChart({ chartData }) {
+export default function LineChart({ chartData }:any) {
     const [data, setData] = useState(chartData);
     Chart.register(LinearScale, CategoryScale, TimeScale);
 

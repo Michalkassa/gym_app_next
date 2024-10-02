@@ -23,7 +23,7 @@ export default async function BodyWeightList() {
         </thead>
 
         <tbody>
-          {data.reverse().map((bodyWeight) => (
+          {data.reverse().map((bodyWeight: {id:string, createdAt: Date, weight:number}) => (
             <BodyWeight key={bodyWeight.id} id={bodyWeight.id} date={bodyWeight.createdAt.toLocaleDateString('es-MX')} weight={bodyWeight.weight}></BodyWeight>
           ))}
         </tbody>

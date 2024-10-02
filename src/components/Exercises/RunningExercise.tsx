@@ -4,13 +4,15 @@ import {useEffect, useState} from 'react'
 import {createManyLogs} from "@/app/api/actions"
 import {useRouter} from "next/navigation"
 
+
+
 interface ExerciseWorkoutProps {
     id: string,
     name: string
     workoutId: string;
     exerciseId: string;
     submit: boolean; 
-    setSubmit: void
+    setSubmit: (submit: boolean) => boolean | void;
 }
 
 export default function RunningExercise({ id , name, workoutId, exerciseId, submit, setSubmit} : ExerciseWorkoutProps) {

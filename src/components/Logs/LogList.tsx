@@ -1,8 +1,9 @@
+import { LogProps } from "@/Props"
 import { getLogs } from "../../app/api/actions"
 import Log from "@/components/Logs/Log"
 
 
-export default async function LogList(props) {
+export default async function LogList(props: {exerciseId: string}) {
 
   const data = await getLogs(props.exerciseId)
   return (
@@ -20,7 +21,7 @@ export default async function LogList(props) {
         </thead>
 
         <tbody>
-        {data.reverse().map((log) => (
+        {data.reverse().map((log:LogProps) => (
             <Log key={log.id} id={log.id} weight={log.weight} reps={log.reps} exerciseId={log.exerciseId}/>
         ))}
         </tbody>

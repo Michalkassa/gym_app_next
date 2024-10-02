@@ -1,6 +1,4 @@
 import { getWeights } from '@/app/api/actions';
-import {CategoryScale, TimeScale, LinearScale} from 'chart.js'; 
-import { useState } from "react";
 import LineChart from "@/components/LineChart";
 
 
