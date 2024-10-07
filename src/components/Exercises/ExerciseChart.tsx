@@ -2,12 +2,14 @@ import { getLogs} from '@/app/api/actions';
 import {CategoryScale, TimeScale, LinearScale} from 'chart.js'; 
 import { useState } from "react";
 import LineChart from "@/components/LineChart";
-
+interface ChartProps {
+  exerciseId: string,
+}
  
-export default async function ExerciseChart(props) { 
+export default async function ExerciseChart({exerciseId}:ChartProps) { 
 
     async function getData(){
-        const data = await getLogs(props.exerciseId)
+        const data = await getLogs(exerciseId)
       
         const dateLables = []
         const oneRepMaxData = []

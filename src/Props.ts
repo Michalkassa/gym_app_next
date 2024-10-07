@@ -44,7 +44,6 @@ export interface ExerciseWorkoutPairProps{
     id: string
     exercise: ExerciseProps
     exerciseId: string
-    workout : WorkoutProps
     workoutId:string
 }
 
