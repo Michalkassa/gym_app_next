@@ -31,12 +31,12 @@ export default function Log({ id , weight , reps, exerciseId} : LogProps) {
     }
 
     return(
-        <tr key={id} className="">
-            <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{weight}</td>
-            <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{reps}</td>
-            <td>
+        <div key={id} className="">
+            <p className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{weight}</p>
+            <p className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{reps}</p>
+            <div>
                 <button className="flex items-center align-middle" onClick={()=>setModalOpenDelete(true)}> <FaTrashAlt color="red" size={20}/> </button>
-            </td>
+            </div>
             <Modal modalOpen={openModalDelete} setModalOpen={setModalOpenDelete}>
                 <div className="flex flex-col gap-4">
                     <h3 className="font-bold text-lg">Deleting Log</h3>
@@ -61,6 +61,6 @@ export default function Log({ id , weight , reps, exerciseId} : LogProps) {
                     </div>
                 </div>
             </Modal>
-        </tr>
+        </div>
     )
 }
