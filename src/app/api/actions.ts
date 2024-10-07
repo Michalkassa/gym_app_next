@@ -30,7 +30,7 @@ export const addBodyWeight = async (formData: FormData) => {
     const createWeight = await prisma.body_Weight.create({ 
         data: {
             weight: Number(bodyWeight),
-            authorId : session?.user?.id
+            authorId : session?.user?.id!
         }
     })
 
@@ -72,7 +72,7 @@ export const addExercise = async (formData: FormData) => {
         data: {
             name: name,
             description: description,
-            authorId : session?.user?.id,
+            authorId : session?.user?.id!,
         }
     })
     revalidatePath("/dasboard/exercises")
@@ -188,7 +188,7 @@ export const addLogFromForm = async (exerciseId:string, formData:FormData) => {
         data: {
             weight: weight,
             reps: reps,
-            authorId : session?.user?.id,
+            authorId : session?.user?.id!,
             oneRepMax : oneRepMaxCalculator(weight,reps),
             exerciseId: exerciseId,
         }
@@ -197,12 +197,12 @@ export const addLogFromForm = async (exerciseId:string, formData:FormData) => {
 };
 
 interface LogProps {
-    weight: Number,
-    reps: Number,
+    weight: number,
+    reps: number,
 }
 export const createManyLogs = async (exerciseId:string, logs: LogProps[]) => {
     const session = await auth();
-    const id = session?.user?.id
+    const id = session?.user?.id!
     const data = []
     for(const log of logs){
         let weight = log.weight
@@ -223,7 +223,7 @@ export const createLog = async (exerciseId:string, reps:number, weight:number) =
         data: {
             weight: weight,
             reps: reps,
-            authorId : session?.user?.id,
+            authorId : session?.user?.id!,
             oneRepMax : oneRepMaxCalculator(weight,reps),
             exerciseId: exerciseId,
         }
@@ -283,7 +283,7 @@ export const addWorkout = async (formData: FormData) => {
         data: {
             name: name,
             description: description,
-            authorId : session?.user?.id,
+            authorId : session?.user?.id!,
         }
     })
     revalidatePath("/dasboard/workouts")
