@@ -2,15 +2,10 @@
 import {auth} from '@/auth/auth'
 import { revalidatePath } from 'next/cache'
 import prisma from '@/app/api/prisma'
-import { Session, User } from 'next-auth'
-import Exercise from '@/components/Exercises/Exercise'
-import Workout from '@/components/Workouts/Workout'
-
 //Brzycki - The most popular 1 rep max calculation formula from Matt Brzycki
 const oneRepMaxCalculator = (kgWeight: number, repetitions: number):number => {
     return  Math.floor((kgWeight / ( 1.0278 + (-0.0278 * repetitions))))
 }
-
 
 export const getWeights = async () => {
     const session = await auth();

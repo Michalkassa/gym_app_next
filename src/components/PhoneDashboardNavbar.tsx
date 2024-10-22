@@ -1,7 +1,5 @@
 import {auth} from "@/auth/auth"
 import Link from "next/link"
-import Image from "next/image"
-import { SignOutButton } from "./SignOutButton"
 import { BsSkipStartFill } from "react-icons/bs";
 import { FaWeightScale } from "react-icons/fa6";
 import { IoBody } from "react-icons/io5";
