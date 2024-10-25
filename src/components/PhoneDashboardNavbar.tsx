@@ -1,4 +1,4 @@
-import {auth} from "@/auth/auth"
+import {auth} from "@/app/api/auth/auth"
 import Link from "next/link"
 import { BsSkipStartFill } from "react-icons/bs";
 import { FaWeightScale } from "react-icons/fa6";

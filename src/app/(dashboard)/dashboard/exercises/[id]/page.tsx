@@ -3,7 +3,7 @@ import ExerciseChart from "@/components/Exercises/ExerciseChart";
 import ExercisePage from "@/components/Exercises/ExercisePage";
 import AddLog from "@/components/Logs/AddLog";
 import LogList from "@/components/Logs/LogList"
-import { auth } from "@/auth/auth"
+import { auth } from "@/app/api/auth/auth"
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import LoadingComponent from "@/components/Loading";

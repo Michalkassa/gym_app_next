@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { SignInButton } from "./SignInButton"
 import { SignOutButton } from "./SignOutButton";
-import { auth } from "@/auth/auth";
+import { auth } from "@/app/api/auth/auth";
 import Image from "next/image"
 
 export default async function Navbar() {

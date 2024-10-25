@@ -1,6 +1,6 @@
 import { getExercises, getExercisesWorkoutPairs, getWorkout } from "@/app/api/actions";
 import RunningExerciseList from "@/components/Exercises/RunningExerciseList";
-import { auth } from "@/auth/auth"
+import { auth } from "@/app/api/auth/auth"
 import {redirect} from "next/navigation"
 import { Suspense } from "react";
 import LoadingComponent from "@/components/Loading";

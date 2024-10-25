@@ -1,5 +1,5 @@
 
-import { signIn } from "../auth/auth"
+import { signIn } from "../app/api/auth/auth"
  
 export function SignInButton() {
   return (

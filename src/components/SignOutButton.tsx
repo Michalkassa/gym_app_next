@@ -1,4 +1,4 @@
-import { signOut } from "../auth/auth"
+import { signOut } from "../app/api/auth/auth"
 import SignOutIcon from "/exit.png"
 import { IoIosLogOut } from "react-icons/io";
 import { redirect } from "next/navigation";

@@ -1,4 +1,4 @@
-import { auth } from "@/auth/auth"
+import { auth } from "@/app/api/auth/auth"
 import  BodyWeightChart  from "@/components/BodyWeights/BodyWeightChart"
 import MostPopularExercisesList from "@/components/Exercises/MostPopularExercisesList";
 import { redirect } from "next/navigation"

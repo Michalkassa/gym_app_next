@@ -1,4 +1,4 @@
-import { auth } from "@/auth/auth"
+import { auth } from "@/app/api/auth/auth"
 import StartWorkoutList from "@/components/Workouts/StartWorkoutList";
 import { redirect } from "next/navigation"
 import { Suspense } from "react";

@@ -1,4 +1,4 @@
-import {auth} from "@/auth/auth"
+import {auth} from "@/app/api/auth/auth"
 import Link from "next/link"
 import Image from "next/image"
 import { SignOutButton } from "./SignOutButton"

@@ -1,4 +1,4 @@
-import { auth } from "@/auth/auth"
+import { auth } from "@/app/api/auth/auth"
 import AddWorkout from "@/components/Workouts/AddWorkout";
 import WorkoutList from "@/components/Workouts/WorkoutList"
 import { redirect } from "next/navigation"

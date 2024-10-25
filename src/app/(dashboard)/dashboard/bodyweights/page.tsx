@@ -1,4 +1,4 @@
-import { auth } from "@/auth/auth"
+import { auth } from "@/app/api/auth/auth"
 import BodyWeightList from "@/components/BodyWeights/BodyWeightList"
 import { redirect } from "next/navigation"
 import  AddBodyWeight from "@/components/BodyWeights/AddBodyWeight";

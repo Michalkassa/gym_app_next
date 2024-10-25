@@ -1,4 +1,4 @@
-import { auth } from "@/auth/auth"
+import { auth } from "@/app/api/auth/auth"
 import AddExercise from "@/components/Exercises/AddExercise";
 import ExerciseList from "@/components/Exercises/ExerciseList"
 import LoadingComponent from "@/components/Loading";

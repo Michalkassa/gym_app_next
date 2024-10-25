@@ -2,7 +2,7 @@ import { getExercises, getExercisesWorkoutPairs, getWorkout } from "@/app/api/ac
 import WorkoutPage from "@/components/Workouts/WorkoutPage";
 import ExerciseWorkoutList from "@/components/Workouts/ExerciseWorkoutList";
 import AddExerciseToWorkout from "@/components/Workouts/AddExerciseToWorkout";
-import { auth } from "@/auth/auth"
+import { auth } from "@/app/api/auth/auth"
 import {redirect} from "next/navigation"
 import { Suspense } from "react";
 import LoadingComponent from "@/components/Loading"

@@ -1,10 +1,15 @@
 "use server"
-import {auth} from '@/auth/auth'
+import {auth} from '@/app/api/auth/auth'
 import { revalidatePath } from 'next/cache'
 import prisma from '@/app/api/prisma'
 //Brzycki - The most popular 1 rep max calculation formula from Matt Brzycki
 const oneRepMaxCalculator = (kgWeight: number, repetitions: number):number => {
     return  Math.floor((kgWeight / ( 1.0278 + (-0.0278 * repetitions))))
+}
+
+export const getUsers = async() => {
+    const users = await prisma.user.findMany()
+    return users
 }
 
 export const getWeights = async () => {
