@@ -7,11 +7,6 @@ const oneRepMaxCalculator = (kgWeight: number, repetitions: number):number => {
     return  Math.floor((kgWeight / ( 1.0278 + (-0.0278 * repetitions))))
 }
 
-export const getUsers = async() => {
-    const users = await prisma.user.findMany()
-    return users
-}
-
 export const getWeights = async () => {
     const session = await auth();
     const bodyWeights = await prisma.body_Weight.findMany(
@@ -287,6 +282,7 @@ export const addWorkout = async (formData: FormData) => {
         }
     })
     revalidatePath("/dasboard/workouts")
+    revalidatePath("/dashboard/runningworkout")
 };
 
 export const editWorkout = async (workoutId:string, workoutName:string, workoutDescription:string) => {
@@ -328,6 +324,7 @@ export const addExerciseToWorkout = async (workoutId:string , exerciseId:string)
         }
     })
     revalidatePath(`/dasboard/workouts/${workoutId}`)
+    revalidatePath(`/dashboard/runningworkout/${workoutId}`)
 }
 
 export const deleteExerciseToWorkout = async (id: string, workoutId:string) => {
@@ -337,4 +334,5 @@ export const deleteExerciseToWorkout = async (id: string, workoutId:string) => {
         }
     })
     revalidatePath(`/dasboard/workouts/${workoutId}`)
+    revalidatePath(`/dashboard/runningworkout/${workoutId}`)
 }

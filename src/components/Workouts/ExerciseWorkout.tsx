@@ -23,7 +23,7 @@ export default function ExerciseWorkout({ id , name, workoutId} : ExerciseWorkou
 
     return(
         <div className="flex">
-            <p className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{name}</p>
+            <p className="border-t-0 px-6 align-center border-l-0 border-r-0 text-2xl whitespace-nowrap p-4">{name}</p>
             <div className="flex flex-col justify-center">
                 <button className="flex items-center align-middle" onClick={()=>setModalOpenDelete(true)}> <FaTrashAlt color="red" size={20}/> </button>
             </div>

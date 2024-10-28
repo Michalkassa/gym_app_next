@@ -9,7 +9,7 @@ export function SignInButton() {
         await signIn("GoogleProvider",{redirectTo: '/dashboard'})
       }}
     >
-      <button type="submit">Signin with Google</button>
+      <button type="submit" className="text-white bg-atlantis_blue p-3 px-8 rounded-xl text-sm">Sign in</button>
     </form>
   )
 } 

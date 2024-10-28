@@ -1,6 +1,6 @@
 "use client"
 import { deleteWorkout , editWorkout } from "@/app/api/actions";
-import { FaLongArrowAltLeft } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 import Modal from "@/components/Modal"
 import Link from "next/link" 
 import {useState} from "react"
@@ -41,8 +41,8 @@ export default function WorkoutPage({ id , name , description} : WorkoutProps){
     return(
         <div className="text-white">
         <div className="flex justify-between px-3">
-        <Link className="text-3xl text-atlantis_blue flex gap-4 items-center" href="/dashboard/workouts"><FaLongArrowAltLeft/> back</Link>
-        <button className="flex text-3xl items-center align-middle text-red" onClick={()=>setModalOpenDelete(true)}> Delete </button>
+        <Link className="text-3xl text-white flex gap-4 items-center" href="/dashboard/workouts">back</Link>
+        <button className="flex text-3xl items-center align-middle text-red" onClick={()=>setModalOpenDelete(true)}> <MdDelete/></button>
         <Modal modalOpen={openModalDelete} setModalOpen={setModalOpenDelete}>
                 <div className="flex flex-col gap-4">
                     <h3 className="font-bold text-lg">Deleting Workout {name}</h3>

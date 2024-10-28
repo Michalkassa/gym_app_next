@@ -7,7 +7,7 @@ export default async function ExerciseWorkoutList(props: {id: string}) {
   
   
   return (
-    <div className="flex flex-col justify-center items-left flex-wrap gap-3">
+    <div className="flex flex-col justify-center items-left flex-wrap gap-3 text-white">
           {ExercisesWorkoutPairs.map((pair: ExerciseWorkoutPairProps) => (
             <ExerciseWorkout key={pair.exercise.id} id={pair.id} workoutId={pair.workoutId} name={pair.exercise.name}/>
           ))}

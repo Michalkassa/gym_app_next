@@ -22,7 +22,7 @@ export default function DashboardLayout({
       <PhoneDashboardNavbar/>
       </div>
       </div>
-      <div className="pb-32">
+      <div className="">
       {children}
       </div>
     </div>

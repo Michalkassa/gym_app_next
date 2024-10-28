@@ -27,7 +27,8 @@ const config: Config = {
       'dashboard': '288px 1fr',
       'dashboard_phone': '288px 1fr',
       'dashboard_body_weights': '1fr 1fr',
-      'dashboard_elements': '1fr 1fr'
+      'dashboard_elements': '1fr 1fr',
+      'home_phone': '1fr'
     },
     width: {
       '90' : '340px'

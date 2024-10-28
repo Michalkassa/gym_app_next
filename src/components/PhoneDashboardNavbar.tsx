@@ -10,7 +10,7 @@ export default async function PhoneDashboardNavbar(){
     const session = await auth()
 
     return(
-            <ul className="flex justify-around items-start bg-sleek_gray min-w-full text-white min-h-28">
+            <ul className="flex justify-around items-start bg-sleek_gray min-w-full text-white min-h-22">
                 <li className="">
                     <Link href="/dashboard">
                         <div className="flex flex-col w-full justify-center items-center h-20 gap-2">

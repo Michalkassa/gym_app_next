@@ -11,26 +11,26 @@ export default async function Dashboard() {
   if (!session) return redirect("/")
 
   return (  
-    <div className="flex flex-col h-screen md:grid md:grid-rows-2 md:grid-cols-dashboard_elements md:gap-5 p-7">
+    <div className="flex flex-col h-full md:grid md:grid-rows-2 md:grid-cols-dashboard_elements md:gap-5 gap-3 p-1 md:p7 justify-between pb-28">
       <div className="bg-sleek_gray bg-opacity-40 rounded-3xl p-7">
-      <Link href="/dashboard/bodyweights">
-      <h1 className="text-white">Bodyweight Progress</h1>
-      <Suspense fallback={<LoadingComponent/>}>
-      <BodyWeightChart />
-      </Suspense>
-      </Link>
+        <Link href="/dashboard/bodyweights">
+        <h1 className="text-white">Bodyweight Progress</h1>
+        <Suspense fallback={<LoadingComponent/>}>
+        <BodyWeightChart />
+        </Suspense>
+        </Link>
       </div>
-      <div className="flex flex-col gap-6 bg-sleek_gray bg-opacity-40 rounded-3xl p-7 overflow-y-scroll">
-      <Suspense fallback={<LoadingComponent/>}>
-      <h1 className="text-white">Popular exercises</h1>
-      <MostPopularExercisesList />
+      <div className="flex flex-col gap-2 bg-sleek_gray bg-opacity-40 rounded-3xl p-7 h-64">
+        <Suspense fallback={<LoadingComponent/>}>
+        <h1 className="text-white">Popular exercises</h1>
+        <MostPopularExercisesList />
       </Suspense>
       </div>
-      <div className="grid gap-3 col-span-2">
-        <Link href="/dashboard/exercises" className="text-3xl flex w-full bg-sleek_gray bg-opacity-40 justify-center items-center text-white">Exercises</Link>
-        <Link href="/dashboard/workouts" className="text-3xl flex w-full bg-sleek_gray bg-opacity-40 justify-center items-center text-white">Workouts</Link>
-        <Link href="/dashboard/bodyweights" className="text-3xl flex w-full bg-sleek_gray bg-opacity-40 justify-center items-center text-white">Bodyweight</Link>
-        <Link href="/dashboard/runningworkout" className="text-3xl flex w-full bg-atlantis_blue bg-opacity-40 justify-center items-center text-white">Start Workout</Link>
+      <div className="grid md:gap-3 gap-2 col-span-2 text-2xl">
+        <Link href="/dashboard/exercises" className="flex w-full bg-sleek_gray bg-opacity-40 justify-center items-center text-white p-4">Exercises</Link>
+        <Link href="/dashboard/workouts" className="flex w-full bg-sleek_gray bg-opacity-40 justify-center items-center text-white p-4">Workouts</Link>
+        <Link href="/dashboard/bodyweights" className="flex w-full bg-sleek_gray bg-opacity-40 justify-center items-center text-white p-4">Bodyweight</Link>
+        <Link href="/dashboard/runningworkout" className="flex w-full bg-atlantis_blue bg-opacity-40 justify-center items-center text-white p-4">Start Workout</Link>
       </div>
     </div>
   )
