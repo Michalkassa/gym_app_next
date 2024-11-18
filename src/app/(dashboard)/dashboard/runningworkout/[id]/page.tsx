@@ -17,7 +17,7 @@ export default async function RunningWorkoutpage({params}:{params:{id : string}}
     
     const ExercisesWorkoutPairs = await getExercisesWorkoutPairs(workout?.id)
     return(
-        <div className="text-white flex justify-center align">
+        <div className="text-white flex justify-center">
             <Suspense fallback={<LoadingComponent />}>
             <div className="flex flex-col">
                 <h1 className="text-5xl">{workout?.name}</h1>

@@ -336,3 +336,16 @@ export const deleteExerciseToWorkout = async (id: string, workoutId:string) => {
     revalidatePath(`/dasboard/workouts/${workoutId}`)
     revalidatePath(`/dashboard/runningworkout/${workoutId}`)
 }
+
+export const getPreviousLogs = async ( exerciseId: string, orderOfPrevious: number) => {
+    const logs = await prisma.log.findMany({
+        where: {
+            exerciseId: exerciseId
+        },
+        orderBy:{
+            createdAt: "desc"
+        },
+        take: orderOfPrevious,
+    })
+    return logs
+}

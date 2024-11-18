@@ -5,7 +5,7 @@ import Chart from "chart.js/auto";
 import {LinearScale, CategoryScale , TimeScale } from "chart.js"
 import { Line } from "react-chartjs-2";
 
-export default function LineChart({ chartData }:any) {
+export default function LineChart({ chartData }:any ) {
     const [data, setData] = useState(chartData);
     Chart.register(LinearScale, CategoryScale, TimeScale);
 
@@ -19,9 +19,9 @@ export default function LineChart({ chartData }:any) {
     <div className="chart-container text-white">
       <Line
         data={data}
-        width="400"
-        height="200"
+        style={{width: "100%", height: "100%"}}
         options={{
+          maintainAspectRatio: false,
           scales: {
             x: {
               type: 'category',

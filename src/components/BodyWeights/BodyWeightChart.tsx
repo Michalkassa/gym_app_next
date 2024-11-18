@@ -15,7 +15,7 @@ async function getData(){
     labels: dateLables,
     datasets: [
       {
-        label: "Weighs",
+        label: "Body Weight",
         data: weightData,
         borderColor:"rgb(75,192,192)"
       }

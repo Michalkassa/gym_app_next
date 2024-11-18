@@ -6,8 +6,8 @@ export default async function BodyWeightList() {
 
   const data = await getWeights()
   return (
-    <div className="max-h-full overflow-x-hidden">
-      <table className="items-center bg-transparent w-full border-collapse text-white ">
+    <div className="">
+      <table className="items-center bg-transparent w-full border-collapse text-white min-w-full">
         <thead>
           <tr>
             <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
@@ -22,7 +22,7 @@ export default async function BodyWeightList() {
           </tr>
         </thead>
 
-        <tbody>
+        <tbody className="border-2 border-white overflow-y-scroll">
           {data.reverse().map((bodyWeight: {id:string, createdAt: Date, weight:number}) => (
             <BodyWeight key={bodyWeight.id} id={bodyWeight.id} date={bodyWeight.createdAt.toLocaleDateString('es-MX')} weight={bodyWeight.weight}></BodyWeight>
           ))}

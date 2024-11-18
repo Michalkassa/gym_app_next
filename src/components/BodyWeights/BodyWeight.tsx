@@ -19,13 +19,13 @@ export default function BodyWeight({ id , date , weight} :
         router.refresh()
     }
     return(
-        <tr key={id} className=" ">
+        <tr key={id} className="border-2 border-white">
             <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{date}</td>
             <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{weight}</td>
             <td>
                 <button className="flex items-center align-middle" onClick={()=>setModalOpenDelete(true)}> <FaTrashAlt color="red" size={20}/> </button>
             </td>
-
+            <td>
             <Modal modalOpen={openModalDelete} setModalOpen={setModalOpenDelete}>
                 <div className="flex flex-col gap-4">
                     <h3 className="font-bold text-lg">Deleting Bodyweight</h3>
@@ -50,6 +50,7 @@ export default function BodyWeight({ id , date , weight} :
                     </div>
                 </div>
             </Modal>
+            </td>
         </tr>
     )
 }
