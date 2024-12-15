@@ -80,7 +80,6 @@ export default function RunningExercise({ id , name, workoutId, exerciseId, subm
         setSets(items)
     }
 
-  
 
     return(
         <div className="flex flex-col">
@@ -102,7 +101,7 @@ export default function RunningExercise({ id , name, workoutId, exerciseId, subm
                             {sets.indexOf(i) + 1}
                         </td>
                         {lastSets && <td className='p-4 border-2 border-black' >
-                        {lastSets[sets.indexOf(i)].reps} x {lastSets[sets.indexOf(i)].weight} kg
+                        {lastSets[sets.indexOf(i)] && lastSets[sets.indexOf(i)].reps} x {lastSets[sets.indexOf(i)] && lastSets[sets.indexOf(i)].weight} kg
                         </td>}
                         <td className='p-4 border-2 border-black' >
                             <input autoComplete="false" id="weight" name="weight" type="number" placeholder="" value={i.weight} onChange={e => changeWeightValue(sets.indexOf(i),Number(e.target.value))} className="input input-bordered text-black max-w-12 rounded-lg text-center"/>
