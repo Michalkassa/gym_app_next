@@ -1,4 +1,4 @@
-import { getExercise } from "@/app/api/actions";
+import { getExercise } from "@/app/api/auth/actions";
 import ExerciseChart from "@/components/Exercises/ExerciseChart";
 import ExercisePage from "@/components/Exercises/ExercisePage";
 import AddLog from "@/components/Logs/AddLog";

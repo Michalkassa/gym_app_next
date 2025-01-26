@@ -1,4 +1,4 @@
-import { getWorkouts } from "../../app/api/actions"
+import { getWorkouts } from "../../app/api/auth/actions"
 import Workout from "@/components/Workouts/Workout"
 import StartWorkout from "./StartWorkout"
 import { WorkoutProps } from "@/Props"

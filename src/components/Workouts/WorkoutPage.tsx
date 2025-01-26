@@ -1,5 +1,5 @@
 "use client"
-import { deleteWorkout , editWorkout } from "@/app/api/actions";
+import { deleteWorkout , editWorkout } from "@/app/api/auth/actions";
 import { MdDelete } from "react-icons/md";
 import Modal from "@/components/Modal"
 import Link from "next/link" 

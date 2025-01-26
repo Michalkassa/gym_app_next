@@ -1,5 +1,5 @@
 import { WorkoutProps } from "@/Props"
-import { getWorkouts } from "../../app/api/actions"
+import { getWorkouts } from "../../app/api/auth/actions"
 import Workout from "@/components/Workouts/Workout"
 
 

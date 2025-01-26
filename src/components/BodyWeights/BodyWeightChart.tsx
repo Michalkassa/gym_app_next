@@ -1,4 +1,4 @@
-import { getWeights } from '@/app/api/actions';
+import { getWeights } from '@/app/api/auth/actions';
 import LineChart from "@/components/LineChart";
 
 

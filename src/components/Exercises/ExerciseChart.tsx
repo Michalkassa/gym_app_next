@@ -1,4 +1,4 @@
-import { getLogs} from '@/app/api/actions';
+import { getLogs} from '@/app/api/auth/actions';
 import {CategoryScale, TimeScale, LinearScale} from 'chart.js'; 
 import { useState } from "react";
 import LineChart from "@/components/LineChart";

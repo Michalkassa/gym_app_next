@@ -1,5 +1,5 @@
 import { LogProps } from "@/Props"
-import { getLogs } from "../../app/api/actions"
+import { getLogs } from "../../app/api/auth/actions"
 import Log from "@/components/Logs/Log"
 
 

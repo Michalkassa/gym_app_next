@@ -1,4 +1,4 @@
-import { getExercises } from "../../app/api/actions"
+import { getExercises } from "../../app/api/auth/actions"
 import Exercise from "@/components/Exercises/Exercise"
 
 export default async function ExerciseList() {

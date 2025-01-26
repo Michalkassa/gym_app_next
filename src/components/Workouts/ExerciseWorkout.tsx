@@ -2,7 +2,7 @@
 import { FaTrashAlt } from "react-icons/fa";
 import  Modal  from "@/components/Modal"
 import {useState} from 'react'
-import {deleteExerciseToWorkout} from "@/app/api/actions"
+import {deleteExerciseToWorkout} from "@/app/api/auth/actions"
 import {useRouter} from "next/navigation"
 
 interface ExerciseWorkoutProps {

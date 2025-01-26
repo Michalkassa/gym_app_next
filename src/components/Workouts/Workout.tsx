@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { getExercisesWorkoutPairs } from "@/app/api/actions"
+import { getExercisesWorkoutPairs } from "@/app/api/auth/actions"
 import { ExerciseWorkoutPairProps } from "@/Props"
 import { WorkoutProps } from "@/Props"
 

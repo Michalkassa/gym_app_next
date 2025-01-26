@@ -1,4 +1,4 @@
-import { getExercises, getExercisesWorkoutPairs, getWorkout } from "@/app/api/actions";
+import { getExercises, getExercisesWorkoutPairs, getWorkout } from "@/app/api/auth/actions";
 import RunningExerciseList from "@/components/Exercises/RunningExerciseList";
 import { auth } from "@/app/api/auth/auth"
 import {redirect} from "next/navigation"

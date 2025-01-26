@@ -1,10 +1,102 @@
 "use server"
-import {auth} from '@/app/api/auth/auth'
+import {GET} from "@/app/api/auth/auth"
 import { revalidatePath } from 'next/cache'
 import prisma from '@/app/api/prisma'
+import {redirect} from "next/navigation"
+import { signIn } from '@/app/api/auth/auth'
+import { auth } from './auth';
 //Brzycki - The most popular 1 rep max calculation formula from Matt Brzycki
 const oneRepMaxCalculator = (kgWeight: number, repetitions: number):number => {
     return  Math.floor((kgWeight / ( 1.0278 + (-0.0278 * repetitions))))
+}
+
+export const SignIn = async (state: any, formData: any) => {
+    const email = formData.get("email")
+    const password = formData.get("password")
+    
+    if (!email){
+        return { message: "Please Enter Email"}
+    } 
+    if (!password){
+        return { message: "Please Enter Password"}
+    } 
+    if (!email || !password){
+        return { message: "Login data is Missing"}
+    } 
+
+    try {
+        const user = await prisma.user.findUnique({
+          where: {
+            email: email as string
+          }
+        })
+
+        if (!user) {
+          return { message: "The email and/or password you specified are not correct"}
+        }
+
+        const isPasswordValid = (password == (user.password as string)) //TODO change to zcrypt compare
+
+        if (!isPasswordValid) {
+          return { message: "The email and/or password you specified are not correct"}
+        }
+        await signIn("credentials", formData);
+    }
+    catch{}
+    redirect("/dashboard")
+}
+
+export const registerUser = async (state: any, formData: any) => {
+    const email = formData.get("email")
+    const password = formData.get("password")
+    const repeatPassword = formData.get("confirm-password")
+
+    if (!email){
+        return { message: "Please Enter Email"}
+    } 
+    if (!password){
+        return { message: "Please Enter Password"}
+    } 
+    if (!email || !password){
+        return { message: "Login data is Missing"}
+    } 
+    if (password != repeatPassword){
+        return { message: "Insure Both Passwords Are Identical"}
+    } 
+
+    try {
+        const user = await prisma.user.findUnique({
+          where: {
+            email: email as string
+          }
+        })
+
+        if (user) {
+          return { message: "A User with this email allready exists, Try Logging in"}
+        }
+
+        const createdUser = await prisma.user.create({
+            data: {
+                email: email,
+                password: password //TODO make sure this is encrypted
+            }
+          })
+        await signIn("credentials", formData);
+    }
+    catch{}
+    redirect("/dashboard")
+}
+
+
+
+export const getUser = async({props}:any) => {
+    const user = await prisma.user.findUnique(
+        { 
+            where: {
+                email : props.email
+            },
+    });
+    return user
 }
 
 export const getWeights = async () => {

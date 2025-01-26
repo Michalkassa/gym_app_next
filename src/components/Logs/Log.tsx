@@ -2,7 +2,7 @@
 import { FaTrashAlt } from "react-icons/fa";
 import  Modal  from "@/components/Modal"
 import {useState} from 'react'
-import {deleteLog} from "@/app/api/actions"
+import {deleteLog} from "@/app/api/auth/actions"
 import {useRouter} from "next/navigation"
 
 interface LogProps {

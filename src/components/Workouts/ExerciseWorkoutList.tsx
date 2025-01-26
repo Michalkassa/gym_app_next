@@ -1,4 +1,4 @@
-import { getExercisesWorkoutPairs } from "../../app/api/actions"
+import { getExercisesWorkoutPairs } from "../../app/api/auth/actions"
 import  ExerciseWorkout from "@/components/Workouts/ExerciseWorkout"
 import {ExerciseWorkoutPairProps} from "@/Props"
 

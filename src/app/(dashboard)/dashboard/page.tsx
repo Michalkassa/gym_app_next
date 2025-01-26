@@ -1,8 +1,8 @@
-import { auth } from "@/app/api/auth/auth"
 import  BodyWeightChart  from "@/components/BodyWeights/BodyWeightChart"
 import MostPopularExercisesList from "@/components/Exercises/MostPopularExercisesList";
 import { redirect } from "next/navigation"
 import { Suspense } from "react";
+import { auth } from "@/app/api/auth/auth";
 import LoadingComponent from "@/components/Loading"
 import Link from "next/link"
 

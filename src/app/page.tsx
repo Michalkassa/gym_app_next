@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar"
 import { SignInButton } from "@/components/SignInButton";
 import { auth } from "@/app/api/auth/auth";
+import { DashboardButton } from "@/components/DashboardButton";
 export default async function Home() {
   const session = await auth();
   return (
@@ -14,6 +15,7 @@ export default async function Home() {
               <h1 className=" text-3xl md:text-6xl pb-4 opacity-100">Lift with Confidence.</h1>
               <p className="md:text-lg text-md pb-6">workout with a peace of mind that you are reaching your goals.</p>
               {!session && <SignInButton/>}
+              {session && <DashboardButton/>}
             </div>
         </div>
       </section>

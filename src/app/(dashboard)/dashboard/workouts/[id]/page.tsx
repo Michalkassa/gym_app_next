@@ -1,4 +1,4 @@
-import { getExercises, getExercisesWorkoutPairs, getWorkout } from "@/app/api/actions";
+import { getExercises, getExercisesWorkoutPairs, getWorkout } from "@/app/api/auth/actions";
 import WorkoutPage from "@/components/Workouts/WorkoutPage";
 import ExerciseWorkoutList from "@/components/Workouts/ExerciseWorkoutList";
 import AddExerciseToWorkout from "@/components/Workouts/AddExerciseToWorkout";

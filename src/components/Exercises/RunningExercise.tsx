@@ -1,7 +1,7 @@
 'use client'
 
 import {useEffect, useState} from 'react'
-import {createManyLogs, getPreviousLogs} from "@/app/api/actions"
+import {createManyLogs, getPreviousLogs} from "@/app/api/auth/actions"
 import {useRouter} from "next/navigation"
 
 

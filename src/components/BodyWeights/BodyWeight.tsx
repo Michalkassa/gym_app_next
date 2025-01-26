@@ -1,5 +1,5 @@
 'use client'
-import { deleteBodyWeight } from "@/app/api/actions";
+import { deleteBodyWeight } from "@/app/api/auth/actions";
 import { useState } from "react"
 import Modal from "@/components/Modal"
 import {useRouter} from "next/navigation"

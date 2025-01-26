@@ -1,6 +1,6 @@
 "use client"
 import Modal from "@/components/Modal";
-import { addWorkout } from "@/app/api/actions";
+import { addWorkout } from "@/app/api/auth/actions";
 import {useState} from "react"
 
 export default function AddWorkout (){

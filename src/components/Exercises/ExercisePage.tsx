@@ -1,5 +1,5 @@
 "use client"
-import { deleteExercise , editExercise } from "@/app/api/actions";
+import { deleteExercise , editExercise } from "@/app/api/auth/actions";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import Modal from "@/components/Modal"
 import Link from "next/link" 

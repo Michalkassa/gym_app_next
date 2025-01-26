@@ -1,6 +1,6 @@
 "use client"
 import Modal from "@/components/Modal";
-import { addLogFromForm } from "@/app/api/actions";
+import { addLogFromForm } from "@/app/api/auth/actions";
 import {useState, useEffect} from "react"
 
 

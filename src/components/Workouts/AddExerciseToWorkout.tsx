@@ -1,6 +1,6 @@
 "use client"
 import Modal from "@/components/Modal";
-import { addExerciseToWorkout} from "@/app/api/actions";
+import { addExerciseToWorkout} from "@/app/api/auth/actions";
 import {useState} from "react"
 import { ExerciseProps } from "@/Props";
 

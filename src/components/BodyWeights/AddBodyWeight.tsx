@@ -1,6 +1,6 @@
 "use client"
 import Modal from "@/components/Modal";
-import { addBodyWeight } from "@/app/api/actions";
+import { addBodyWeight } from "@/app/api/auth/actions";
 import {useState} from "react"
 
 export default function AddBodyWeight (){

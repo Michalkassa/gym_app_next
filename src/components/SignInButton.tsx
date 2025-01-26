@@ -1,15 +1,8 @@
 
-import { signIn } from "../app/api/auth/auth"
- 
+import Link from "next/link"
+
 export function SignInButton() {
   return (
-    <form
-      action={async () => {
-        "use server"
-        await signIn("GoogleProvider",{redirectTo: '/dashboard'})
-      }}
-    >
-      <button type="submit" className="text-white bg-atlantis_blue p-3 px-8 rounded-xl text-sm">Sign in</button>
-    </form>
+      <Link href="/login" className="text-white bg-atlantis_blue p-3 px-8 rounded-xl text-sm">Sign in</Link>
   )
 } 
