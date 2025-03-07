@@ -18,7 +18,7 @@ export default async function Navbar() {
       alt="Picture of the author"
       className="rounded-xl hidden sm:flex"
     />}
-              {session && <p className="hidden sm:flex">{session?.user?.name}</p>}
+              {session && <p className="hidden sm:flex">{session?.user?.email}</p>}
                 {!session && <li className=""><SignInButton/></li>}
                 {!session && <li className=""><SignUnButton/></li>}
                 {session && <li className=""><SignOutButton/></li>}

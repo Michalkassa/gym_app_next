@@ -19,7 +19,7 @@ export default function LineChart({ chartData }:any ) {
     <div className="chart-container text-white">
       <Line
         data={data}
-        style={{width: "100%", height: "100%"}}
+        style={{width: "100%", height: "80%"}}
         options={{
           maintainAspectRatio: false,
           scales: {
@@ -29,7 +29,9 @@ export default function LineChart({ chartData }:any ) {
             },
             y: {
               type: 'linear',
-              beginAtZero: true
+              beginAtZero: false,
+              min: Math.min(...data.datasets[0].data) - 15,
+              max: Math.max(...data.datasets[0].data) + 5,
             }},
           plugins: {
             title: {

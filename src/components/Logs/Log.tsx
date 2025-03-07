@@ -31,10 +31,10 @@ export default function Log({ id , weight , reps, exerciseId} : LogProps) {
     }
 
     return(
-        <div key={id} className="">
+        <div key={id} className="flex justify-around">
             <p className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{weight}</p>
             <p className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{reps}</p>
-            <div>
+            <div className="flex items-center align-middle">
                 <button className="flex items-center align-middle" onClick={()=>setModalOpenDelete(true)}> <FaTrashAlt color="red" size={20}/> </button>
             </div>
             <Modal modalOpen={openModalDelete} setModalOpen={setModalOpenDelete}>

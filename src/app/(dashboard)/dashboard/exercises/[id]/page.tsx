@@ -20,10 +20,10 @@ export default async function SingleExercisePage({params}:{params:{id : string}}
         <div>
             <Suspense fallback={<LoadingComponent/>}>
             <ExercisePage id={id} name={exercise?.name} description={exercise?.description} />
-            <AddLog exerciseId={id}/>
-            <div className="flex flex-row gap-10 justify-center align-middle w-screen h-full">
-            <LogList exerciseId={id}/>
+            <div className="flex flex-col gap-10 justify-center align-middle w-screen h-full">
             <ExerciseChart exerciseId={id}/>
+            <AddLog exerciseId={id}/>
+            <LogList exerciseId={id}/>
             </div>
             </Suspense>
         </div>

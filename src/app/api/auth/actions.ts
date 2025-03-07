@@ -1,6 +1,7 @@
 "use server"
 import {GET} from "@/app/api/auth/auth"
 import { revalidatePath } from 'next/cache'
+import AddBodyWeight from "@/components/BodyWeights/AddBodyWeight"
 import prisma from '@/app/api/prisma'
 import {redirect} from "next/navigation"
 import { signIn } from '@/app/api/auth/auth'
@@ -14,15 +15,29 @@ export const SignIn = async (state: any, formData: any) => {
     const email = formData.get("email")
     const password = formData.get("password")
     
-    if (!email){
-        return { message: "Please Enter Email"}
-    } 
-    if (!password){
-        return { message: "Please Enter Password"}
-    } 
-    if (!email || !password){
+    if (!email && !password){
         return { message: "Login data is Missing"}
     } 
+    if (!email){
+        return { message: "Please Enter an Email"}
+    } 
+    if (!password){
+        return { message: "Please Enter a Password"}
+    } 
+
+    let validEmail = false
+    for(let i = 0; i <= email.length; i++){
+        if(email[i] == '@'){
+            validEmail = true
+            break
+        }
+    }
+
+    if(validEmail == false){
+        return { message: "Not a valid email"}
+    }
+
+
 
     try {
         const user = await prisma.user.findUnique({
@@ -32,13 +47,13 @@ export const SignIn = async (state: any, formData: any) => {
         })
 
         if (!user) {
-          return { message: "The email and/or password you specified are not correct"}
+          return { message: "credentials not correct"}
         }
 
         const isPasswordValid = (password == (user.password as string)) //TODO change to zcrypt compare
 
         if (!isPasswordValid) {
-          return { message: "The email and/or password you specified are not correct"}
+          return { message: "credentials not correct"}
         }
         await signIn("credentials", formData);
     }
@@ -51,17 +66,20 @@ export const registerUser = async (state: any, formData: any) => {
     const password = formData.get("password")
     const repeatPassword = formData.get("confirm-password")
 
-    if (!email){
-        return { message: "Please Enter Email"}
-    } 
-    if (!password){
-        return { message: "Please Enter Password"}
-    } 
-    if (!email || !password){
+    if (!email && !password){
         return { message: "Login data is Missing"}
     } 
+    if (!email){
+        return { message: "Please enter an Email"}
+    } 
+    if (!password){
+        return { message: "Please enter a password"}
+    } 
     if (password != repeatPassword){
-        return { message: "Insure Both Passwords Are Identical"}
+        return { message: "Passwords are not identical"}
+    } 
+    if (password.length < 5){
+        return { message: "Password too short "}
     } 
 
     try {
@@ -72,7 +90,7 @@ export const registerUser = async (state: any, formData: any) => {
         })
 
         if (user) {
-          return { message: "A User with this email allready exists, Try Logging in"}
+          return { message: "user allready exists"}
         }
 
         const createdUser = await prisma.user.create({
@@ -106,22 +124,28 @@ export const getWeights = async () => {
             where: {
                 authorId : session?.user?.id
             },
+            orderBy:{
+                createdAt: 'asc'
+            }
     });
     return bodyWeights
 }
 
 
-export const addBodyWeight = async (formData: FormData) => {
+export const addBodyWeight = async (state: any, formData: any) => {
     const session = await auth();
     const bodyWeight = formData.get('weight');
+    if(!bodyWeight){
+        return {message: "Please Enter a Weight"}
+    }
     const createWeight = await prisma.body_Weight.create({ 
         data: {
             weight: Number(bodyWeight),
             authorId : session?.user?.id!
         }
     })
-
     revalidatePath("/dasboard/bodyweights")
+    return {valid: true, message: ""}
 };
 
 export const deleteBodyWeight = async (bodyweightId:string) => {
@@ -142,19 +166,28 @@ export const getExercises = async () => {
     const exercises = await prisma.exercise.findMany(
         { 
             where: {
-                authorId : session?.user?.id
+                authorId : session?.user?.id,
             },
             orderBy: {
-                name: 'desc',
+                name: 'desc'
               },
     })
     return exercises
 }
 
-export const addExercise = async (formData: FormData) => {
+export const addExercise = async (state: any, formData: any) => {
     const session = await auth();
     const name = formData.get('name') as string;
     const description = formData.get('description') as string;
+
+    if(name.length > 15){
+        return {message: "Please choose a Shorter name"}
+    }
+
+    if(name == "" || description == ""){
+        return {message: "Enter the Name and a Description"}
+    }
+
     const createdExercise = await prisma.exercise.create({ 
         data: {
             name: name,
@@ -163,6 +196,7 @@ export const addExercise = async (formData: FormData) => {
         }
     })
     revalidatePath("/dasboard/exercises")
+    return {message: "", valid: true}
 };
 
 
@@ -267,10 +301,15 @@ export const deleteLogs = async (exerciseId:string) => {
     })
 };
 
-export const addLogFromForm = async (exerciseId:string, formData:FormData) => {
+export const addLogFromForm = async (state:any, formData:any) => {
     const session = await auth();
+    const exerciseId = formData.get("exerciseId") as string
     const weight = Number(formData.get("weight"))
     const reps =  Number(formData.get("reps"))
+
+    if(!exerciseId || !weight || !reps){
+        return {message: "enter a weight and the reps"}
+    }
     const createLog = await prisma.log.create({ 
         data: {
             weight: weight,
@@ -281,6 +320,7 @@ export const addLogFromForm = async (exerciseId:string, formData:FormData) => {
         }
     })
     revalidatePath(`/dasboard/exercises/${exerciseId}`)
+    return {message: "", valid: true}
 };
 
 interface LogProps {
@@ -362,10 +402,18 @@ export const getExercisesWorkoutPairs = async (workoutId:string,) => {
     return []
 }
 
-export const addWorkout = async (formData: FormData) => {
+export const addWorkout = async (state: any, formData: any) => {
     const session = await auth();
     const name = formData.get('name') as string;
     const description = formData.get('description') as string;
+
+    if(name.length > 15){
+        return {message: "Please choose a Shorter name"}
+    }
+    if(name == "" || description == ""){
+        return {message: "Enter the Name and a Description"}
+    }
+
     const createdWorkout = await prisma.workout.create({ 
         data: {
             name: name,
@@ -375,6 +423,7 @@ export const addWorkout = async (formData: FormData) => {
     })
     revalidatePath("/dasboard/workouts")
     revalidatePath("/dashboard/runningworkout")
+    return {message: "", valid: true}
 };
 
 export const editWorkout = async (workoutId:string, workoutName:string, workoutDescription:string) => {
@@ -409,12 +458,22 @@ export const deleteWorkout = async (workoutId:string) => {
 
 
 export const addExerciseToWorkout = async (workoutId:string , exerciseId:string) => {
+    const checkExistance = await prisma.exercisesOnWorkouts.findMany({
+        where: {
+            exerciseId: exerciseId,
+            workoutId: workoutId
+        }
+    })
+    console.log(checkExistance)
+    if(checkExistance.length != 0) return
+
     const addExerciseToWorkout = await prisma.exercisesOnWorkouts.create({
         data: {
             exerciseId: exerciseId,
             workoutId: workoutId
         }
     })
+
     revalidatePath(`/dasboard/workouts/${workoutId}`)
     revalidatePath(`/dashboard/runningworkout/${workoutId}`)
 }

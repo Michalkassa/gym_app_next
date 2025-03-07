@@ -4,12 +4,12 @@ import {useRouter} from "next/navigation"
 import { useFormState } from "react-dom";
 import { registerUser } from "@/app/api/auth/actions";
 
-const intialState = {
+const initialState = {
     message: "",
 }
 export default function RegisterForm(){
     const router = useRouter()
-    const [state, formAction] = useFormState(registerUser, intialState)
+    const [state, formAction] = useFormState(registerUser, initialState)
     const [data, setData] = useState({
         email: "",
         password: "",

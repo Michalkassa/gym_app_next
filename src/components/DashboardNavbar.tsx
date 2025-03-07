@@ -23,7 +23,6 @@ export default async function DashboardNavbar(){
         className="rounded-2xl"
         />}
         <div>
-        <p>{session && session?.user?.name}</p>
         <p className="text-xs">{session && session?.user?.email}</p>
         </div>
         </div>

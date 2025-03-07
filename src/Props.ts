@@ -7,7 +7,8 @@ export interface ModalProps{
 
 export interface BodyWeightProps {
     id: string,
-    date: string,
+    createdAt: Date,
+    authorId: string,
     weight: number,
 }
 

@@ -3,6 +3,8 @@ import BodyWeightList from "@/components/BodyWeights/BodyWeightList"
 import { redirect } from "next/navigation"
 import  AddBodyWeight from "@/components/BodyWeights/AddBodyWeight";
 import BodyWeightChart from "@/components/BodyWeights/BodyWeightChart";
+import BodyWeightStats from "@/components/BodyWeights/BodyWeightStats";
+import BodyWeightPercentages from "@/components/BodyWeights/BodyWeightPercentages";
 import { Suspense } from "react";
 import LoadingComponent from "@/components/Loading";
 
@@ -12,18 +14,29 @@ export default async function BodyWeights() {
   if (!session) return redirect("/")
     
   return (
-    <div className="flex flex-col md:flex-row justify-center md:h-full">
+    <div className="flex md:flex-row md:h-full">
       <Suspense fallback={<LoadingComponent/>}>
-      <div className="flex justify-center">
+      <div className="flex flex-col gap-10 justify-center align-middle min-w-full h-full">
       <BodyWeightChart/>
+      <div className="flex justify-evenly">
+        <AddBodyWeight></AddBodyWeight>
+        <BodyWeightStats />
       </div>
-      <div className="flex justify-center">
-        <div className="flex flex-col justify-center">
-          <AddBodyWeight></AddBodyWeight>
-          <BodyWeightList></BodyWeightList>
-        </div>
+      <BodyWeightPercentages/>
+      <BodyWeightList></BodyWeightList>
       </div>
       </Suspense>
     </div>
   )
 }
+
+
+
+{/* <Suspense fallback={<LoadingComponent/>}>
+            <ExercisePage id={id} name={exercise?.name} description={exercise?.description} />
+            <div className="flex flex-col gap-10 justify-center align-middle w-screen h-full">
+            <ExerciseChart exerciseId={id}/>
+            <AddLog exerciseId={id}/>
+            <LogList exerciseId={id}/>
+            </div>
+            </Suspense> */}
