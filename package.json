@@ -15,7 +15,7 @@
     "@emotion/styled": "^11.13.0",
     "@headlessui/react": "^2.1.2",
     "@mui/joy": "^5.0.0-beta.48",
-    "@prisma/client": "^5.15.0",
+    "@prisma/client": "^5.22.0",
     "@tanstack/react-query": "^5.48.0",
     "@tremor/react": "^3.17.4",
     "@vercel/postgres": "^0.10.0",
