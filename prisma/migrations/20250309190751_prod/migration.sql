@@ -1,5 +1,5 @@
 -- CreateTable
-CREATE TABLE "User" (
+CREATE TABLE "User" IF NOT EXISTS (
     "id" TEXT NOT NULL,
     "name" TEXT,
     "email" TEXT NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE "User" (
 );
 
 -- CreateTable
-CREATE TABLE "Account" (
+CREATE TABLE "Account" IF NOT EXISTS (
     "userId" TEXT NOT NULL,
     "type" TEXT NOT NULL,
     "provider" TEXT NOT NULL,
@@ -32,7 +32,7 @@ CREATE TABLE "Account" (
 );
 
 -- CreateTable
-CREATE TABLE "Session" (
+CREATE TABLE "Session" IF NOT EXISTS (
     "sessionToken" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "expires" TIMESTAMP(3) NOT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE "Session" (
 );
 
 -- CreateTable
-CREATE TABLE "VerificationToken" (
+CREATE TABLE "VerificationToken" IF NOT EXISTS (
     "identifier" TEXT NOT NULL,
     "token" TEXT NOT NULL,
     "expires" TIMESTAMP(3) NOT NULL,
@@ -50,7 +50,7 @@ CREATE TABLE "VerificationToken" (
 );
 
 -- CreateTable
-CREATE TABLE "Body_Weight" (
+CREATE TABLE "Body_Weight" IF NOT EXISTS (
     "id" TEXT NOT NULL,
     "weight" DOUBLE PRECISION NOT NULL,
     "authorId" TEXT NOT NULL,
@@ -60,7 +60,7 @@ CREATE TABLE "Body_Weight" (
 );
 
 -- CreateTable
-CREATE TABLE "Exercise" (
+CREATE TABLE "Exercise" IF NOT EXISTS (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "description" TEXT NOT NULL,
@@ -71,7 +71,7 @@ CREATE TABLE "Exercise" (
 );
 
 -- CreateTable
-CREATE TABLE "Log" (
+CREATE TABLE "Log" IF NOT EXISTS (
     "id" TEXT NOT NULL,
     "weight" DOUBLE PRECISION NOT NULL,
     "reps" INTEGER NOT NULL,
@@ -84,7 +84,7 @@ CREATE TABLE "Log" (
 );
 
 -- CreateTable
-CREATE TABLE "Workout" (
+CREATE TABLE "Workout" IF NOT EXISTS (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "description" TEXT NOT NULL,
@@ -95,7 +95,7 @@ CREATE TABLE "Workout" (
 );
 
 -- CreateTable
-CREATE TABLE "ExercisesOnWorkouts" (
+CREATE TABLE "ExercisesOnWorkouts" IF NOT EXISTS (
     "id" TEXT NOT NULL,
     "exerciseId" TEXT NOT NULL,
     "workoutId" TEXT NOT NULL,
