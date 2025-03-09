@@ -20,7 +20,7 @@ export default async function BodyWeightPercentages() {
     const currentDate = new Date();
 
     // Calculate the difference in milliseconds
-    const differenceInTime = currentDate - givenDate;
+    const differenceInTime = Number(currentDate) - Number(givenDate);
 
     // Convert milliseconds to days
     const differenceInDays = Math.floor(differenceInTime / (1000 * 60 * 60 * 24));
