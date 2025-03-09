@@ -43,24 +43,43 @@ export default async function BodyWeightStats() {
     return highest
   }
 
-
-  return (
+  if(data.length > 0){
+    return (
+      <div className="flex justify-between md:gap-12 gap-5 text-white">
+          <div>
+              <p className="text-xs">Highest</p>
+              <p className="text-3xl">{HighestWeight(DataToWeights(data))}</p>
+          </div>
+          <div>
+              <p className="text-xs">Lowest</p>
+              <p className="text-3xl">{LowestWeight(DataToWeights(data))}</p>
+          </div>
+          <div>
+              <p className="text-xs">Average</p>
+              <p className="text-3xl">{parseFloat(AverageBodyWeight(DataToWeights(data)).toFixed(1))}</p>
+          </div>
+  
+      </div>
+    )
+  }
+  return(
     <div className="flex justify-between md:gap-12 gap-5 text-white">
-        <div>
-            <p className="text-xs">Highest</p>
-            <p className="text-3xl">{HighestWeight(DataToWeights(data))}</p>
-        </div>
-        <div>
-            <p className="text-xs">Lowest</p>
-            <p className="text-3xl">{LowestWeight(DataToWeights(data))}</p>
-        </div>
-        <div>
-            <p className="text-xs">Average</p>
-            <p className="text-3xl">{parseFloat(AverageBodyWeight(DataToWeights(data)).toFixed(1))}</p>
-        </div>
-
-    </div>
+          <div>
+              <p className="text-xs">Highest</p>
+              <p className="text-3xl">0</p>
+          </div>
+          <div>
+              <p className="text-xs">Lowest</p>
+              <p className="text-3xl">0</p>
+          </div>
+          <div>
+              <p className="text-xs">Average</p>
+              <p className="text-3xl">0</p>
+          </div>
+  
+      </div>
   )
+  
 } 
 
 

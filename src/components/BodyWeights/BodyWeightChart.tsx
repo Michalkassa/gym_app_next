@@ -25,7 +25,9 @@ async function getData(){
  
 export default async function BodyWeightChart() { 
   const chartData = await getData()
-  return (
-      <LineChart chartData={chartData} />
-  );
+  console.log(chartData)
+  if(chartData.labels.length > 0){
+    return  <LineChart chartData={chartData} />
+  }
+  return <div className='text-white max-w-full h-5/6 flex justify-center items-center'>no bodyweights are yet logged</div>
 }
