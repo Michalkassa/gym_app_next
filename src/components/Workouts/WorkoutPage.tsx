@@ -76,7 +76,7 @@ export default function WorkoutPage({ id , name , description} : WorkoutProps){
                     <div className="flex flex-col gap-4">
                         <h3 className="font-bold text-lg">Editing Workout {name}</h3>
                         <form autoComplete="off" action={() => editWorkout(id,nameToEdit,descriptionToEdit)} onSubmit={handleNameEdit} className="flex gap-3">
-                            <input maxlength="15" autoComplete="false" required value={nameToEdit} onChange={(e) => setNameToEdit(e.target.value)} id="name" name="name" type="text" placeholder="Type Name of the workout Here..." className="input input-bordered w-full text-black p-3"></input>
+                            <input maxLength={15} autoComplete="false" required value={nameToEdit} onChange={(e) => setNameToEdit(e.target.value)} id="name" name="name" type="text" placeholder="Type Name of the workout Here..." className="input input-bordered w-full text-black p-3"></input>
                             <button
                                 className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 px-3 text-sm/6 font-semibold text-red shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
                                  type="submit"
