@@ -9,8 +9,8 @@ export default async function WorkoutList() {
   if(data.length == 0){
     return(
       <div className="flex flex-row justify-center items-center flex-wrap gap-3">
-          <p className="text-gray-400">no workouts yet created</p>
-    </div>
+          <p className="text-gray-400">no workouts created</p>
+      </div>
     )
   }
   return (

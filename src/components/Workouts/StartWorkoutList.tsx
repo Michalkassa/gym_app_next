@@ -7,6 +7,13 @@ import { WorkoutProps } from "@/Props"
 export default async function StartWorkoutList() {
 
   const data = await getWorkouts()
+  if(data.length == 0){
+    return(
+      <div className="flex flex-row justify-center items-center flex-wrap gap-3">
+          <p className="text-gray-400">no workouts created</p>
+      </div>
+    )
+  }
   return (
     <div className="flex flex-row justify-center items-center flex-wrap gap-3">
           {data.reverse().map((workout:WorkoutProps) => (

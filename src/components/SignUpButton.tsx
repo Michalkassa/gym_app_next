@@ -1,8 +1,8 @@
 
 import Link from "next/link"
 
-export function SignUnButton() {
+export function SignUpButton() {
   return (
-      <Link href="/register" className="text-atlantis_blue bg-white p-3 px-8 rounded-xl text-sm">Sign up</Link>
+      <Link href="/register" className="bg-white text-atlantis_blue md:p-3 px-4 p-2 md:px-8 rounded-xl md:text-sm text-xs">Sign up</Link>
   )
 } 

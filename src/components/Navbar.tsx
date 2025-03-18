@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { SignInButton } from "./SignInButton"
 import { SignOutButton } from "./SignOutButton";
-import { SignUnButton } from "./SignUpButton";
+import { SignUpButton } from "./SignUpButton";
 import { auth } from "@/app/api/auth/auth";
 import Image from "next/image"
 
@@ -20,7 +20,7 @@ export default async function Navbar() {
     />}
               {session && <p className="hidden sm:flex">{session?.user?.email}</p>}
                 {!session && <li className=""><SignInButton/></li>}
-                {!session && <li className=""><SignUnButton/></li>}
+                {!session && <li className=""><SignUpButton/></li>}
                 {session && <li className=""><SignOutButton/></li>}
                 {session && <li><Link href="/dashboard" className="">Dashboard</Link></li>}
             </ul>

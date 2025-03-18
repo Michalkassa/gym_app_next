@@ -29,5 +29,5 @@ export default async function BodyWeightChart() {
   if(chartData.labels.length > 0){
     return  <LineChart chartData={chartData} />
   }
-  return <div className='text-white max-w-full h-5/6 flex justify-center items-center'>no bodyweights are yet logged</div>
+  return <div className='text-white max-w-full h-5/6 flex justify-center items-center'>no bodyweights are logged</div>
 }
