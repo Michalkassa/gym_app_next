@@ -5,7 +5,6 @@ import  AddBodyWeight from "@/components/BodyWeights/AddBodyWeight";
 import BodyWeightChart from "@/components/BodyWeights/BodyWeightChart";
 import BodyWeightStats from "@/components/BodyWeights/BodyWeightStats";
 import BodyWeightPercentages from "@/components/BodyWeights/BodyWeightPercentages";
-import { Suspense } from "react";
 import LoadingComponent from "@/components/Loading";
 
 
@@ -15,7 +14,6 @@ export default async function BodyWeights() {
     
   return (
     <div className="flex md:flex-row md:h-full">
-      <Suspense fallback={<LoadingComponent/>}>
       <div className="flex flex-col gap-10 justify-center align-middle min-w-full h-full">
       <BodyWeightChart/>
       <div className="flex justify-evenly">
@@ -25,7 +23,6 @@ export default async function BodyWeights() {
       <BodyWeightPercentages/>
       <BodyWeightList></BodyWeightList>
       </div>
-      </Suspense>
     </div>
   )
 }

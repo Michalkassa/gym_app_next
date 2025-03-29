@@ -15,16 +15,12 @@ export default async function Dashboard() {
       <div className="bg-sleek_gray bg-opacity-40 rounded-3xl p-7">
         <Link href="/dashboard/bodyweights">
         <h1 className="text-white">Bodyweight Progress</h1>
-        <Suspense fallback={<LoadingComponent/>}>
         <BodyWeightChart />
-        </Suspense>
         </Link>
       </div>
       <div className="flex flex-col gap-2 bg-sleek_gray bg-opacity-40 rounded-3xl p-7 h-64">
-        <Suspense fallback={<LoadingComponent/>}>
         <h1 className="text-white">Popular exercises</h1>
         <MostPopularExercisesList />
-      </Suspense>
       </div>
       <div className="grid md:gap-3 gap-2 col-span-2 text-2xl">
         <Link href="/dashboard/exercises" className="flex w-full bg-sleek_gray bg-opacity-40 justify-center items-center text-white p-4">Exercises</Link>
