@@ -1,3 +1,21 @@
+# LockedIn — Fitness Tracker Web App
+
+LockedIn is a full-stack progressive web application designed to help users track workouts and monitor fitness progress over time.
+
+Built with **Next.js and React**, the application allows users to securely log workouts, store fitness data, and visualize progress through interactive charts.
+
+The backend uses **PostgreSQL with Prisma ORM** to manage data, while **NextAuth credential authentication** provides secure user login. Performance is optimized using **server-side rendering and caching**.
+
+## Tech Stack
+
+* TypeScript
+* Next.js
+* React
+* PostgreSQL
+* Prisma ORM
+* NextAuth
+* Chart.js
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
