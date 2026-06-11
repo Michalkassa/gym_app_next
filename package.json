@@ -5,6 +5,12 @@
   "prisma": {
     "seed": "node prisma/seed.mjs"
   },
+  "overrides": {
+    "glob": "10.5.0",
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "9.0.9"
+    }
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
