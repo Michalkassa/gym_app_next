@@ -6,6 +6,20 @@ Built with **Next.js and React**, the application allows users to securely log w
 
 The backend uses **PostgreSQL with Prisma ORM** to manage data, while **NextAuth credential authentication** provides secure user login. Performance is optimized using **server-side rendering and caching**.
 
+## Features
+
+* **Workout & exercise logging** with automatic estimated one-rep-max (Brzycki formula)
+* **Exercise library** of 30+ movements tagged by muscle group and equipment
+* **Prebuilt programs** (PPL, StrongLifts 5×5, Starting Strength) you can copy into your account in one click
+* **Training analytics** — weekly volume trend and a GitHub-style activity heatmap
+* **Personal records** page tracking best weight, estimated 1RM and set volume per exercise
+* **Nutrition logging** of calories and macros with charts
+* **Gamification** — earn XP per set/workout and level up
+* **Data export** to CSV and a generated PDF progress report
+* **Bodyweight tracking**, PWA support, and a responsive mobile/desktop UI
+
+Validated with a **Vitest** unit-test suite and runnable end-to-end with a single `docker compose up`.
+
 ## Tech Stack
 
 * TypeScript
