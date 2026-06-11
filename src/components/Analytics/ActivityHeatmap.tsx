@@ -1,8 +1,8 @@
-import { dayKey, weekKey } from "@/lib/analytics";
+"use client"
+import { useState } from "react";
+import { dayKey } from "@/lib/analytics";
 
-const WEEKS = 18;
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-// Labels shown on the Mon / Wed / Fri rows (matching GitHub's sparse labelling).
 const WEEKDAYS = ["Mon", "", "Wed", "", "Fri", "", ""];
 
 function colorFor(count: number): string {
@@ -13,10 +13,18 @@ function colorFor(count: number): string {
   return "bg-green-400";
 }
 
+/** Monday (UTC) on or before the given date. */
+function mondayOnOrBefore(d: Date): Date {
+  const out = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
+  const day = out.getUTCDay(); // 0 = Sun
+  out.setUTCDate(out.getUTCDate() - (day === 0 ? 6 : day - 1));
+  return out;
+}
+
 /**
- * GitHub-style contribution grid of the last {WEEKS} weeks. Columns are weeks
- * (Monday-started), rows are days Mon→Sun, with weekday + month labels and a
- * legend so each square's day is clear. Hover shows the exact date + set count.
+ * GitHub-style contribution graph for a selectable calendar year. Columns are
+ * weeks (Mon→Sun rows), shaded by logged sets that day, with weekday + month
+ * labels, a legend, and a year picker. Future / other-year days render blank.
  */
 export default function ActivityHeatmap({
   activity,
@@ -24,74 +32,111 @@ export default function ActivityHeatmap({
   activity: { date: string; count: number }[];
 }) {
   const counts = new Map(activity.map((a) => [a.date, a.count]));
+  const currentYear = new Date().getUTCFullYear();
 
-  const currentMonday = new Date(weekKey(new Date()) + "T00:00:00Z");
-  const start = new Date(currentMonday);
-  start.setUTCDate(start.getUTCDate() - (WEEKS - 1) * 7);
+  // Years to offer: every year present in the data, plus the current year.
+  const years = Array.from(
+    new Set<number>([currentYear, ...activity.map((a) => Number(a.date.slice(0, 4)))]),
+  ).sort((a, b) => b - a);
 
-  const columns: { month: number; days: { key: string; weekday: string; count: number }[] }[] = [];
-  for (let w = 0; w < WEEKS; w++) {
+  const [year, setYear] = useState(currentYear);
+
+  // Rectangular grid of whole weeks spanning Jan 1 → Dec 31 of the year.
+  const start = mondayOnOrBefore(new Date(Date.UTC(year, 0, 1)));
+  const yearEnd = new Date(Date.UTC(year, 11, 31));
+
+  const columns: { repMonth: number | null; days: { key: string; inYear: boolean; weekday: string; count: number }[] }[] = [];
+  const cursor = new Date(start);
+  while (cursor <= yearEnd) {
     const days = [];
-    let month = 0;
+    let repMonth: number | null = null;
     for (let d = 0; d < 7; d++) {
-      const day = new Date(start);
-      day.setUTCDate(start.getUTCDate() + w * 7 + d);
-      if (d === 0) month = day.getUTCMonth();
+      const day = new Date(cursor);
+      day.setUTCDate(cursor.getUTCDate() + d);
+      const inYear = day.getUTCFullYear() === year;
+      if (inYear && repMonth === null) repMonth = day.getUTCMonth();
       const key = dayKey(day);
       const weekday = day.toLocaleDateString("en-US", { weekday: "long", timeZone: "UTC" });
-      days.push({ key, weekday, count: counts.get(key) ?? 0 });
+      days.push({ key, inYear, weekday, count: counts.get(key) ?? 0 });
     }
-    columns.push({ month, days });
+    columns.push({ repMonth, days });
+    cursor.setUTCDate(cursor.getUTCDate() + 7);
   }
 
-  // A month label sits above the first week that falls in a new month.
-  const monthLabels = columns.map((c, i) =>
-    i === 0 || columns[i - 1].month !== c.month ? MONTHS[c.month] : "",
-  );
+  // Month label on the first column whose in-year month differs from the last.
+  let lastLabeled = -1;
+  const monthLabels = columns.map((c) => {
+    if (c.repMonth !== null && c.repMonth !== lastLabeled) {
+      lastLabeled = c.repMonth;
+      return MONTHS[c.repMonth];
+    }
+    return "";
+  });
 
   return (
-    <div className="max-w-full overflow-x-auto">
-      <div className="inline-block">
-        {/* Month labels */}
-        <div className="mb-1 flex gap-1 pl-9">
-          {monthLabels.map((m, i) => (
-            <div key={i} className="w-3 whitespace-nowrap text-[10px] text-gray-500">{m}</div>
-          ))}
-        </div>
+    <div>
+      {/* Year picker */}
+      <div className="mb-3 flex flex-wrap gap-2">
+        {years.map((y) => (
+          <button
+            key={y}
+            onClick={() => setYear(y)}
+            className={`rounded-lg px-3 py-1 text-sm transition ${
+              y === year ? "bg-atlantis_blue text-white" : "bg-white/5 text-gray-400 hover:text-white"
+            }`}
+          >
+            {y}
+          </button>
+        ))}
+      </div>
 
-        <div className="flex">
-          {/* Weekday labels */}
-          <div className="flex w-9 flex-col gap-1 pr-2">
-            {WEEKDAYS.map((wd, i) => (
-              <div key={i} className="h-3 text-[10px] leading-3 text-gray-500">{wd}</div>
+      <div className="max-w-full overflow-x-auto">
+        <div className="inline-block">
+          {/* Month labels */}
+          <div className="mb-1 flex gap-[3px] pl-9">
+            {monthLabels.map((m, i) => (
+              <div key={i} className="w-2.5 whitespace-nowrap text-[10px] text-gray-500">{m}</div>
             ))}
           </div>
 
-          {/* Grid */}
-          <div className="flex gap-1">
-            {columns.map((col, i) => (
-              <div key={i} className="flex flex-col gap-1">
-                {col.days.map((cell) => (
-                  <div
-                    key={cell.key}
-                    title={`${cell.weekday} ${cell.key} — ${cell.count} set${cell.count === 1 ? "" : "s"}`}
-                    className={`h-3 w-3 rounded-sm ${colorFor(cell.count)}`}
-                  />
-                ))}
-              </div>
-            ))}
-          </div>
-        </div>
+          <div className="flex">
+            {/* Weekday labels */}
+            <div className="flex w-9 flex-col gap-[3px] pr-2">
+              {WEEKDAYS.map((wd, i) => (
+                <div key={i} className="h-2.5 text-[10px] leading-[10px] text-gray-500">{wd}</div>
+              ))}
+            </div>
 
-        {/* Legend */}
-        <div className="flex items-center justify-end gap-1 pt-2 text-[10px] text-gray-500">
-          <span className="pr-1">Less</span>
-          <div className="h-3 w-3 rounded-sm bg-white/[0.06]" />
-          <div className="h-3 w-3 rounded-sm bg-green-900" />
-          <div className="h-3 w-3 rounded-sm bg-green-700" />
-          <div className="h-3 w-3 rounded-sm bg-green-500" />
-          <div className="h-3 w-3 rounded-sm bg-green-400" />
-          <span className="pl-1">More</span>
+            {/* Grid */}
+            <div className="flex gap-[3px]">
+              {columns.map((col, i) => (
+                <div key={i} className="flex flex-col gap-[3px]">
+                  {col.days.map((cell) =>
+                    cell.inYear ? (
+                      <div
+                        key={cell.key}
+                        title={`${cell.weekday} ${cell.key} — ${cell.count} set${cell.count === 1 ? "" : "s"}`}
+                        className={`h-2.5 w-2.5 rounded-sm ${colorFor(cell.count)}`}
+                      />
+                    ) : (
+                      <div key={cell.key} className="h-2.5 w-2.5 rounded-sm bg-transparent" />
+                    ),
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Legend */}
+          <div className="flex items-center justify-end gap-1 pt-2 text-[10px] text-gray-500">
+            <span className="pr-1">Less</span>
+            <div className="h-2.5 w-2.5 rounded-sm bg-white/[0.06]" />
+            <div className="h-2.5 w-2.5 rounded-sm bg-green-900" />
+            <div className="h-2.5 w-2.5 rounded-sm bg-green-700" />
+            <div className="h-2.5 w-2.5 rounded-sm bg-green-500" />
+            <div className="h-2.5 w-2.5 rounded-sm bg-green-400" />
+            <span className="pl-1">More</span>
+          </div>
         </div>
       </div>
     </div>
