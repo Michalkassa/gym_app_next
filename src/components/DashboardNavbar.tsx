@@ -2,9 +2,11 @@ import {auth} from "@/app/api/auth/auth"
 import Link from "next/link"
 import Image from "next/image"
 import { SignOutButton } from "./SignOutButton"
+import LevelBadge from "./LevelBadge"
 import { BsSkipStartFill } from "react-icons/bs";
 import { FaWeightScale } from "react-icons/fa6";
 import { FaDumbbell } from "react-icons/fa6";
+import { FaAppleAlt } from "react-icons/fa";
 import { IoBody } from "react-icons/io5";
 import { FaClipboardList } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
@@ -28,6 +30,7 @@ export default async function DashboardNavbar(){
         <p className="text-xs">{session && session?.user?.email}</p>
         </div>
         </div>
+        <LevelBadge />
         <ul className="w-full">
             <li className="scale-100 hover:scale-105 duration-100">
             <Link href="/dashboard">
@@ -74,6 +77,14 @@ export default async function DashboardNavbar(){
                 <div className="flex w-full h-24   ">
                 <div className="flex justify-center items-center" style={{flex:'40%'}} ><FaWeightScale size={25}/></div>
                 <div className="flex items-center" style={{flex:'60%'}}>Body Weight</div>
+                </div>
+            </Link>
+            </li>
+            <li className="scale-100 hover:scale-105 duration-100">
+            <Link href="/dashboard/nutrition">
+                <div className="flex w-full h-24   ">
+                <div className="flex justify-center items-center" style={{flex:'40%'}} ><FaAppleAlt size={25}/></div>
+                <div className="flex items-center" style={{flex:'60%'}}>Nutrition</div>
                 </div>
             </Link>
             </li>
