@@ -4,41 +4,34 @@ import BodyWeight from "@/components/BodyWeights/BodyWeight"
 export default async function BodyWeightList() {
   const data = await getWeights()
 
-  if (data.length === 0) return <div></div>
+  if (data.length === 0) return <p className="text-gray-500">No bodyweight entries yet.</p>
 
   return (
-  <div className="max-h-full overflow-x-hidden justify-around">
-    <div className="w-full text-white bg-transparent">
-
-      <div className="flex justify-around bg-gray-900 rounded-t-lg border-b border-gray-800">
-        <div className="px-6 py-3 text-xs uppercase font-semibold text-gray-300 border-gray-800 whitespace-nowrap">
-          Date
-        </div>
-
-        <div className="px-6 py-3 text-xs uppercase font-semibold text-gray-300 border-gray-800 whitespace-nowrap">
-          Your Weight
-        </div>
-
-        <div className="px-6 py-3 text-xs uppercase font-semibold text-gray-300 border-gray-800 whitespace-nowrap">
-        </div>
-      </div>
-
-      <div className="divide-y divide-gray-800 bg-gray-800 rounded-b-lg">
-        {data
-          .reverse()
-          .map((bodyWeight: { id: string; createdAt: Date; weight: number }) => (
-            <BodyWeight
-              key={bodyWeight.id}
-              id={bodyWeight.id}
-              date={bodyWeight.createdAt.toLocaleDateString("es-MX")}
-              weight={bodyWeight.weight}
-            />
-          ))}
-      </div>
+    <div className="table-wrap">
+      <table className="data-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Weight (kg)</th>
+            <th className="text-right">Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data
+            .reverse()
+            .map((bodyWeight: { id: string; createdAt: Date; weight: number }) => (
+              <BodyWeight
+                key={bodyWeight.id}
+                id={bodyWeight.id}
+                date={bodyWeight.createdAt.toLocaleDateString("es-MX")}
+                weight={bodyWeight.weight}
+              />
+            ))}
+        </tbody>
+      </table>
     </div>
-  </div>
-)
-} 
+  )
+}
 
 
 {/* <div className="max-h-full overflow-scroll overflow-x-hidden justify-around">

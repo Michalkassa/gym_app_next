@@ -12,17 +12,21 @@ export default async function LogList(props: {exerciseId: string}) {
   }
 
   return (
-    <div className="text-white">
-      <div className="grid grid-cols-3 border-b border-white/10 pb-2 text-xs uppercase tracking-wide text-gray-500">
-        <span>Weight (kg)</span>
-        <span>Reps</span>
-        <span className="text-right">Remove</span>
-      </div>
-      <div className="divide-y divide-white/5">
-        {data.reverse().map((log:LogProps) => (
+    <div className="table-wrap">
+      <table className="data-table">
+        <thead>
+          <tr>
+            <th>Weight (kg)</th>
+            <th>Reps</th>
+            <th className="text-right">Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.reverse().map((log:LogProps) => (
             <Log key={log.id} id={log.id} weight={log.weight} reps={log.reps} exerciseId={log.exerciseId}/>
-        ))}
-      </div>
+          ))}
+        </tbody>
+      </table>
     </div>
   )
 }

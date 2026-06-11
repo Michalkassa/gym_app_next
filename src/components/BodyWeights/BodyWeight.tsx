@@ -6,7 +6,7 @@ import {useRouter} from "next/navigation"
 import { FaTrashAlt } from "react-icons/fa";
 
 
-export default function BodyWeight({ id , date , weight} : 
+export default function BodyWeight({ id , date , weight} :
     {id: string,
     date: string,
     weight: number,}) {
@@ -19,38 +19,22 @@ export default function BodyWeight({ id , date , weight} :
         router.refresh()
     }
     return(
-        <div key={id} className="border-2 flex justify-around">
-            <p className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{date}</p>
-            <p className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{weight}</p>
-            <div className="flex items-center align-middle">
-                <button onClick={()=>setModalOpenDelete(true)}> <FaTrashAlt color="red" size={20}/> </button>
-            </div>
-            <div>
-            <Modal modalOpen={openModalDelete} setModalOpen={setModalOpenDelete}>
-                <div className="flex flex-col gap-4">
-                    <h3 className="font-bold text-lg">Deleting Bodyweight</h3>
-                    <h2>Are you sure you want to delete it? There is no way to recover it after this point!</h2>
-                    <div className="flex gap-3">
-                    <button
-                        className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 px-3 text-sm/6 font-semibold text-red shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[open]:bg-gray-700"
-                        onClick={handleDelete}
-                        type="submit"
-                        
-                    >
-                    DELETE
-                    </button>
-                    <button
-                        className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[open]:bg-gray-700"
-                        onClick={()=> setModalOpenDelete(false)}
-                        type="submit"
-                        
-                    >
-                    CANCEL
-                    </button>
+        <tr>
+            <td className="text-gray-400">{date}</td>
+            <td>{weight}</td>
+            <td className="text-right">
+                <button aria-label="Delete bodyweight" className="text-gray-500 transition hover:text-red-400" onClick={()=>setModalOpenDelete(true)}> <FaTrashAlt size={16}/> </button>
+                <Modal modalOpen={openModalDelete} setModalOpen={setModalOpenDelete}>
+                    <div className="flex flex-col gap-4">
+                        <h3 className="text-lg font-bold">Delete entry?</h3>
+                        <p className="text-gray-400">This can’t be undone.</p>
+                        <div className="flex gap-3">
+                            <button className="btn-primary bg-red-600 hover:brightness-110" onClick={handleDelete} type="button">Delete</button>
+                            <button className="btn-ghost" onClick={()=> setModalOpenDelete(false)} type="button">Cancel</button>
+                        </div>
                     </div>
-                </div>
-            </Modal>
-            </div>
-        </div>
+                </Modal>
+            </td>
+        </tr>
     )
 }

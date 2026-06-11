@@ -12,25 +12,25 @@ export default async function RecordsList() {
   }
 
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full text-white border-collapse">
+    <div className="table-wrap">
+      <table className="data-table">
         <thead>
-          <tr className="text-left border-b border-gray-600">
-            <th className="p-3">Exercise</th>
-            <th className="p-3">Best weight</th>
-            <th className="p-3">Best est. 1RM</th>
-            <th className="p-3">Best set volume</th>
-            <th className="p-3">1RM achieved</th>
+          <tr>
+            <th>Exercise</th>
+            <th>Best weight</th>
+            <th>Best est. 1RM</th>
+            <th>Best set volume</th>
+            <th>1RM achieved</th>
           </tr>
         </thead>
         <tbody>
           {records.map((r) => (
-            <tr key={r.exerciseId} className="border-b border-gray-700">
-              <td className="p-3 font-semibold">{r.exerciseName}</td>
-              <td className="p-3">{r.bestWeight} kg</td>
-              <td className="p-3">{r.bestOneRepMax} kg</td>
-              <td className="p-3">{r.bestVolume} kg</td>
-              <td className="p-3 text-gray-400">{r.achievedAt}</td>
+            <tr key={r.exerciseId}>
+              <td className="font-semibold">{r.exerciseName}</td>
+              <td>{r.bestWeight} kg</td>
+              <td>{r.bestOneRepMax} kg</td>
+              <td>{r.bestVolume} kg</td>
+              <td className="text-gray-400">{r.achievedAt}</td>
             </tr>
           ))}
         </tbody>

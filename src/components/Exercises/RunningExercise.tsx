@@ -82,33 +82,33 @@ export default function RunningExercise({ id , name, workoutId, exerciseId, subm
     return(
         <div className="card flex flex-col gap-3">
             <p className="text-lg font-semibold text-white">{name}</p>
-            <div className="overflow-x-auto">
-            <table className='w-full border-collapse text-sm text-white'>
+            <div className="table-wrap">
+            <table className='data-table'>
                     <thead>
-                        <tr className="text-left text-xs uppercase tracking-wide text-gray-500">
-                            <th className='py-2 pr-3 font-medium'>Set</th>
-                            <th className='py-2 pr-3 font-medium'>Previous</th>
-                            <th className='py-2 pr-3 font-medium'>kg</th>
-                            <th className='py-2 pr-3 font-medium'>Reps</th>
-                            <th className='py-2 font-medium'></th>
+                        <tr>
+                            <th>Set</th>
+                            <th>Previous</th>
+                            <th>kg</th>
+                            <th>Reps</th>
+                            <th></th>
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-white/5">
+                    <tbody>
                     {sets.map((i) => (
                     <tr key={sets.indexOf(i)}>
-                        <td className='py-2 pr-3 text-gray-400'>
+                        <td className='text-gray-400'>
                             {sets.indexOf(i) + 1}
                         </td>
-                        {lastSets && <td className='py-2 pr-3 text-gray-500' >
+                        {lastSets && <td className='text-gray-500' >
                         {lastSets[sets.indexOf(i)] && lastSets[sets.indexOf(i)].reps} x {lastSets[sets.indexOf(i)] && lastSets[sets.indexOf(i)].weight} kg
                         </td>}
-                        <td className='py-2 pr-3' >
+                        <td>
                             <input autoComplete="false" id="weight" name="weight" type="number" aria-label="Weight in kilograms" value={i.weight} onChange={e => changeWeightValue(sets.indexOf(i),Number(e.target.value))} className="input-field max-w-20 px-2 py-1 text-center"/>
                         </td>
-                        <td className='py-2 pr-3' >
+                        <td>
                             <input autoComplete="false" id="reps" name="reps" type="number" aria-label="Repetitions" placeholder="10" value={i.reps} onChange={e => changeRepsValue(sets.indexOf(i),Number(e.target.value))} className="input-field max-w-20 px-2 py-1 text-center"/>
                         </td>
-                        <td className='py-2'>
+                        <td>
                             <button aria-label="Delete set" className="text-gray-500 transition hover:text-red-400" onClick={() => deleteSet(sets.indexOf(i))}>Delete</button>
                         </td>
                     </tr>))}

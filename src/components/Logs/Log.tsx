@@ -31,22 +31,22 @@ export default function Log({ id , weight , reps, exerciseId} : LogProps) {
     }
 
     return(
-        <div key={id} className="grid grid-cols-3 items-center py-3 text-sm text-white">
-            <p>{weight}</p>
-            <p>{reps}</p>
-            <div className="flex justify-end">
+        <tr>
+            <td>{weight}</td>
+            <td>{reps}</td>
+            <td className="text-right">
                 <button aria-label="Delete log" className="text-gray-500 transition hover:text-red-400" onClick={()=>setModalOpenDelete(true)}> <FaTrashAlt size={16}/> </button>
-            </div>
-            <Modal modalOpen={openModalDelete} setModalOpen={setModalOpenDelete}>
-                <div className="flex flex-col gap-4">
-                    <h3 className="text-lg font-bold">Delete log?</h3>
-                    <p className="text-gray-400">This can’t be undone.</p>
-                    <div className="flex gap-3">
-                    <button className="btn-primary bg-red-600 hover:brightness-110" onClick={handleDelete} type="button">Delete</button>
-                    <button className="btn-ghost" onClick={()=> setModalOpenDelete(false)} type="button">Cancel</button>
+                <Modal modalOpen={openModalDelete} setModalOpen={setModalOpenDelete}>
+                    <div className="flex flex-col gap-4">
+                        <h3 className="text-lg font-bold">Delete log?</h3>
+                        <p className="text-gray-400">This can’t be undone.</p>
+                        <div className="flex gap-3">
+                        <button className="btn-primary bg-red-600 hover:brightness-110" onClick={handleDelete} type="button">Delete</button>
+                        <button className="btn-ghost" onClick={()=> setModalOpenDelete(false)} type="button">Cancel</button>
+                        </div>
                     </div>
-                </div>
-            </Modal>
-        </div>
+                </Modal>
+            </td>
+        </tr>
     )
 }

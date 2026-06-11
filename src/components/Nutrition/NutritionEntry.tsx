@@ -30,25 +30,27 @@ export default function NutritionEntry({
   }
 
   return (
-    <div key={id} className="border-2 flex justify-around items-center text-xs">
-      <p className="p-4">{date}</p>
-      <p className="p-4">{calories} kcal</p>
-      <p className="p-4">P {protein}g</p>
-      <p className="p-4">C {carbs}g</p>
-      <p className="p-4">F {fat}g</p>
-      <button aria-label="Delete entry" onClick={() => setModalOpenDelete(true)}>
-        <FaTrashAlt color="red" size={18} />
-      </button>
-      <Modal modalOpen={openModalDelete} setModalOpen={setModalOpenDelete}>
-        <div className="flex flex-col gap-4">
-          <h3 className="font-bold text-lg">Deleting Entry</h3>
-          <h2>Are you sure you want to delete it? There is no way to recover it after this point!</h2>
-          <div className="flex gap-3">
-            <button className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 px-3 text-sm/6 font-semibold text-red shadow-inner shadow-white/10" onClick={handleDelete} type="button">DELETE</button>
-            <button className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10" onClick={() => setModalOpenDelete(false)} type="button">CANCEL</button>
+    <tr>
+      <td className="text-gray-400">{date}</td>
+      <td>{calories} kcal</td>
+      <td>{protein} g</td>
+      <td>{carbs} g</td>
+      <td>{fat} g</td>
+      <td className="text-right">
+        <button aria-label="Delete entry" className="text-gray-500 transition hover:text-red-400" onClick={() => setModalOpenDelete(true)}>
+          <FaTrashAlt size={16} />
+        </button>
+        <Modal modalOpen={openModalDelete} setModalOpen={setModalOpenDelete}>
+          <div className="flex flex-col gap-4">
+            <h3 className="text-lg font-bold">Delete entry?</h3>
+            <p className="text-gray-400">This can’t be undone.</p>
+            <div className="flex gap-3">
+              <button className="btn-primary bg-red-600 hover:brightness-110" onClick={handleDelete} type="button">Delete</button>
+              <button className="btn-ghost" onClick={() => setModalOpenDelete(false)} type="button">Cancel</button>
+            </div>
           </div>
-        </div>
-      </Modal>
-    </div>
+        </Modal>
+      </td>
+    </tr>
   )
 }

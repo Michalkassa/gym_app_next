@@ -25,18 +25,32 @@ export default async function NutritionList() {
       <div className="h-56">
         <LineChart chartData={chartData} />
       </div>
-      <div className="divide-y divide-gray-800">
-        {[...entries].reverse().map((e) => (
-          <NutritionEntry
-            key={e.id}
-            id={e.id}
-            date={e.createdAt.toLocaleDateString("es-MX")}
-            calories={e.calories}
-            protein={e.protein}
-            carbs={e.carbs}
-            fat={e.fat}
-          />
-        ))}
+      <div className="table-wrap">
+        <table className="data-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Calories</th>
+              <th>Protein</th>
+              <th>Carbs</th>
+              <th>Fat</th>
+              <th className="text-right">Remove</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[...entries].reverse().map((e) => (
+              <NutritionEntry
+                key={e.id}
+                id={e.id}
+                date={e.createdAt.toLocaleDateString("es-MX")}
+                calories={e.calories}
+                protein={e.protein}
+                carbs={e.carbs}
+                fat={e.fat}
+              />
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   )
