@@ -7,12 +7,13 @@ import LoadingComponent from "@/components/Loading";
 export default async function RunningWorkout() {
   const session = await auth();
   if (!session) return redirect("/")
-  return (  
-    <div className="flex flex-col w-screen h-screen">
-          <div><h1 className="text-3xl md:text-5xl text-white py-6 text-center">Pick a workout to start:</h1></div>
-          <div>
-          <StartWorkoutList/>
-          </div>
-    </div>
+  return (
+    <section className="flex flex-col gap-6">
+      <header>
+        <h1 className="page-header">Start a Workout</h1>
+        <p className="mt-1 text-gray-500">Pick a workout to begin your session.</p>
+      </header>
+      <StartWorkoutList/>
+    </section>
   )
 }

@@ -80,40 +80,42 @@ export default function RunningExercise({ id , name, workoutId, exerciseId, subm
 
 
     return(
-        <div className="flex flex-col">
-            <p className="border-t-0 px-6 align-center border-l-0 border-r-0 text-lg whitespace-nowrap p-4">{name}</p>
-            <table className='text-centre min-w-full border-collapse'>
+        <div className="card flex flex-col gap-3">
+            <p className="text-lg font-semibold text-white">{name}</p>
+            <div className="overflow-x-auto">
+            <table className='w-full border-collapse text-sm text-white'>
                     <thead>
-                        <tr className="">
-                            <th className='p-4 border-2 border-black'>Set</th>
-                            <th className='p-4 border-2 border-black'>previous</th>
-                            <th className='p-4 border-2 border-black'>kg</th>
-                            <th className='p-4 border-2 border-black'>reps</th> 
-                            <th className='p-4 border-2 border-black'></th> 
+                        <tr className="text-left text-xs uppercase tracking-wide text-gray-500">
+                            <th className='py-2 pr-3 font-medium'>Set</th>
+                            <th className='py-2 pr-3 font-medium'>Previous</th>
+                            <th className='py-2 pr-3 font-medium'>kg</th>
+                            <th className='py-2 pr-3 font-medium'>Reps</th>
+                            <th className='py-2 font-medium'></th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="divide-y divide-white/5">
                     {sets.map((i) => (
-                    <tr key={sets.indexOf(i)} className="">
-                        <td className='p-4 border-2 border-black text-center'>
+                    <tr key={sets.indexOf(i)}>
+                        <td className='py-2 pr-3 text-gray-400'>
                             {sets.indexOf(i) + 1}
                         </td>
-                        {lastSets && <td className='p-4 border-2 border-black' >
+                        {lastSets && <td className='py-2 pr-3 text-gray-500' >
                         {lastSets[sets.indexOf(i)] && lastSets[sets.indexOf(i)].reps} x {lastSets[sets.indexOf(i)] && lastSets[sets.indexOf(i)].weight} kg
                         </td>}
-                        <td className='p-4 border-2 border-black' >
-                            <input autoComplete="false" id="weight" name="weight" type="number" placeholder="" value={i.weight} onChange={e => changeWeightValue(sets.indexOf(i),Number(e.target.value))} className="input input-bordered text-black max-w-12 rounded-lg text-center"/>
+                        <td className='py-2 pr-3' >
+                            <input autoComplete="false" id="weight" name="weight" type="number" aria-label="Weight in kilograms" value={i.weight} onChange={e => changeWeightValue(sets.indexOf(i),Number(e.target.value))} className="input-field max-w-20 px-2 py-1 text-center"/>
                         </td>
-                        <td className='p-4 border-2 border-black' >
-                            <input autoComplete="false" id="reps" name="reps" type="number" placeholder="10" value={i.reps} onChange={e => changeRepsValue(sets.indexOf(i),Number(e.target.value))} className="input input-bordered text-black max-w-12 rounded-lg text-center"/>
+                        <td className='py-2 pr-3' >
+                            <input autoComplete="false" id="reps" name="reps" type="number" aria-label="Repetitions" placeholder="10" value={i.reps} onChange={e => changeRepsValue(sets.indexOf(i),Number(e.target.value))} className="input-field max-w-20 px-2 py-1 text-center"/>
                         </td>
-                        <td className='p-4 border-2 border-black text-red'>
-                            <button onClick={() => deleteSet(sets.indexOf(i))}>delete</button>
+                        <td className='py-2'>
+                            <button aria-label="Delete set" className="text-gray-500 transition hover:text-red-400" onClick={() => deleteSet(sets.indexOf(i))}>Delete</button>
                         </td>
                     </tr>))}
                     </tbody>
             </table>
-            <button onClick={AddSet}>Add set</button>
+            </div>
+            <button className="btn-ghost self-start" onClick={AddSet}>+ Add set</button>
         </div>
     )
 }

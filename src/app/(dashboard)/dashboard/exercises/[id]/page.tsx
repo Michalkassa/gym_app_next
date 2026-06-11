@@ -16,14 +16,19 @@ export default async function SingleExercisePage({params}:{params:{id : string}}
     
     const id = params.id
     return(
-        <div>
+        <section className="flex flex-col gap-6">
             <ExercisePage id={id} name={exercise?.name} description={exercise?.description} />
-            <div className="flex flex-col gap-10 justify-center align-middle w-screen h-full">
-            <ExerciseChart exerciseId={id}/>
-            <AddLog exerciseId={id}/>
-            <LogList exerciseId={id}/>
+            <div className="card">
+                <h2 className="mb-4 text-lg font-semibold text-white">1RM Progress</h2>
+                <div className="h-56">
+                    <ExerciseChart exerciseId={id}/>
+                </div>
             </div>
-        </div>
+            <AddLog exerciseId={id}/>
+            <div className="card">
+                <LogList exerciseId={id}/>
+            </div>
+        </section>
     )
 
 }

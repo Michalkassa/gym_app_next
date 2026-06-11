@@ -15,11 +15,10 @@ export default async function StartWorkoutList() {
     )
   }
   return (
-    <div className="flex flex-row justify-center items-center flex-wrap gap-3">
+    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {data.reverse().map((workout:WorkoutProps) => (
             <StartWorkout key={workout.id} id={workout.id} name={workout.name} description={workout.description}/>
           ))}
     </div>
-    
   )
 } 

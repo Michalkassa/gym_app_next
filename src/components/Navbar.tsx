@@ -9,7 +9,7 @@ export default async function Navbar() {
   const session = await auth()
   return (
         <div className="flex flex-row justify-between bg-sleek_gray h-10 p-10 md:pl-28 md:pr-28 rounded items-center text-white ">
-            <Link className="flex md:text-3xl text-xl" href="/">TK Atlantis</Link>
+            <Link className="flex md:text-3xl text-xl" href="/">LockedIn</Link>
             <ul className="flex flex-row gap-5 items-right items-center text-sm">
             {session && <Image
       src={session?.user?.image || "/blankUserImage.webp"}

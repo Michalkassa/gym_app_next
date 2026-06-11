@@ -7,19 +7,17 @@ export default async function MostPopularExercisesList() {
   const data = await getMostPopularExercises()
  
   return (
-    <div className="flex flex-row justify-left items-left flex-wrap overflow-y-scroll gap-3">
+    <div className="flex flex-col gap-2">
         { data &&
           data.map((exercise) => (
-            <div key={exercise.id} className="flex p-3 bg-sleek_gray justify-between text-white min-w-full ">
-              <p>{exercise.name}</p>
-              <p>{exercise.logs.length} total Logs</p>
+            <div key={exercise.id} className="flex justify-between rounded-xl bg-white/[0.03] px-4 py-3 text-sm text-white">
+              <p className="font-medium">{exercise.name}</p>
+              <p className="text-gray-400">{exercise.logs.length} logs</p>
             </div>
           ))}
           {(data.length == 0) &&
-          <p className="flex p-3 justify-between text-white min-w-full "> No exercises created </p>
+          <p className="text-gray-500">No exercises created yet.</p>
           }
-
     </div>
-    
   )
 } 

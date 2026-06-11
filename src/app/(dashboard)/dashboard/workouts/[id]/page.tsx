@@ -18,13 +18,14 @@ export default async function SingleWorkoutpage({params}:{params:{id : string}})
     const exercises = await getExercises()
 
     return(
-        <div className="">
+        <section className="flex flex-col gap-6">
             <WorkoutPage id={params.id} name={workout?.name} description={workout?.description} />
             <AddExerciseToWorkout workoutId={params.id} exercises={exercises}/>
-            <div className="flex flex-row gap-10 justify-center align-middle w-screen h-full">
-            <ExerciseWorkoutList id={params.id}></ExerciseWorkoutList>
+            <div className="card">
+                <h2 className="mb-4 text-lg font-semibold text-white">Exercises</h2>
+                <ExerciseWorkoutList id={params.id}></ExerciseWorkoutList>
             </div>
-        </div>
+        </section>
     )
 
 }

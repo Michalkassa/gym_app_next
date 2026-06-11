@@ -16,12 +16,10 @@ export default async function RunningWorkoutpage({params}:{params:{id : string}}
     
     const ExercisesWorkoutPairs = await getExercisesWorkoutPairs(workout?.id)
     return(
-        <div className="text-white flex justify-center">
-            <div className="flex flex-col">
-                <h1 className="text-5xl">{workout?.name}</h1>
-                <RunningExerciseList pairs={ExercisesWorkoutPairs}></RunningExerciseList>
-            </div>
-        </div>
+        <section className="flex flex-col gap-6 text-white">
+            <h1 className="page-header">{workout?.name}</h1>
+            <RunningExerciseList pairs={ExercisesWorkoutPairs}></RunningExerciseList>
+        </section>
     )
 
 }

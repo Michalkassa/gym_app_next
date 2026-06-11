@@ -1,8 +1,8 @@
 "use client"
 import { deleteWorkout , editWorkout } from "@/app/api/auth/actions";
-import { MdDelete } from "react-icons/md";
+import { FaLongArrowAltLeft, FaPen, FaRegTrashAlt } from "react-icons/fa";
 import Modal from "@/components/Modal"
-import Link from "next/link" 
+import Link from "next/link"
 import {useState} from "react"
 import {useRouter} from "next/navigation"
 
@@ -14,7 +14,7 @@ interface WorkoutProps {
 }
 
 
-export default function WorkoutPage({ id , name , description} : WorkoutProps){
+export default function WorkoutPage({ id , name , description } : WorkoutProps){
     const router = useRouter()
     const [openModalDelete, setModalOpenDelete] = useState<boolean>(false);
     const [openModalNameEdit, setModalNameOpenEdit] = useState<boolean>(false);
@@ -29,86 +29,77 @@ export default function WorkoutPage({ id , name , description} : WorkoutProps){
         router.refresh()
     }
     async function handleNameEdit() {
+        await editWorkout(id,nameToEdit,descriptionToEdit)
         setModalNameOpenEdit(false)
         router.refresh()
     }
-
     async function handleDescriptionEdit() {
+        await editWorkout(id,nameToEdit,descriptionToEdit)
         setModalDescriptionOpenEdit(false)
         router.refresh()
     }
 
     return(
-        <div className="text-white">
-        <div className="flex justify-between px-3">
-        <Link className="text-3xl text-white flex gap-4 items-center" href="/dashboard/workouts">back</Link>
-        <button className="flex text-3xl items-center align-middle text-red" onClick={()=>setModalOpenDelete(true)}> <MdDelete/></button>
-        <Modal modalOpen={openModalDelete} setModalOpen={setModalOpenDelete}>
+        <div className="flex flex-col gap-4 text-white">
+            {/* Top bar */}
+            <div className="flex items-center justify-between">
+                <Link className="flex items-center gap-2 text-sm text-gray-400 transition hover:text-white" href="/dashboard/workouts">
+                    <FaLongArrowAltLeft /> Back
+                </Link>
+                <button className="btn-ghost text-red-400" onClick={()=>setModalOpenDelete(true)}>
+                    <FaRegTrashAlt /> Delete
+                </button>
+            </div>
+
+            {/* Title + description card */}
+            <div className="card">
+                <div className="flex items-start justify-between gap-3">
+                    <h1 className="page-header">{name}</h1>
+                    <button aria-label="Edit name" className="mt-2 text-gray-400 transition hover:text-white" onClick={()=>setModalNameOpenEdit(true)}>
+                        <FaPen size={16} />
+                    </button>
+                </div>
+                <div className="mt-2 flex items-start justify-between gap-3">
+                    <p className="whitespace-pre-wrap break-words text-gray-400">{description}</p>
+                    <button aria-label="Edit description" className="shrink-0 text-gray-400 transition hover:text-white" onClick={()=>setModalDescriptionOpenEdit(true)}>
+                        <FaPen size={14} />
+                    </button>
+                </div>
+            </div>
+
+            {/* Delete confirm */}
+            <Modal modalOpen={openModalDelete} setModalOpen={setModalOpenDelete}>
                 <div className="flex flex-col gap-4">
-                    <h3 className="font-bold text-lg">Deleting Workout {name}</h3>
-                    <h2>Are you sure you want to delete it? There is no way to recover it after this point!</h2>
+                    <h3 className="text-lg font-bold">Delete workout “{name}”?</h3>
+                    <p className="text-gray-400">This can’t be undone.</p>
                     <div className="flex gap-3">
-                    <button
-                        className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 px-3 text-sm/6 font-semibold text-red shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
-                        onClick={handleDelete}
-                        type="submit"
-                        
-                    >
-                    DELETE
-                    </button>
-                    <button
-                        className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
-                        onClick={()=> setModalOpenDelete(false)}
-                        type="submit"
-                        
-                    >
-                    CANCEL
-                    </button>
+                        <button className="btn-primary bg-red-600 hover:brightness-110" onClick={handleDelete} type="button">Delete</button>
+                        <button className="btn-ghost" onClick={()=> setModalOpenDelete(false)} type="button">Cancel</button>
                     </div>
                 </div>
             </Modal>
-        </div>
-        <div className="flex flex-col justify-center items-center">
-            <div className="flex items-center justify-center gap-3">
-                <h1 className="text-3xl pb-3">{name}</h1>
-                <button className="flex text-xl items-center align-middle text-atlantis_blue" onClick={()=>setModalNameOpenEdit(true)}> Edit </button>
-                <Modal modalOpen={openModalNameEdit} setModalOpen={setModalNameOpenEdit}>
-                    <div className="flex flex-col gap-4">
-                        <h3 className="font-bold text-lg">Editing Workout {name}</h3>
-                        <form autoComplete="off" action={() => editWorkout(id,nameToEdit,descriptionToEdit)} onSubmit={handleNameEdit} className="flex gap-3">
-                            <input maxLength={15} autoComplete="false" required value={nameToEdit} onChange={(e) => setNameToEdit(e.target.value)} id="name" name="name" type="text" placeholder="Type Name of the workout Here..." className="input input-bordered w-full text-black p-3"></input>
-                            <button
-                                className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 px-3 text-sm/6 font-semibold text-red shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
-                                 type="submit"
-                        
-                            >
-                            Submit
-                            </button>
-                        </form>
-                    </div>
-                </Modal> 
-            </div>
-            <div className="flex gap-3">
-            <p className="text-justify max-w-28 md:max-w-64 break-words h-full">{description}</p>
-                <button className="flex text-xl items-center align-middle text-atlantis_blue" onClick={()=>setModalDescriptionOpenEdit(true)}> Edit </button>
-                <Modal modalOpen={openModalDescriptionEdit} setModalOpen={setModalDescriptionOpenEdit}>
-                    <div className="flex flex-col gap-4">
-                        <h3 className="font-bold text-lg">Editing Workout {name}</h3>
-                        <form autoComplete="off" action={() => editWorkout(id,nameToEdit,descriptionToEdit)} onSubmit={handleDescriptionEdit} className="flex flex-col gap-3">
-                            <textarea required value={descriptionToEdit} onChange={(e) => setDescriptionToEdit(e.target.value)} id="name" name="name" placeholder="Type the description of the Workout Here..." className="input input-bordered w-full text-black p-3 h-96"></textarea>
-                            <button
-                                className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
-                                 type="submit"
-                        
-                            >
-                            Submit
-                            </button>
-                        </form>
-                    </div>
-                </Modal>
-            </div>
-        </div>
+
+            {/* Edit name */}
+            <Modal modalOpen={openModalNameEdit} setModalOpen={setModalNameOpenEdit}>
+                <div className="flex flex-col gap-4">
+                    <h3 className="text-lg font-bold">Edit name</h3>
+                    <form autoComplete="off" action={() => editWorkout(id,nameToEdit,descriptionToEdit)} onSubmit={handleNameEdit} className="flex flex-col gap-3">
+                        <input maxLength={15} autoComplete="false" required value={nameToEdit} onChange={(e) => setNameToEdit(e.target.value)} id="name" name="name" type="text" placeholder="Workout name" className="input-field"></input>
+                        <button className="btn-primary" type="submit">Save</button>
+                    </form>
+                </div>
+            </Modal>
+
+            {/* Edit description */}
+            <Modal modalOpen={openModalDescriptionEdit} setModalOpen={setModalDescriptionOpenEdit}>
+                <div className="flex flex-col gap-4">
+                    <h3 className="text-lg font-bold">Edit description</h3>
+                    <form autoComplete="off" action={() => editWorkout(id,nameToEdit,descriptionToEdit)} onSubmit={handleDescriptionEdit} className="flex flex-col gap-3">
+                        <textarea required value={descriptionToEdit} onChange={(e) => setDescriptionToEdit(e.target.value)} id="description" name="description" placeholder="Description" className="input-field h-64"></textarea>
+                        <button className="btn-primary" type="submit">Save</button>
+                    </form>
+                </div>
+            </Modal>
         </div>
     )
-
 }

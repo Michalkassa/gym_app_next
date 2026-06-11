@@ -435,7 +435,6 @@ export const addWorkout = async (prevState:prevState,formData: FormData) => {
             authorId : session?.user?.id!,
         }
     })
-    await awardXp(session?.user?.id, XP_PER_WORKOUT)
     revalidatePath("/dashboard/workouts")
     revalidatePath("/dashboard/runningworkout")
     return {message: "", valid: true}

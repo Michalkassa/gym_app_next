@@ -14,17 +14,16 @@ export default function AddExerciseToWorkout (props : {exercises: ExerciseProps[
         return(
             <div className="w-full">
             <div className="w-full flex justify-center">
-            <button onClick={() => setModalOpen(true)} className='w-auto bg-atlantis_blue rounded-md p-5'> Add new Exercise</button>
+            <button onClick={() => setModalOpen(true)} className="btn-primary"> Add Exercise</button>
             </div>
             <Modal modalOpen={modalOpen} setModalOpen={setModalOpen}>
-                <h1>No exercises available, go create some exercises</h1>
-                    <button
-              className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 p-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
-              onClick={() => {setModalOpen(false)}}
-              type="submit"
-            >
-              close
-            </button>
+                <div className="flex flex-col gap-4">
+                <h3 className="text-lg font-bold">No exercises available</h3>
+                <p className="text-gray-400">Create some exercises first, then add them here.</p>
+                <button className="btn-ghost" onClick={() => {setModalOpen(false)}} type="button">
+                  Close
+                </button>
+                </div>
             </Modal>
             </div>
         )
@@ -50,22 +49,19 @@ export default function AddExerciseToWorkout (props : {exercises: ExerciseProps[
   return (
     <div className="w-full">
       <div className="w-full flex justify-center">
-      <button onClick={() => setModalOpen(true)} className='w-auto bg-atlantis_blue rounded-md p-5'> Add new Exercise</button>
+      <button onClick={() => setModalOpen(true)} className="btn-primary"> Add Exercise</button>
       </div>
       <Modal modalOpen={modalOpen} setModalOpen={setModalOpen}>
-        <form autoComplete="off" className="flex flex-col gap-3 text-black" onSubmit={handleSumbit}>
-          <label className="text-white text-lg">Add an exercise to this workout</label>
-            <select required onChange={e => setExerciseId(e.target.value)}>
+        <form autoComplete="off" className="flex flex-col gap-3" onSubmit={handleSumbit}>
+          <label className="text-lg font-bold text-white">Add an exercise to this workout</label>
+            <select required onChange={e => setExerciseId(e.target.value)} className="input-field">
             <option value='DEFAULT'>Choose an Exercise</option>
             {props.exercises.map((exercise: ExerciseProps) => (
-            <option className="text-black" key={exercise.id} value={exercise.id}>{exercise.name}</option>
+            <option key={exercise.id} value={exercise.id}>{exercise.name}</option>
             ))}
             </select>
-            <p className="text-red-600">{errorMessage}</p>
-            <button
-              className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 p-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
-              type="submit"
-            >
+            <p className="text-red-500 text-sm">{errorMessage}</p>
+            <button className="btn-primary" type="submit">
               Submit
             </button>
         </form>

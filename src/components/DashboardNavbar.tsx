@@ -29,7 +29,6 @@ export default async function DashboardNavbar() {
     <div className="flex h-screen w-72 flex-col border-r border-white/5 bg-sleek_gray">
       {/* Brand */}
       <Link href="/dashboard" className="flex items-center gap-2 px-6 py-5">
-        <Image src="/logo.png" alt="LockedIn logo" width={28} height={28} className="rounded" />
         <span className="text-lg font-semibold tracking-tight text-white">LockedIn</span>
       </Link>
 

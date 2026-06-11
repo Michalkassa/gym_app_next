@@ -12,21 +12,15 @@ interface WorkoutProps {
 export default async function StartWorkout({ id , name , description} : WorkoutProps) {
      const pairs = await getExercisesWorkoutPairs(id)
     return(
-        <Link href={`/dashboard/runningworkout/${id}`}>
-        <div key={id} className="w-90 h-64 hover:scale-110 duration-200 p-3">
-            <div className="flex flex-col bg-sleek_gray p-10 justify-center text-white h-full">
-                <h1 className="flex text-3xl justify-center">{name}</h1>
-                <p className="flex text-center justify-center limited-text">{description.slice(0, 15)}...</p>
-                <h2>Exercises:</h2>
-                <ul>
-                        {pairs.map((pair) => (
-                        <li key={pair.id}>
-                            <p className="text-sm">- {pair.exercise.name}</p>
-                        </li>
-                        ))}
-                </ul>
-            </div>
-        </div>
+        <Link key={id} href={`/dashboard/runningworkout/${id}`} className="card flex flex-col transition hover:border-white/10 hover:bg-white/[0.05]">
+            <h3 className="text-lg font-semibold text-white">{name}</h3>
+            <p className="mt-1 text-sm text-gray-400 limited-text">{description}</p>
+            <ul className="mt-3 flex-1 space-y-1">
+                {pairs.map((pair) => (
+                    <li key={pair.id} className="text-sm text-gray-500">{pair.exercise.name}</li>
+                ))}
+            </ul>
+            <span className="btn-primary mt-4 w-full">Start</span>
         </Link>
     )
 }
