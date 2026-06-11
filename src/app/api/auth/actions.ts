@@ -15,6 +15,7 @@ import {
     firstError,
 } from '@/lib/validation'
 import { oneRepMaxCalculator } from '@/lib/fitness'
+import { weeklyStats, activityByDay, personalRecords } from '@/lib/analytics'
 
 type prevState = {
     message: string;
@@ -558,4 +559,36 @@ export const getPreviousLogs = async ( exerciseId: string, orderOfPrevious: numb
         take: orderOfPrevious,
     })
     return logs
+}
+
+// Derived training analytics computed from the user's logs. Returns only plain,
+// serializable data so it can be passed straight into client chart components.
+export const getTrainingAnalytics = async () => {
+    const session = await auth();
+    const logs = await prisma.log.findMany({
+        where: { authorId: session?.user?.id },
+        orderBy: { createdAt: 'asc' },
+        include: { exercise: true },
+    })
+
+    const simple = logs.map((l) => ({
+        createdAt: l.createdAt,
+        weight: l.weight,
+        reps: l.reps,
+        oneRepMax: l.oneRepMax,
+    }))
+    const withExercise = logs.map((l) => ({
+        createdAt: l.createdAt,
+        weight: l.weight,
+        reps: l.reps,
+        oneRepMax: l.oneRepMax,
+        exerciseId: l.exerciseId,
+        exerciseName: l.exercise.name,
+    }))
+
+    return {
+        weekly: weeklyStats(simple),
+        activity: Array.from(activityByDay(simple), ([date, count]) => ({ date, count })),
+        records: personalRecords(withExercise),
+    }
 }
