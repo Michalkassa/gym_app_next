@@ -1,7 +1,21 @@
 "use client"
 import { useEffect, useState } from "react";
-import Chart from "chart.js/auto";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Filler,
+  Tooltip,
+  Legend,
+} from "chart.js";
 import { Line } from "react-chartjs-2";
+
+// Explicitly register the pieces this chart uses. Importing "chart.js/auto"
+// instead is unreliable here: with the Chart binding unused, the bundler
+// tree-shakes the side-effectful import away and scales go unregistered.
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
 
 const ACCENT = "#5b8def"; // lightened atlantis_blue for contrast on dark
 
