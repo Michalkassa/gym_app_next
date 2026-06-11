@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif">
+  <rect width="1000" height="620" fill="#0a0a0a"/>
+
+  <!-- sidebar -->
+  <rect x="0" y="0" width="180" height="620" fill="#121212"/>
+  <line x1="180" y1="0" x2="180" y2="620" stroke="rgba(255,255,255,0.06)"/>
+  <text x="24" y="44" fill="#ffffff" font-size="18" font-weight="700">LockedIn</text>
+  <rect x="16" y="64" width="148" height="46" rx="14" fill="rgba(255,255,255,0.03)"/>
+  <circle cx="40" cy="87" r="14" fill="#264d8d"/>
+  <rect x="62" y="82" width="84" height="9" rx="4" fill="rgba(255,255,255,0.1)"/>
+  <!-- xp bar -->
+  <rect x="16" y="120" width="148" height="6" rx="3" fill="rgba(255,255,255,0.1)"/>
+  <rect x="16" y="120" width="96" height="6" rx="3" fill="#264d8d"/>
+  <g fill="#9ca3af" font-size="13">
+    <rect x="16" y="150" width="148" height="34" rx="10" fill="rgba(255,255,255,0.06)"/>
+    <text x="48" y="172" fill="#ffffff">Dashboard</text>
+    <text x="48" y="208">Start Workout</text>
+    <text x="48" y="244">Workouts</text>
+    <text x="48" y="280">Programs</text>
+    <text x="48" y="316">Exercises</text>
+    <text x="48" y="352">Records</text>
+    <text x="48" y="388">Nutrition</text>
+    <text x="48" y="424">Body Weight</text>
+  </g>
+
+  <!-- content -->
+  <text x="212" y="52" fill="#ffffff" font-size="30" font-weight="700">Dashboard</text>
+  <text x="212" y="76" fill="#6b7280" font-size="14">Your training at a glance.</text>
+
+  <!-- quick actions -->
+  <g>
+    <rect x="212" y="96" width="180" height="56" rx="14" fill="#264d8d"/>
+    <text x="236" y="130" fill="#ffffff" font-size="14">Start Workout</text>
+    <rect x="404" y="96" width="180" height="56" rx="14" fill="#121212" stroke="rgba(255,255,255,0.06)"/>
+    <text x="428" y="130" fill="#e5e7eb" font-size="14">Workouts</text>
+    <rect x="596" y="96" width="180" height="56" rx="14" fill="#121212" stroke="rgba(255,255,255,0.06)"/>
+    <text x="620" y="130" fill="#e5e7eb" font-size="14">Exercises</text>
+    <rect x="788" y="96" width="180" height="56" rx="14" fill="#121212" stroke="rgba(255,255,255,0.06)"/>
+    <text x="812" y="130" fill="#e5e7eb" font-size="14">Records</text>
+  </g>
+
+  <!-- bodyweight chart card -->
+  <rect x="212" y="172" width="372" height="180" rx="16" fill="#121212" stroke="rgba(255,255,255,0.06)"/>
+  <text x="236" y="202" fill="#ffffff" font-size="15" font-weight="600">Bodyweight Progress</text>
+  <polyline points="236,320 290,308 344,312 398,296 452,300 506,284 560,272"
+            fill="none" stroke="#5b8def" stroke-width="2.5"/>
+  <path d="M236,320 290,308 344,312 398,296 452,300 506,284 560,272 560,332 236,332 Z" fill="#264d8d" opacity="0.18"/>
+
+  <!-- popular exercises card -->
+  <rect x="596" y="172" width="372" height="180" rx="16" fill="#121212" stroke="rgba(255,255,255,0.06)"/>
+  <text x="620" y="202" fill="#ffffff" font-size="15" font-weight="600">Popular Exercises</text>
+  <g>
+    <rect x="620" y="216" width="324" height="34" rx="10" fill="rgba(255,255,255,0.03)"/>
+    <text x="636" y="238" fill="#e5e7eb" font-size="13">Bench Press</text>
+    <text x="930" y="238" fill="#9ca3af" font-size="12" text-anchor="end">42 logs</text>
+    <rect x="620" y="256" width="324" height="34" rx="10" fill="rgba(255,255,255,0.03)"/>
+    <text x="636" y="278" fill="#e5e7eb" font-size="13">Back Squat</text>
+    <text x="930" y="278" fill="#9ca3af" font-size="12" text-anchor="end">38 logs</text>
+    <rect x="620" y="296" width="324" height="34" rx="10" fill="rgba(255,255,255,0.03)"/>
+    <text x="636" y="318" fill="#e5e7eb" font-size="13">Deadlift</text>
+    <text x="930" y="318" fill="#9ca3af" font-size="12" text-anchor="end">25 logs</text>
+  </g>
+
+  <!-- weekly volume + heatmap card -->
+  <rect x="212" y="372" width="756" height="216" rx="16" fill="#121212" stroke="rgba(255,255,255,0.06)"/>
+  <text x="236" y="402" fill="#ffffff" font-size="15" font-weight="600">Weekly Volume</text>
+  <polyline points="236,470 320,452 404,458 488,430 572,438 656,412 740,420 824,398 908,404"
+            fill="none" stroke="#5b8def" stroke-width="2.5"/>
+  <text x="236" y="512" fill="#ffffff" font-size="15" font-weight="600">Activity</text>
+  <g>
+    <!-- mini heatmap -->
+    <g transform="translate(236,524)">
+      <rect width="11" height="11" rx="2" x="0" y="0" fill="#1d1d1d"/>
+      <rect width="11" height="11" rx="2" x="15" y="0" fill="#14532d"/>
+      <rect width="11" height="11" rx="2" x="30" y="0" fill="#15803d"/>
+      <rect width="11" height="11" rx="2" x="45" y="0" fill="#22c55e"/>
+      <rect width="11" height="11" rx="2" x="60" y="0" fill="#1d1d1d"/>
+      <rect width="11" height="11" rx="2" x="75" y="0" fill="#4ade80"/>
+      <rect width="11" height="11" rx="2" x="90" y="0" fill="#15803d"/>
+      <rect width="11" height="11" rx="2" x="105" y="0" fill="#1d1d1d"/>
+      <rect width="11" height="11" rx="2" x="120" y="0" fill="#22c55e"/>
+      <rect width="11" height="11" rx="2" x="135" y="0" fill="#14532d"/>
+      <rect width="11" height="11" rx="2" x="150" y="0" fill="#1d1d1d"/>
+      <rect width="11" height="11" rx="2" x="165" y="0" fill="#15803d"/>
+      <rect width="11" height="11" rx="2" x="180" y="0" fill="#4ade80"/>
+      <rect width="11" height="11" rx="2" x="195" y="0" fill="#22c55e"/>
+      <rect width="11" height="11" rx="2" x="0" y="15" fill="#14532d"/>
+      <rect width="11" height="11" rx="2" x="15" y="15" fill="#1d1d1d"/>
+      <rect width="11" height="11" rx="2" x="30" y="15" fill="#22c55e"/>
+      <rect width="11" height="11" rx="2" x="45" y="15" fill="#15803d"/>
+      <rect width="11" height="11" rx="2" x="60" y="15" fill="#4ade80"/>
+      <rect width="11" height="11" rx="2" x="75" y="15" fill="#1d1d1d"/>
+      <rect width="11" height="11" rx="2" x="90" y="15" fill="#14532d"/>
+      <rect width="11" height="11" rx="2" x="105" y="15" fill="#22c55e"/>
+      <rect width="11" height="11" rx="2" x="120" y="15" fill="#1d1d1d"/>
+      <rect width="11" height="11" rx="2" x="135" y="15" fill="#15803d"/>
+      <rect width="11" height="11" rx="2" x="150" y="15" fill="#4ade80"/>
+      <rect width="11" height="11" rx="2" x="165" y="15" fill="#22c55e"/>
+      <rect width="11" height="11" rx="2" x="180" y="15" fill="#1d1d1d"/>
+      <rect width="11" height="11" rx="2" x="195" y="15" fill="#14532d"/>
+    </g>
+  </g>
+</svg>

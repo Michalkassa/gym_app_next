@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif">
+  <rect width="900" height="430" fill="#0a0a0a"/>
+  <text x="40" y="52" fill="#ffffff" font-size="30" font-weight="700">Personal Records</text>
+  <text x="40" y="76" fill="#6b7280" font-size="14">Your best lifts, and export your data.</text>
+
+  <!-- export buttons -->
+  <g font-size="12">
+    <rect x="40" y="92" width="92" height="34" rx="10" fill="#121212" stroke="rgba(255,255,255,0.06)"/>
+    <text x="86" y="114" fill="#e5e7eb" text-anchor="middle">Logs CSV</text>
+    <rect x="142" y="92" width="132" height="34" rx="10" fill="#121212" stroke="rgba(255,255,255,0.06)"/>
+    <text x="208" y="114" fill="#e5e7eb" text-anchor="middle">Bodyweight CSV</text>
+    <rect x="284" y="92" width="118" height="34" rx="10" fill="#121212" stroke="rgba(255,255,255,0.06)"/>
+    <text x="343" y="114" fill="#e5e7eb" text-anchor="middle">Nutrition CSV</text>
+    <rect x="412" y="92" width="172" height="34" rx="10" fill="#121212" stroke="rgba(255,255,255,0.06)"/>
+    <text x="498" y="114" fill="#e5e7eb" text-anchor="middle">Progress report (PDF)</text>
+  </g>
+
+  <!-- table card -->
+  <rect x="40" y="142" width="820" height="262" rx="16" fill="#121212" stroke="rgba(255,255,255,0.06)"/>
+  <g fill="#6b7280" font-size="11" letter-spacing="0.6">
+    <text x="64" y="178">EXERCISE</text>
+    <text x="300" y="178">BEST WEIGHT</text>
+    <text x="470" y="178">BEST 1RM</text>
+    <text x="620" y="178">SET VOLUME</text>
+    <text x="760" y="178">ACHIEVED</text>
+  </g>
+  <line x1="64" y1="190" x2="836" y2="190" stroke="rgba(255,255,255,0.1)"/>
+  <g font-size="13">
+    <text x="64" y="222" fill="#ffffff" font-weight="600">Bench Press</text>
+    <text x="300" y="222" fill="#e5e7eb">100 kg</text>
+    <text x="470" y="222" fill="#e5e7eb">112 kg</text>
+    <text x="620" y="222" fill="#e5e7eb">500 kg</text>
+    <text x="760" y="222" fill="#9ca3af">2026-06-08</text>
+    <line x1="64" y1="236" x2="836" y2="236" stroke="rgba(255,255,255,0.05)"/>
+    <text x="64" y="266" fill="#ffffff" font-weight="600">Back Squat</text>
+    <text x="300" y="266" fill="#e5e7eb">140 kg</text>
+    <text x="470" y="266" fill="#e5e7eb">158 kg</text>
+    <text x="620" y="266" fill="#e5e7eb">700 kg</text>
+    <text x="760" y="266" fill="#9ca3af">2026-05-30</text>
+    <line x1="64" y1="280" x2="836" y2="280" stroke="rgba(255,255,255,0.05)"/>
+    <text x="64" y="310" fill="#ffffff" font-weight="600">Deadlift</text>
+    <text x="300" y="310" fill="#e5e7eb">180 kg</text>
+    <text x="470" y="310" fill="#e5e7eb">203 kg</text>
+    <text x="620" y="310" fill="#e5e7eb">900 kg</text>
+    <text x="760" y="310" fill="#9ca3af">2026-06-01</text>
+    <line x1="64" y1="324" x2="836" y2="324" stroke="rgba(255,255,255,0.05)"/>
+    <text x="64" y="354" fill="#ffffff" font-weight="600">Overhead Press</text>
+    <text x="300" y="354" fill="#e5e7eb">60 kg</text>
+    <text x="470" y="354" fill="#e5e7eb">68 kg</text>
+    <text x="620" y="354" fill="#e5e7eb">300 kg</text>
+    <text x="760" y="354" fill="#9ca3af">2026-05-22</text>
+  </g>
+</svg>

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif">
+  <rect width="1000" height="560" fill="#0a0a0a"/>
+  <!-- top bar -->
+  <text x="48" y="56" fill="#ffffff" font-size="22" font-weight="700">LockedIn</text>
+  <rect x="760" y="36" width="80" height="34" rx="10" fill="none" stroke="rgba(255,255,255,0.12)"/>
+  <text x="800" y="58" fill="#e5e7eb" font-size="13" text-anchor="middle">Sign in</text>
+  <rect x="852" y="36" width="100" height="34" rx="10" fill="#264d8d"/>
+  <text x="902" y="58" fill="#ffffff" font-size="13" text-anchor="middle">Sign up</text>
+  <!-- hero -->
+  <rect x="392" y="150" width="216" height="28" rx="14" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/>
+  <text x="500" y="169" fill="#a1a1aa" font-size="12" text-anchor="middle">Your training, locked in</text>
+  <text x="500" y="244" fill="#ffffff" font-size="52" font-weight="700" text-anchor="middle">Lift with confidence.</text>
+  <text x="500" y="284" fill="#9ca3af" font-size="17" text-anchor="middle">Log workouts, track your strength, and stay on top of your goals.</text>
+  <rect x="408" y="312" width="110" height="40" rx="11" fill="#264d8d"/>
+  <text x="463" y="338" fill="#ffffff" font-size="14" text-anchor="middle">Get started</text>
+  <rect x="528" y="312" width="92" height="40" rx="11" fill="none" stroke="rgba(255,255,255,0.12)"/>
+  <text x="574" y="338" fill="#e5e7eb" font-size="14" text-anchor="middle">Sign in</text>
+  <!-- feature cards -->
+  <g>
+    <rect x="120" y="408" width="240" height="120" rx="16" fill="#121212" stroke="rgba(255,255,255,0.06)"/>
+    <rect x="144" y="432" width="36" height="36" rx="10" fill="#264d8d"/>
+    <text x="144" y="496" fill="#ffffff" font-size="15" font-weight="600">Track every set</text>
+    <rect x="144" y="508" width="180" height="8" rx="4" fill="rgba(255,255,255,0.08)"/>
+  </g>
+  <g>
+    <rect x="380" y="408" width="240" height="120" rx="16" fill="#121212" stroke="rgba(255,255,255,0.06)"/>
+    <rect x="404" y="432" width="36" height="36" rx="10" fill="#264d8d"/>
+    <text x="404" y="496" fill="#ffffff" font-size="15" font-weight="600">See your progress</text>
+    <rect x="404" y="508" width="180" height="8" rx="4" fill="rgba(255,255,255,0.08)"/>
+  </g>
+  <g>
+    <rect x="640" y="408" width="240" height="120" rx="16" fill="#121212" stroke="rgba(255,255,255,0.06)"/>
+    <rect x="664" y="432" width="36" height="36" rx="10" fill="#264d8d"/>
+    <text x="664" y="496" fill="#ffffff" font-size="15" font-weight="600">Stay accountable</text>
+    <rect x="664" y="508" width="180" height="8" rx="4" fill="rgba(255,255,255,0.08)"/>
+  </g>
+</svg>

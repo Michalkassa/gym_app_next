@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 410" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif">
+  <rect width="900" height="410" fill="#0a0a0a"/>
+  <text x="40" y="52" fill="#ffffff" font-size="30" font-weight="700">Programs</text>
+  <text x="40" y="76" fill="#6b7280" font-size="14">Pick a proven training program to copy into your workouts.</text>
+
+  <!-- card template -->
+  <g>
+    <rect x="40" y="100" width="260" height="280" rx="16" fill="#121212" stroke="rgba(255,255,255,0.06)"/>
+    <text x="170" y="142" fill="#ffffff" font-size="19" font-weight="700" text-anchor="middle">PPL Push</text>
+    <text x="170" y="166" fill="#9ca3af" font-size="12" text-anchor="middle">Chest, shoulders, triceps.</text>
+    <g fill="#6b7280" font-size="13">
+      <text x="64" y="200">Barbell Bench Press</text>
+      <text x="64" y="224">Overhead Press</text>
+      <text x="64" y="248">Incline Dumbbell Press</text>
+      <text x="64" y="272">Lateral Raise</text>
+      <text x="64" y="296">Tricep Pushdown</text>
+    </g>
+    <rect x="64" y="324" width="212" height="38" rx="11" fill="#264d8d"/>
+    <text x="170" y="348" fill="#ffffff" font-size="13" text-anchor="middle">Use this program</text>
+  </g>
+  <g>
+    <rect x="320" y="100" width="260" height="280" rx="16" fill="#121212" stroke="rgba(255,255,255,0.06)"/>
+    <text x="450" y="142" fill="#ffffff" font-size="19" font-weight="700" text-anchor="middle">StrongLifts A</text>
+    <text x="450" y="166" fill="#9ca3af" font-size="12" text-anchor="middle">StrongLifts 5x5 workout A.</text>
+    <g fill="#6b7280" font-size="13">
+      <text x="344" y="200">Back Squat</text>
+      <text x="344" y="224">Barbell Bench Press</text>
+      <text x="344" y="248">Bent Over Row</text>
+    </g>
+    <rect x="344" y="324" width="212" height="38" rx="11" fill="#264d8d"/>
+    <text x="450" y="348" fill="#ffffff" font-size="13" text-anchor="middle">Use this program</text>
+  </g>
+  <g>
+    <rect x="600" y="100" width="260" height="280" rx="16" fill="#121212" stroke="rgba(255,255,255,0.06)"/>
+    <text x="730" y="142" fill="#ffffff" font-size="19" font-weight="700" text-anchor="middle">Starting Strength A</text>
+    <text x="730" y="166" fill="#9ca3af" font-size="12" text-anchor="middle">Starting Strength workout A.</text>
+    <g fill="#6b7280" font-size="13">
+      <text x="624" y="200">Back Squat</text>
+      <text x="624" y="224">Barbell Bench Press</text>
+      <text x="624" y="248">Deadlift</text>
+    </g>
+    <rect x="624" y="324" width="212" height="38" rx="11" fill="#264d8d"/>
+    <text x="730" y="348" fill="#ffffff" font-size="13" text-anchor="middle">Use this program</text>
+  </g>
+</svg>

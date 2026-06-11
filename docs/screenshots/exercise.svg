@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif">
+  <rect width="900" height="480" fill="#0a0a0a"/>
+
+  <!-- top bar -->
+  <text x="40" y="44" fill="#9ca3af" font-size="13">&#8592; Back</text>
+  <rect x="772" y="26" width="88" height="32" rx="10" fill="none" stroke="rgba(255,255,255,0.12)"/>
+  <text x="816" y="47" fill="#f87171" font-size="12" text-anchor="middle">Delete</text>
+
+  <!-- title card -->
+  <rect x="40" y="70" width="820" height="86" rx="16" fill="#121212" stroke="rgba(255,255,255,0.06)"/>
+  <text x="64" y="110" fill="#ffffff" font-size="26" font-weight="700">Barbell Bench Press</text>
+  <text x="64" y="136" fill="#9ca3af" font-size="13">Lie on a flat bench, lower the bar to mid-chest, press up to lockout.</text>
+
+  <!-- 1RM chart card -->
+  <rect x="40" y="170" width="500" height="290" rx="16" fill="#121212" stroke="rgba(255,255,255,0.06)"/>
+  <text x="64" y="200" fill="#ffffff" font-size="15" font-weight="600">1RM Progress</text>
+  <g stroke="rgba(255,255,255,0.06)">
+    <line x1="64" y1="240" x2="516" y2="240"/>
+    <line x1="64" y1="300" x2="516" y2="300"/>
+    <line x1="64" y1="360" x2="516" y2="360"/>
+    <line x1="64" y1="420" x2="516" y2="420"/>
+  </g>
+  <path d="M64,408 130,392 196,398 262,372 328,378 394,350 460,332 516,318 516,420 64,420 Z" fill="#264d8d" opacity="0.18"/>
+  <polyline points="64,408 130,392 196,398 262,372 328,378 394,350 460,332 516,318" fill="none" stroke="#5b8def" stroke-width="2.5"/>
+
+  <!-- logs table card -->
+  <rect x="560" y="170" width="300" height="290" rx="16" fill="#121212" stroke="rgba(255,255,255,0.06)"/>
+  <g fill="#6b7280" font-size="11" letter-spacing="0.6">
+    <text x="584" y="200">WEIGHT</text>
+    <text x="700" y="200">REPS</text>
+  </g>
+  <line x1="584" y1="210" x2="836" y2="210" stroke="rgba(255,255,255,0.1)"/>
+  <g font-size="13" fill="#e5e7eb">
+    <text x="584" y="238">102.5 kg</text><text x="700" y="238">4</text>
+    <line x1="584" y1="252" x2="836" y2="252" stroke="rgba(255,255,255,0.05)"/>
+    <text x="584" y="280">100 kg</text><text x="700" y="280">5</text>
+    <line x1="584" y1="294" x2="836" y2="294" stroke="rgba(255,255,255,0.05)"/>
+    <text x="584" y="322">95 kg</text><text x="700" y="322">5</text>
+    <line x1="584" y1="336" x2="836" y2="336" stroke="rgba(255,255,255,0.05)"/>
+    <text x="584" y="364">95 kg</text><text x="700" y="364">6</text>
+    <line x1="584" y1="378" x2="836" y2="378" stroke="rgba(255,255,255,0.05)"/>
+    <text x="584" y="406">90 kg</text><text x="700" y="406">6</text>
+  </g>
+</svg>

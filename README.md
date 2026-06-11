@@ -17,53 +17,55 @@
 </div>
 
 <p align="center">
-  <img src="docs/screenshots/landing.png" alt="LockedIn landing page" width="900" />
+  <img src="docs/screenshots/landing.svg" alt="LockedIn landing page" width="900" />
 </p>
 
 LockedIn is a progressive web app built with **Next.js (App Router) and TypeScript**. Workouts and progress are stored in **PostgreSQL via Prisma**, auth is handled by **NextAuth**, and the whole stack runs with a single `docker compose up`.
 
+> The previews below are stylised SVG mockups of the interface (same dark theme, layout and palette as the running app).
+
 ---
 
-## ✨ Features
+## Features
 
-### 📊 Dashboard
+### Dashboard
 Everything at a glance — quick actions, your bodyweight trend, most-trained exercises, weekly volume, and a GitHub-style activity heatmap that rolls to today.
 
-<p align="center"><img src="docs/screenshots/dashboard.png" alt="Dashboard" width="900" /></p>
+<p align="center"><img src="docs/screenshots/dashboard.svg" alt="Dashboard" width="900" /></p>
 
-### 🏋️ Workouts & a live set tracker
+### Workouts and a live set tracker
 Build workouts from your exercises and run a live session that records each set, shows your previous numbers, and awards XP when you finish.
 
-<p align="center"><img src="docs/screenshots/live-workout.png" alt="Live workout tracker" width="900" /></p>
+<p align="center"><img src="docs/screenshots/live-workout.svg" alt="Live workout tracker" width="900" /></p>
 
-### 💪 Exercises & automatic 1RM
+### Exercises and automatic 1RM
 Log weight × reps and LockedIn estimates your one-rep max (Brzycki formula) and charts it over time. Pick from a built-in library of 30+ exercises tagged by muscle group, or add your own.
 
-<p align="center"><img src="docs/screenshots/exercise.png" alt="Exercise detail with 1RM chart" width="900" /></p>
+<p align="center"><img src="docs/screenshots/exercise.svg" alt="Exercise detail with 1RM chart" width="900" /></p>
 
-### 📋 Prebuilt programs
+### Prebuilt programs
 Start from proven programs — Push/Pull/Legs, StrongLifts 5×5, Starting Strength — and copy them into your account in one click.
 
-<p align="center"><img src="docs/screenshots/programs.png" alt="Programs" width="900" /></p>
+<p align="center"><img src="docs/screenshots/programs.svg" alt="Programs" width="900" /></p>
 
-### 🏆 Personal records & data export
+### Personal records and data export
 Track your best weight, estimated 1RM and set volume per exercise, and export everything to CSV or a generated PDF progress report.
 
-<p align="center"><img src="docs/screenshots/records.png" alt="Personal records" width="900" /></p>
+<p align="center"><img src="docs/screenshots/records.svg" alt="Personal records" width="900" /></p>
 
-### 🍎 Nutrition with daily goals
+### Nutrition with daily goals
 Set a daily calorie & macro goal, log meals (enter calories or auto-calculate them from macros), and see what's remaining for the day.
 
-<p align="center"><img src="docs/screenshots/nutrition.png" alt="Nutrition tracking" width="900" /></p>
+<p align="center"><img src="docs/screenshots/nutrition.svg" alt="Nutrition tracking" width="900" /></p>
 
-### 🔥 Activity heatmap & gamification
+### Activity heatmap and gamification
 A full trailing-year contribution graph (with a year selector for history) plus an XP/level system that rewards consistency.
 
-<p align="center"><img src="docs/screenshots/heatmap.png" alt="Activity heatmap" width="900" /></p>
+<p align="center"><img src="docs/screenshots/heatmap.svg" alt="Activity heatmap" width="820" /></p>
 
 ---
 
-## 🧱 Tech stack
+## Tech stack
 
 | Layer | Tech |
 |------|------|
@@ -79,7 +81,7 @@ A full trailing-year contribution graph (with a year selector for history) plus 
 
 ---
 
-## 🚀 Getting started
+## Getting started
 
 ### Option A — Docker (recommended)
 
@@ -103,7 +105,7 @@ npm run dev
 
 ---
 
-## 🧪 Testing
+## Testing
 
 Unit tests (1RM math, validation, analytics, XP, nutrition, CSV) run with [Vitest](https://vitest.dev/):
 
@@ -114,6 +116,6 @@ npm run test:watch    # watch mode
 
 ---
 
-## 📸 Screenshots
+## Screenshots
 
-The images above live in [`docs/screenshots/`](docs/screenshots). See that folder's README for the exact filenames and a quick guide to (re)capturing them.
+The previews above are stylised SVG mockups in [`docs/screenshots/`](docs/screenshots). To swap in real screenshots of your running instance, see that folder's README for the filenames and a capture guide.

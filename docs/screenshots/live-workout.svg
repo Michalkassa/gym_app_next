@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif">
+  <rect width="900" height="430" fill="#0a0a0a"/>
+  <text x="40" y="52" fill="#ffffff" font-size="30" font-weight="700">Push Day</text>
+
+  <rect x="40" y="74" width="820" height="44" rx="12" fill="#16a34a"/>
+  <text x="450" y="102" fill="#ffffff" font-size="15" font-weight="600" text-anchor="middle">Finish Workout</text>
+
+  <!-- exercise card -->
+  <rect x="40" y="134" width="820" height="266" rx="16" fill="#121212" stroke="rgba(255,255,255,0.06)"/>
+  <text x="64" y="168" fill="#ffffff" font-size="17" font-weight="600">Barbell Bench Press</text>
+
+  <g fill="#6b7280" font-size="11" letter-spacing="0.6">
+    <text x="64" y="200">SET</text>
+    <text x="160" y="200">PREVIOUS</text>
+    <text x="360" y="200">KG</text>
+    <text x="520" y="200">REPS</text>
+  </g>
+  <line x1="64" y1="210" x2="836" y2="210" stroke="rgba(255,255,255,0.1)"/>
+
+  <!-- rows -->
+  <g font-size="13">
+    <text x="64" y="242" fill="#9ca3af">1</text>
+    <text x="160" y="242" fill="#6b7280">5 x 95 kg</text>
+    <rect x="360" y="226" width="70" height="26" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/>
+    <text x="395" y="244" fill="#ffffff" text-anchor="middle">100</text>
+    <rect x="520" y="226" width="70" height="26" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/>
+    <text x="555" y="244" fill="#ffffff" text-anchor="middle">5</text>
+    <text x="800" y="244" fill="#6b7280">Delete</text>
+    <line x1="64" y1="258" x2="836" y2="258" stroke="rgba(255,255,255,0.05)"/>
+
+    <text x="64" y="290" fill="#9ca3af">2</text>
+    <text x="160" y="290" fill="#6b7280">5 x 95 kg</text>
+    <rect x="360" y="274" width="70" height="26" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/>
+    <text x="395" y="292" fill="#ffffff" text-anchor="middle">100</text>
+    <rect x="520" y="274" width="70" height="26" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/>
+    <text x="555" y="292" fill="#ffffff" text-anchor="middle">5</text>
+    <text x="800" y="292" fill="#6b7280">Delete</text>
+    <line x1="64" y1="306" x2="836" y2="306" stroke="rgba(255,255,255,0.05)"/>
+
+    <text x="64" y="338" fill="#9ca3af">3</text>
+    <text x="160" y="338" fill="#6b7280">4 x 95 kg</text>
+    <rect x="360" y="322" width="70" height="26" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/>
+    <text x="395" y="340" fill="#ffffff" text-anchor="middle">102.5</text>
+    <rect x="520" y="322" width="70" height="26" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/>
+    <text x="555" y="340" fill="#ffffff" text-anchor="middle">4</text>
+    <text x="800" y="340" fill="#6b7280">Delete</text>
+  </g>
+
+  <rect x="64" y="360" width="96" height="30" rx="9" fill="none" stroke="rgba(255,255,255,0.1)"/>
+  <text x="112" y="380" fill="#e5e7eb" font-size="12" text-anchor="middle">+ Add set</text>
+</svg>
