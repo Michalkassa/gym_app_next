@@ -6,6 +6,7 @@ import { FaDumbbell } from "react-icons/fa6";
 import { IoBody } from "react-icons/io5";
 import { FaClipboardList } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
+import { FaTrophy } from "react-icons/fa";
 
 export default async function PhoneDashboardNavbar(){
     const session = await auth()
@@ -49,6 +50,14 @@ export default async function PhoneDashboardNavbar(){
                         <div className="flex flex-col w-full justify-center items-center h-20 gap-2">
                         <div className="flex justify-center items-center"><IoBody size={25}/></div>
                         <div className="flex items-center text-sm" >Exercises</div>
+                        </div>
+                    </Link>
+                </li>
+                <li className="scale-100 hover:scale-105 duration-100">
+                    <Link href="/dashboard/records">
+                        <div className="flex flex-col w-full justify-center items-center h-20 gap-2">
+                        <div className="flex justify-center items-center"><FaTrophy size={25}/></div>
+                        <div className="flex items-center text-xs">Records</div>
                         </div>
                     </Link>
                 </li>

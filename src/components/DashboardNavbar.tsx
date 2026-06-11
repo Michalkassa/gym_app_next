@@ -8,6 +8,7 @@ import { FaDumbbell } from "react-icons/fa6";
 import { IoBody } from "react-icons/io5";
 import { FaClipboardList } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
+import { FaTrophy } from "react-icons/fa";
 
 export default async function DashboardNavbar(){
     const session = await auth()
@@ -57,6 +58,14 @@ export default async function DashboardNavbar(){
                 <div className="flex w-full h-24   ">
                 <div className="flex justify-center items-center" style={{flex:'40%'}} ><IoBody size={25}/></div>
                 <div className="flex items-center" style={{flex:'60%'}}>Exercises</div>
+                </div>
+            </Link>
+            </li>
+            <li className="scale-100 hover:scale-105 duration-100">
+            <Link href="/dashboard/records">
+                <div className="flex w-full h-24   ">
+                <div className="flex justify-center items-center" style={{flex:'40%'}} ><FaTrophy size={25}/></div>
+                <div className="flex items-center" style={{flex:'60%'}}>Records</div>
                 </div>
             </Link>
             </li>

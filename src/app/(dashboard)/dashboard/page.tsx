@@ -1,5 +1,6 @@
 import  BodyWeightChart  from "@/components/BodyWeights/BodyWeightChart"
 import MostPopularExercisesList from "@/components/Exercises/MostPopularExercisesList";
+import TrainingSummary from "@/components/Analytics/TrainingSummary";
 import { redirect } from "next/navigation"
 import { auth } from "@/app/api/auth/auth";
 import LoadingComponent from "@/components/Loading"
@@ -9,8 +10,9 @@ export default async function Dashboard() {
   const session = await auth();
   if (!session) return redirect("/")
 
-  return (  
-    <div className="flex flex-col h-full md:grid md:grid-rows-2 md:grid-cols-dashboard_elements md:gap-5 gap-3 p-1 md:p7 justify-between">
+  return (
+   <div className="flex flex-col gap-3 md:gap-5 p-1 md:p7">
+    <div className="flex flex-col h-full md:grid md:grid-rows-2 md:grid-cols-dashboard_elements md:gap-5 gap-3 justify-between">
       <div className="bg-sleek_gray bg-opacity-40 rounded-3xl p-7">
         <Link href="/dashboard/bodyweights">
         <h1 className="text-white">Bodyweight Progress</h1>
@@ -28,5 +30,7 @@ export default async function Dashboard() {
         <Link href="/dashboard/runningworkout" className="flex w-full bg-atlantis_blue bg-opacity-40 justify-center items-center text-white p-4">Start Workout</Link>
       </div>
     </div>
+    <TrainingSummary />
+   </div>
   )
 }
