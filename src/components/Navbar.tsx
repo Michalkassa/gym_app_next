@@ -1,29 +1,19 @@
 import Link from "next/link"
 import { SignInButton } from "./SignInButton"
-import { SignOutButton } from "./SignOutButton";
 import { SignUpButton } from "./SignUpButton";
+import { DashboardButton } from "./DashboardButton";
 import { auth } from "@/app/api/auth/auth";
-import Image from "next/image"
 
 export default async function Navbar() {
   const session = await auth()
   return (
-        <div className="flex flex-row justify-between bg-sleek_gray h-10 p-10 md:pl-28 md:pr-28 rounded items-center text-white ">
-            <Link className="flex md:text-3xl text-xl" href="/">LockedIn</Link>
-            <ul className="flex flex-row gap-5 items-right items-center text-sm">
-            {session && <Image
-      src={session?.user?.image || "/blankUserImage.webp"}
-      width={50}
-      height={50}
-      alt="Your profile picture"
-      className="rounded-xl hidden sm:flex"
-    />}
-              {session && <p className="hidden sm:flex">{session?.user?.email}</p>}
-                {!session && <li className=""><SignInButton/></li>}
-                {!session && <li className=""><SignUpButton/></li>}
-                {session && <li className=""><SignOutButton/></li>}
-                {session && <li><Link href="/dashboard" className="">Dashboard</Link></li>}
-            </ul>
-        </div>
+    <header className="flex items-center justify-between px-6 py-5 md:px-12">
+      <Link className="text-xl font-semibold tracking-tight text-white md:text-2xl" href="/">LockedIn</Link>
+      <nav className="flex items-center gap-3">
+        {!session && <SignInButton/>}
+        {!session && <SignUpButton/>}
+        {session && <DashboardButton/>}
+      </nav>
+    </header>
   );
 }
