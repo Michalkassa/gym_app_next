@@ -2,6 +2,7 @@ import {auth} from "@/app/api/auth/auth"
 import Link from "next/link"
 import { BsSkipStartFill } from "react-icons/bs";
 import { FaWeightScale } from "react-icons/fa6";
+import { FaDumbbell } from "react-icons/fa6";
 import { IoBody } from "react-icons/io5";
 import { FaClipboardList } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
@@ -34,6 +35,14 @@ export default async function PhoneDashboardNavbar(){
                         <div className="flex items-center text-xs">Start Workout</div>
                         </div>
                 </Link>
+                </li>
+                <li className="scale-100 hover:scale-105 duration-100">
+                    <Link href="/dashboard/programs">
+                        <div className="flex flex-col w-full justify-center items-center h-20 gap-2">
+                        <div className="flex justify-center items-center"><FaDumbbell size={25}/></div>
+                        <div className="flex items-center text-xs">Programs</div>
+                        </div>
+                    </Link>
                 </li>
                 <li className="scale-100 hover:scale-105 duration-100">
                     <Link href="/dashboard/exercises">

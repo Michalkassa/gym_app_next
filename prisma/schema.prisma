@@ -111,6 +111,10 @@ model Workout {
   name        String
   description String
   authorId    String
+  // Public program templates (e.g. PPL, StrongLifts) owned by the system user
+  // that any user can copy into their own account.
+  isTemplate  Boolean  @default(false)
+  isPublic    Boolean  @default(false)
   createdAt   DateTime @default(now())
 
   user      User                  @relation(fields: [authorId], references: [id], onDelete: Cascade)
