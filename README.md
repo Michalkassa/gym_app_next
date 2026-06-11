@@ -116,6 +116,3 @@ npm run test:watch    # watch mode
 
 ---
 
-## Screenshots
-
-The previews above are stylised SVG mockups in [`docs/screenshots/`](docs/screenshots). To swap in real screenshots of your running instance, see that folder's README for the filenames and a capture guide.
