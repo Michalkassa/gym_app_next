@@ -8,29 +8,29 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
- 
+
 generator client {
   provider = "prisma-client-js"
 }
- 
+
 model User {
-  id            String          @id @default(cuid())
+  id            String        @id @default(cuid())
   name          String?
-  email         String          @unique
+  email         String        @unique
   password      String
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
   exercises     Exercise[]
-  bodyweights   Body_Weight[] 
-  logs          Log[] 
+  bodyweights   Body_Weight[]
+  logs          Log[]
   workouts      Workout[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
- 
+
 model Account {
   userId            String
   type              String
@@ -43,84 +43,95 @@ model Account {
   scope             String?
   id_token          String?
   session_state     String?
- 
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
- 
+
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+
   @@id([provider, providerAccountId])
 }
- 
+
 model Session {
   sessionToken String   @unique
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
- 
+
 model VerificationToken {
   identifier String
   token      String
   expires    DateTime
- 
+
   @@id([identifier, token])
 }
- 
+
 model Body_Weight {
-  id        String     @default(cuid()) @id
+  id        String   @id @default(cuid())
   weight    Float
-  authorId  String 
+  authorId  String
   createdAt DateTime @default(now())
 
   user User @relation(fields: [authorId], references: [id], onDelete: Cascade)
 }
 
 model Exercise {
-  id          String     @default(cuid()) @id
+  id          String   @id @default(cuid())
   name        String
   description String
+  muscleGroup String?
+  equipment   String?
   authorId    String
   createdAt   DateTime @default(now())
 
-  logs Log[]
-  user User @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  workouts  ExercisesOnWorkouts[]
+  logs     Log[]
+  user     User                  @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  workouts ExercisesOnWorkouts[]
 }
 
-
 model Log {
-  id          String     @default(cuid()) @id
-  weight      Float
-  reps        Int   
-  oneRepMax   Int
-  exerciseId  String 
-  authorId    String
-  createdAt   DateTime @default(now())
+  id         String   @id @default(cuid())
+  weight     Float
+  reps       Int
+  oneRepMax  Int
+  exerciseId String
+  authorId   String
+  createdAt  DateTime @default(now())
 
-  user User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  user     User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
   exercise Exercise @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
 }
 
-
 model Workout {
-  id          String     @default(cuid()) @id 
+  id          String   @id @default(cuid())
   name        String
   description String
   authorId    String
   createdAt   DateTime @default(now())
 
-  user User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  user      User                  @relation(fields: [authorId], references: [id], onDelete: Cascade)
   exercises ExercisesOnWorkouts[]
 }
 
-model ExercisesOnWorkouts{
-  id          String     @default(cuid()) @id 
-  exercise    Exercise @relation(fields: [exerciseId], references: [id], onDelete: Cascade)    
-  exerciseId  String
-  workout     Workout @relation(fields: [workoutId], references: [id], onDelete: Cascade)    
-  workoutId   String
+model ExercisesOnWorkouts {
+  id         String   @id @default(cuid())
+  exercise   Exercise @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
+  exerciseId String
+  workout    Workout  @relation(fields: [workoutId], references: [id], onDelete: Cascade)
+  workoutId  String
+}
+
+// Global, read-only library of common exercises users can pick from when
+// creating their own Exercise. Not scoped to a user.
+model ExerciseCatalog {
+  id           String   @id @default(cuid())
+  name         String   @unique
+  muscleGroup  String
+  equipment    String
+  instructions String
+  createdAt    DateTime @default(now())
 }
