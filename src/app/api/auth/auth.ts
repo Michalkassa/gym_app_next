@@ -28,7 +28,7 @@ export const config = {
           if (!user || !user.password) {
             return null
           }
-          const isPasswordValid =  bcrypt.compare(credentials.password as string, user.password as string)
+          const isPasswordValid = await bcrypt.compare(credentials.password as string, user.password as string)
 
           if (!isPasswordValid) {
             return null

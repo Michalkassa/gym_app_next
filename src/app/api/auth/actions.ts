@@ -5,43 +5,30 @@ import {redirect} from "next/navigation"
 import { signIn } from '@/app/api/auth/auth'
 import { auth } from './auth'
 import bcrypt from 'bcryptjs'
-
-//Brzycki - The most popular 1 rep max calculation formula from Matt Brzycki
-const oneRepMaxCalculator = (kgWeight: number, repetitions: number):number => {
-    return  Math.floor((kgWeight / ( 1.0278 + (-0.0278 * repetitions))))
-}
+import {
+    loginSchema,
+    registerSchema,
+    exerciseSchema,
+    workoutSchema,
+    bodyWeightSchema,
+    logSchema,
+    firstError,
+} from '@/lib/validation'
+import { oneRepMaxCalculator } from '@/lib/fitness'
 
 type prevState = {
     message: string;
 }
 
 export const SignIn = async (prevState:prevState, formData: FormData) => {
-    const email = formData.get("email") as string
-    const password = formData.get("password") as string
-    
-    if (!email && !password){
-        return { message: "Login data s is Missing"}
-    } 
-    if (!email){
-        return { message: "Please Enter an Email"}
-    } 
-    if (!password){
-        return { message: "Please Enter a Password"}
-    } 
-
-    let validEmail = false
-    for(let i = 0; i <= email.length; i++){
-        if(email[i] == '@'){
-            validEmail = true
-            break
-        }
+    const parsed = loginSchema.safeParse({
+        email: formData.get("email"),
+        password: formData.get("password"),
+    })
+    if (!parsed.success) {
+        return { message: firstError(parsed.error) }
     }
-
-    if(validEmail == false){
-        return { message: "Not a valid email"}
-    }
-
-
+    const { email, password } = parsed.data
 
     try {
         const user = await prisma.user.findUnique({
@@ -54,7 +41,7 @@ export const SignIn = async (prevState:prevState, formData: FormData) => {
           return { message: "credentials not correct"}
         }
 
-        const isPasswordValid = bcrypt.compare(password as string , user.password as string)
+        const isPasswordValid = await bcrypt.compare(password as string , user.password as string)
 
         if (!isPasswordValid) {
           return { message: "credentials not correct"}
@@ -68,25 +55,15 @@ export const SignIn = async (prevState:prevState, formData: FormData) => {
 }
 
 export const registerUser = async (prevState:prevState, formData: FormData) => {
-    const email = formData.get("email") as string
-    const password = formData.get("password") as string
-    const repeatPassword = formData.get("confirm-password") as string
-
-    if (!email && !password){
-        return { message: "Login data is Missing"}
-    } 
-    if (!email){
-        return { message: "Please enter an Email"}
-    } 
-    if (!password){
-        return { message: "Please enter a password"}
-    } 
-    if (password != repeatPassword){
-        return { message: "Passwords are not identical"}
-    } 
-    if (password.length < 5){
-        return { message: "Password too short "}
-    } 
+    const parsed = registerSchema.safeParse({
+        email: formData.get("email"),
+        password: formData.get("password"),
+        confirmPassword: formData.get("confirm-password"),
+    })
+    if (!parsed.success) {
+        return { message: firstError(parsed.error) }
+    }
+    const { email, password } = parsed.data
 
     try {
         const user = await prisma.user.findUnique({
@@ -146,17 +123,17 @@ export const getWeights = async () => {
 
 export const addBodyWeight = async (prevState:prevState, formData: FormData) => {
     const session = await auth();
-    const bodyWeight = formData.get('weight');
-    if(!bodyWeight){
-        return {message: "Please Enter a Weight"}
+    const parsed = bodyWeightSchema.safeParse({ weight: formData.get('weight') })
+    if (!parsed.success) {
+        return { message: firstError(parsed.error) }
     }
-    const createWeight = await prisma.body_Weight.create({ 
+    const createWeight = await prisma.body_Weight.create({
         data: {
-            weight: Number(bodyWeight),
+            weight: parsed.data.weight,
             authorId : session?.user?.id!
         }
     })
-    revalidatePath("/dasboard/bodyweights")
+    revalidatePath("/dashboard/bodyweights")
     return {valid: true, message: ""}
 };
 
@@ -189,26 +166,35 @@ export const getExercises = async () => {
 
 export const addExercise = async (prevState:prevState, formData: FormData) => {
     const session = await auth();
-    const name = formData.get('name') as string;
-    const description = formData.get('description') as string;
-
-    if(name.length > 15){
-        return {message: "Please choose a Shorter name"}
+    const parsed = exerciseSchema.safeParse({
+        name: formData.get('name'),
+        description: formData.get('description'),
+        muscleGroup: formData.get('muscleGroup') ?? undefined,
+        equipment: formData.get('equipment') ?? undefined,
+    })
+    if (!parsed.success) {
+        return { message: firstError(parsed.error) }
     }
+    const { name, description, muscleGroup, equipment } = parsed.data
 
-    if(name == "" || description == ""){
-        return {message: "Enter the Name and a Description"}
-    }
-
-    const createdExercise = await prisma.exercise.create({ 
+    const createdExercise = await prisma.exercise.create({
         data: {
             name: name,
             description: description,
+            muscleGroup: muscleGroup || null,
+            equipment: equipment || null,
             authorId : session?.user?.id!,
         }
     })
-    revalidatePath("/dasboard/exercises")
+    revalidatePath("/dashboard/exercises")
     return {message: "", valid: true}
+};
+
+export const getExerciseCatalog = async () => {
+    const catalog = await prisma.exerciseCatalog.findMany({
+        orderBy: [{ muscleGroup: 'asc' }, { name: 'asc' }],
+    })
+    return catalog
 };
 
 
@@ -222,7 +208,7 @@ export const getExercise = async (exerciseId:string) => {
                 authorId : session?.user?.id
             },
     })
-    revalidatePath("/dasboard/exercises")
+    revalidatePath("/dashboard/exercises")
     return exercise
 };
 
@@ -243,7 +229,7 @@ export const getMostPopularExercises = async () => {
                 logs: true
             }
     })
-    revalidatePath("/dasboard/exercises")
+    revalidatePath("/dashboard/exercises")
     return mostPopularExercises
 };
 
@@ -256,7 +242,7 @@ export const deleteExercise = async (exerciseId:string) => {
         authorId : session?.user?.id
         },
     })
-    revalidatePath("/dasboard/exercises")
+    revalidatePath("/dashboard/exercises")
 };
 
 
@@ -274,8 +260,8 @@ export const editExercise = async (exerciseId:string, exerciseName:string, exerc
             description: newDescription
         },
     });
-    revalidatePath("/dasboard/exercises")
-    revalidatePath(`/dasboard/exercises/${exerciseId}`)
+    revalidatePath("/dashboard/exercises")
+    revalidatePath(`/dashboard/exercises/${exerciseId}`)
 };
 
 
@@ -298,7 +284,7 @@ export const deleteLog = async (logId:string, exerciseId:string) => {
         id: logId,
         },
     })
-    revalidatePath(`/dasboard/exercises/${exerciseId}`)
+    revalidatePath(`/dashboard/exercises/${exerciseId}`)
 };
 
 
@@ -315,14 +301,16 @@ export const deleteLogs = async (exerciseId:string) => {
 
 export const addLogFromForm = async (prevState:prevState, formData: FormData) => {
     const session = await auth();
-    const exerciseId = formData.get("exerciseId") as string
-    const weight = Number(formData.get("weight"))
-    const reps =  Number(formData.get("reps"))
-
-    if(!exerciseId || !weight || !reps){
-        return {message: "enter a weight and the reps"}
+    const parsed = logSchema.safeParse({
+        exerciseId: formData.get("exerciseId"),
+        weight: formData.get("weight"),
+        reps: formData.get("reps"),
+    })
+    if (!parsed.success) {
+        return { message: firstError(parsed.error) }
     }
-    const createLog = await prisma.log.create({ 
+    const { exerciseId, weight, reps } = parsed.data
+    const createLog = await prisma.log.create({
         data: {
             weight: weight,
             reps: reps,
@@ -331,7 +319,7 @@ export const addLogFromForm = async (prevState:prevState, formData: FormData) =>
             exerciseId: exerciseId,
         }
     })
-    revalidatePath(`/dasboard/exercises/${exerciseId}`)
+    revalidatePath(`/dashboard/exercises/${exerciseId}`)
     return {message: "", valid: true}
 };
 
@@ -351,7 +339,7 @@ export const createManyLogs = async (exerciseId:string, logs: LogProps[]) => {
     const createLog = await prisma.log.createMany({ 
         data: data
     })
-    revalidatePath(`/dasboard/exercises/${exerciseId}`)
+    revalidatePath(`/dashboard/exercises/${exerciseId}`)
 };
 
 
@@ -367,7 +355,7 @@ export const createLog = async (exerciseId:string, reps:number, weight:number) =
             exerciseId: exerciseId,
         }
     })
-    revalidatePath(`/dasboard/exercises/${exerciseId}`)
+    revalidatePath(`/dashboard/exercises/${exerciseId}`)
 };
 
 
@@ -380,7 +368,7 @@ export const getWorkout = async (workoutId : string) => {
             authorId : session?.user?.id,
         }
     })
-    revalidatePath("/dasboard/workouts")
+    revalidatePath("/dashboard/workouts")
     return workout
 };
 
@@ -416,24 +404,23 @@ export const getExercisesWorkoutPairs = async (workoutId:string) => {
 
 export const addWorkout = async (prevState:prevState,formData: FormData) => {
     const session = await auth();
-    const name = formData.get('name') as string;
-    const description = formData.get('description') as string;
-
-    if(name.length > 15){
-        return {message: "Please choose a Shorter name"}
+    const parsed = workoutSchema.safeParse({
+        name: formData.get('name'),
+        description: formData.get('description'),
+    })
+    if (!parsed.success) {
+        return { message: firstError(parsed.error) }
     }
-    if(name == "" || description == ""){
-        return {message: "Enter the Name and a Description"}
-    }
+    const { name, description } = parsed.data
 
-    const createdWorkout = await prisma.workout.create({ 
+    const createdWorkout = await prisma.workout.create({
         data: {
             name: name,
             description: description,
             authorId : session?.user?.id!,
         }
     })
-    revalidatePath("/dasboard/workouts")
+    revalidatePath("/dashboard/workouts")
     revalidatePath("/dashboard/runningworkout")
     return {message: "", valid: true}
 };
@@ -452,8 +439,8 @@ export const editWorkout = async (workoutId:string, workoutName:string, workoutD
             description: newDescription
         },
     });
-    revalidatePath("/dasboard/workouts")
-    revalidatePath(`/dasboard/workouts/${workoutId}`)
+    revalidatePath("/dashboard/workouts")
+    revalidatePath(`/dashboard/workouts/${workoutId}`)
 };
 
 export const deleteWorkout = async (workoutId:string) => {
@@ -465,7 +452,7 @@ export const deleteWorkout = async (workoutId:string) => {
         authorId: session?.user?.id
         },
     })
-    revalidatePath("/dasboard/workouts")
+    revalidatePath("/dashboard/workouts")
 };
 
 
@@ -485,7 +472,7 @@ export const addExerciseToWorkout = async (workoutId:string , exerciseId:string)
         }
     })
 
-    revalidatePath(`/dasboard/workouts/${workoutId}`)
+    revalidatePath(`/dashboard/workouts/${workoutId}`)
     revalidatePath(`/dashboard/runningworkout/${workoutId}`)
 }
 
@@ -495,7 +482,7 @@ export const deleteExerciseToWorkout = async (id: string, workoutId:string) => {
             id: id
         }
     })
-    revalidatePath(`/dasboard/workouts/${workoutId}`)
+    revalidatePath(`/dashboard/workouts/${workoutId}`)
     revalidatePath(`/dashboard/runningworkout/${workoutId}`)
 }
 

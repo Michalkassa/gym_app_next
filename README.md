@@ -18,9 +18,28 @@ The backend uses **PostgreSQL with Prisma ORM** to manage data, while **NextAuth
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## Run with Docker (recommended)
 
-First, run the development server:
+The whole stack (Next.js app + PostgreSQL) runs with a single command:
+
+```bash
+docker compose up --build
+```
+
+This builds the app, starts Postgres, applies the Prisma migrations automatically, and serves the app at [http://localhost:3000](http://localhost:3000). Override `AUTH_SECRET` via an `.env` file (see `.env.example`) for anything beyond local use.
+
+## Testing
+
+Unit tests run with [Vitest](https://vitest.dev/):
+
+```bash
+npm run test        # run once
+npm run test:watch  # watch mode
+```
+
+## Getting Started (local, without Docker)
+
+Copy `.env.example` to `.env` and fill in `DATABASE_URL` and `AUTH_SECRET`, then run the development server:
 
 ```bash
 npm run dev
