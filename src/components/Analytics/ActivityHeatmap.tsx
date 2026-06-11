@@ -13,18 +13,22 @@ function colorFor(count: number): string {
   return "bg-green-400";
 }
 
+function utcDate(d: Date): Date {
+  return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
+}
+
 /** Monday (UTC) on or before the given date. */
 function mondayOnOrBefore(d: Date): Date {
-  const out = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
+  const out = utcDate(d);
   const day = out.getUTCDay(); // 0 = Sun
   out.setUTCDate(out.getUTCDate() - (day === 0 ? 6 : day - 1));
   return out;
 }
 
 /**
- * GitHub-style contribution graph for a selectable calendar year. Columns are
- * weeks (Mon→Sun rows), shaded by logged sets that day, with weekday + month
- * labels, a legend, and a year picker. Future / other-year days render blank.
+ * GitHub-style contribution graph. The current year shows a rolling trailing
+ * 12 months ending today (today is the right-most column); past years show
+ * their full Jan→Dec calendar. Future / out-of-range days render blank.
  */
 export default function ActivityHeatmap({
   activity,
@@ -32,38 +36,46 @@ export default function ActivityHeatmap({
   activity: { date: string; count: number }[];
 }) {
   const counts = new Map(activity.map((a) => [a.date, a.count]));
-  const currentYear = new Date().getUTCFullYear();
+  const today = utcDate(new Date());
+  const currentYear = today.getUTCFullYear();
 
-  // Years to offer: every year present in the data, plus the current year.
   const years = Array.from(
     new Set<number>([currentYear, ...activity.map((a) => Number(a.date.slice(0, 4)))]),
   ).sort((a, b) => b - a);
 
   const [year, setYear] = useState(currentYear);
+  const rolling = year === currentYear;
 
-  // Rectangular grid of whole weeks spanning Jan 1 → Dec 31 of the year.
-  const start = mondayOnOrBefore(new Date(Date.UTC(year, 0, 1)));
-  const yearEnd = new Date(Date.UTC(year, 11, 31));
+  // Window: rolling = last 53 weeks ending on this week; past year = Jan→Dec.
+  const lastMonday = mondayOnOrBefore(today);
+  const start = rolling
+    ? (() => {
+        const s = new Date(lastMonday);
+        s.setUTCDate(s.getUTCDate() - 52 * 7);
+        return s;
+      })()
+    : mondayOnOrBefore(new Date(Date.UTC(year, 0, 1)));
+  const end = rolling ? lastMonday : new Date(Date.UTC(year, 11, 31));
 
-  const columns: { repMonth: number | null; days: { key: string; inYear: boolean; weekday: string; count: number }[] }[] = [];
+  const columns: { repMonth: number | null; days: { key: string; active: boolean; weekday: string; count: number }[] }[] = [];
   const cursor = new Date(start);
-  while (cursor <= yearEnd) {
+  while (cursor <= end) {
     const days = [];
     let repMonth: number | null = null;
     for (let d = 0; d < 7; d++) {
       const day = new Date(cursor);
       day.setUTCDate(cursor.getUTCDate() + d);
-      const inYear = day.getUTCFullYear() === year;
-      if (inYear && repMonth === null) repMonth = day.getUTCMonth();
+      // "active" = a real, colourable cell (past/today, and in-range for a year).
+      const active = rolling ? day <= today : day.getUTCFullYear() === year;
+      if (repMonth === null && (rolling ? d === 0 : active)) repMonth = day.getUTCMonth();
       const key = dayKey(day);
       const weekday = day.toLocaleDateString("en-US", { weekday: "long", timeZone: "UTC" });
-      days.push({ key, inYear, weekday, count: counts.get(key) ?? 0 });
+      days.push({ key, active, weekday, count: counts.get(key) ?? 0 });
     }
     columns.push({ repMonth, days });
     cursor.setUTCDate(cursor.getUTCDate() + 7);
   }
 
-  // Month label on the first column whose in-year month differs from the last.
   let lastLabeled = -1;
   const monthLabels = columns.map((c) => {
     if (c.repMonth !== null && c.repMonth !== lastLabeled) {
@@ -112,7 +124,7 @@ export default function ActivityHeatmap({
               {columns.map((col, i) => (
                 <div key={i} className="flex flex-col gap-[3px]">
                   {col.days.map((cell) =>
-                    cell.inYear ? (
+                    cell.active ? (
                       <div
                         key={cell.key}
                         title={`${cell.weekday} ${cell.key} — ${cell.count} set${cell.count === 1 ? "" : "s"}`}
