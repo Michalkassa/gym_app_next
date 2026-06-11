@@ -20,12 +20,14 @@ model User {
   password      String
   emailVerified DateTime?
   image         String?
+  xp            Int           @default(0)
   accounts      Account[]
   sessions      Session[]
   exercises     Exercise[]
   bodyweights   Body_Weight[]
   logs          Log[]
   workouts      Workout[]
+  nutrition     NutritionEntry[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -127,6 +129,18 @@ model ExercisesOnWorkouts {
   exerciseId String
   workout    Workout  @relation(fields: [workoutId], references: [id], onDelete: Cascade)
   workoutId  String
+}
+
+model NutritionEntry {
+  id        String   @id @default(cuid())
+  calories  Int
+  protein   Float    @default(0)
+  carbs     Float    @default(0)
+  fat       Float    @default(0)
+  authorId  String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [authorId], references: [id], onDelete: Cascade)
 }
 
 // Global, read-only library of common exercises users can pick from when

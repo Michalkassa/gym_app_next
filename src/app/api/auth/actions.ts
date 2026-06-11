@@ -12,10 +12,21 @@ import {
     workoutSchema,
     bodyWeightSchema,
     logSchema,
+    nutritionSchema,
     firstError,
 } from '@/lib/validation'
 import { oneRepMaxCalculator } from '@/lib/fitness'
 import { weeklyStats, activityByDay, personalRecords } from '@/lib/analytics'
+import { levelProgress, XP_PER_SET, XP_PER_WORKOUT } from '@/lib/xp'
+
+// Award XP to the current user. Best-effort: a missing session is a no-op.
+const awardXp = async (userId: string | undefined, amount: number) => {
+    if (!userId || amount <= 0) return
+    await prisma.user.update({
+        where: { id: userId },
+        data: { xp: { increment: amount } },
+    })
+}
 
 type prevState = {
     message: string;
@@ -320,6 +331,7 @@ export const addLogFromForm = async (prevState:prevState, formData: FormData) =>
             exerciseId: exerciseId,
         }
     })
+    await awardXp(session?.user?.id, XP_PER_SET)
     revalidatePath(`/dashboard/exercises/${exerciseId}`)
     return {message: "", valid: true}
 };
@@ -337,9 +349,10 @@ export const createManyLogs = async (exerciseId:string, logs: LogProps[]) => {
         let reps = log.reps
         data.push({weight: weight, reps: reps, authorId: id, oneRepMax: oneRepMaxCalculator(weight,reps), exerciseId: exerciseId})
     }
-    const createLog = await prisma.log.createMany({ 
+    const createLog = await prisma.log.createMany({
         data: data
     })
+    await awardXp(id, data.length * XP_PER_SET)
     revalidatePath(`/dashboard/exercises/${exerciseId}`)
 };
 
@@ -347,7 +360,7 @@ export const createManyLogs = async (exerciseId:string, logs: LogProps[]) => {
 
 export const createLog = async (exerciseId:string, reps:number, weight:number) => {
     const session = await auth();
-    const createLog = await prisma.log.create({ 
+    const createLog = await prisma.log.create({
         data: {
             weight: weight,
             reps: reps,
@@ -356,6 +369,7 @@ export const createLog = async (exerciseId:string, reps:number, weight:number) =
             exerciseId: exerciseId,
         }
     })
+    await awardXp(session?.user?.id, XP_PER_SET)
     revalidatePath(`/dashboard/exercises/${exerciseId}`)
 };
 
@@ -421,6 +435,7 @@ export const addWorkout = async (prevState:prevState,formData: FormData) => {
             authorId : session?.user?.id!,
         }
     })
+    await awardXp(session?.user?.id, XP_PER_WORKOUT)
     revalidatePath("/dashboard/workouts")
     revalidatePath("/dashboard/runningworkout")
     return {message: "", valid: true}
@@ -591,4 +606,61 @@ export const getTrainingAnalytics = async () => {
         activity: Array.from(activityByDay(simple), ([date, count]) => ({ date, count })),
         records: personalRecords(withExercise),
     }
+}
+
+// ----- Nutrition -----
+
+export const getNutritionEntries = async () => {
+    const session = await auth();
+    const entries = await prisma.nutritionEntry.findMany({
+        where: { authorId: session?.user?.id },
+        orderBy: { createdAt: 'asc' },
+    })
+    return entries
+}
+
+export const addNutritionEntry = async (prevState:prevState, formData: FormData) => {
+    const session = await auth();
+    const parsed = nutritionSchema.safeParse({
+        calories: formData.get('calories'),
+        protein: formData.get('protein'),
+        carbs: formData.get('carbs'),
+        fat: formData.get('fat'),
+    })
+    if (!parsed.success) {
+        return { message: firstError(parsed.error) }
+    }
+    const { calories, protein, carbs, fat } = parsed.data
+    await prisma.nutritionEntry.create({
+        data: {
+            calories,
+            protein,
+            carbs,
+            fat,
+            authorId: session?.user?.id!,
+        },
+    })
+    revalidatePath("/dashboard/nutrition")
+    return { message: "", valid: true }
+}
+
+export const deleteNutritionEntry = async (entryId: string) => {
+    const session = await auth();
+    await prisma.nutritionEntry.delete({
+        where: { id: entryId, authorId: session?.user?.id },
+    })
+    revalidatePath("/dashboard/nutrition")
+}
+
+// ----- Gamification -----
+
+export const getUserStats = async () => {
+    const session = await auth();
+    if (!session?.user?.id) return null
+    const user = await prisma.user.findUnique({
+        where: { id: session.user.id },
+        select: { xp: true },
+    })
+    const xp = user?.xp ?? 0
+    return { xp, ...levelProgress(xp) }
 }
