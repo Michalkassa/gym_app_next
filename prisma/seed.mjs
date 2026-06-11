@@ -61,6 +61,107 @@ const catalog = [
   { name: "Cycling", muscleGroup: "Cardio", equipment: "Machine", instructions: "Maintain a steady cadence; adjust resistance for intervals." },
 ];
 
+/**
+ * Prebuilt training programs offered as public, copyable templates. Each entry
+ * is one workout owned by the system user; `exercises` references catalog names.
+ */
+const programs = [
+  {
+    name: "PPL Push",
+    description: "Push day: chest, shoulders, triceps.",
+    exercises: ["Barbell Bench Press", "Overhead Press", "Incline Dumbbell Press", "Lateral Raise", "Tricep Pushdown"],
+  },
+  {
+    name: "PPL Pull",
+    description: "Pull day: back and biceps.",
+    exercises: ["Deadlift", "Pull Up", "Bent Over Row", "Face Pull", "Barbell Curl"],
+  },
+  {
+    name: "PPL Legs",
+    description: "Leg day: quads, hamstrings, calves.",
+    exercises: ["Back Squat", "Romanian Deadlift", "Leg Press", "Leg Curl", "Calf Raise"],
+  },
+  {
+    name: "StrongLifts A",
+    description: "StrongLifts 5x5 workout A.",
+    exercises: ["Back Squat", "Barbell Bench Press", "Bent Over Row"],
+  },
+  {
+    name: "StrongLifts B",
+    description: "StrongLifts 5x5 workout B.",
+    exercises: ["Back Squat", "Overhead Press", "Deadlift"],
+  },
+  {
+    name: "Starting Strength A",
+    description: "Starting Strength workout A.",
+    exercises: ["Back Squat", "Barbell Bench Press", "Deadlift"],
+  },
+  {
+    name: "Starting Strength B",
+    description: "Starting Strength workout B.",
+    exercises: ["Back Squat", "Overhead Press", "Deadlift"],
+  },
+];
+
+const SYSTEM_EMAIL = "system@lockedin.internal";
+
+/** Find-or-create a system-owned Exercise mirroring a catalog entry. */
+async function ensureSystemExercise(authorId, catalogName) {
+  const existing = await prisma.exercise.findFirst({
+    where: { authorId, name: catalogName },
+  });
+  if (existing) return existing;
+  const cat = catalog.find((c) => c.name === catalogName);
+  return prisma.exercise.create({
+    data: {
+      name: catalogName,
+      description: cat?.instructions ?? "",
+      muscleGroup: cat?.muscleGroup ?? null,
+      equipment: cat?.equipment ?? null,
+      authorId,
+    },
+  });
+}
+
+async function seedPrograms() {
+  // System user owns the public templates. It has no usable password, so the
+  // credentials provider can never authenticate as it.
+  const system = await prisma.user.upsert({
+    where: { email: SYSTEM_EMAIL },
+    update: {},
+    create: { email: SYSTEM_EMAIL, name: "LockedIn", password: "!" },
+  });
+
+  for (const program of programs) {
+    let workout = await prisma.workout.findFirst({
+      where: { authorId: system.id, name: program.name, isTemplate: true },
+    });
+    if (!workout) {
+      workout = await prisma.workout.create({
+        data: {
+          name: program.name,
+          description: program.description,
+          authorId: system.id,
+          isTemplate: true,
+          isPublic: true,
+        },
+      });
+    }
+    for (const exName of program.exercises) {
+      const exercise = await ensureSystemExercise(system.id, exName);
+      const link = await prisma.exercisesOnWorkouts.findFirst({
+        where: { workoutId: workout.id, exerciseId: exercise.id },
+      });
+      if (!link) {
+        await prisma.exercisesOnWorkouts.create({
+          data: { workoutId: workout.id, exerciseId: exercise.id },
+        });
+      }
+    }
+  }
+  console.log(`Seeded ${programs.length} program templates.`);
+}
+
 async function main() {
   for (const item of catalog) {
     await prisma.exerciseCatalog.upsert({
@@ -74,6 +175,7 @@ async function main() {
     });
   }
   console.log(`Seeded ${catalog.length} catalog exercises.`);
+  await seedPrograms();
 }
 
 main()

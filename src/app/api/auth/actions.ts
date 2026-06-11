@@ -425,6 +425,67 @@ export const addWorkout = async (prevState:prevState,formData: FormData) => {
     return {message: "", valid: true}
 };
 
+// Public, copyable program templates (owned by the system user, seeded).
+export const getPublicTemplates = async () => {
+    const templates = await prisma.workout.findMany({
+        where: { isPublic: true, isTemplate: true },
+        orderBy: { name: 'asc' },
+        include: {
+            exercises: { include: { exercise: true } },
+        },
+    })
+    return templates
+};
+
+// Clone a public template (and its exercises) into the current user's account.
+export const copyWorkoutTemplate = async (templateId: string) => {
+    const session = await auth();
+    const userId = session?.user?.id
+    if (!userId) return
+
+    const template = await prisma.workout.findFirst({
+        where: { id: templateId, isPublic: true, isTemplate: true },
+        include: { exercises: { include: { exercise: true } } },
+    })
+    if (!template) return
+
+    const newWorkout = await prisma.workout.create({
+        data: {
+            name: template.name,
+            description: template.description,
+            authorId: userId,
+        },
+    })
+
+    for (const pair of template.exercises) {
+        const source = pair.exercise
+        // Reuse the user's matching exercise if they already have one by name,
+        // otherwise create a personal copy carrying over the catalog metadata.
+        let exercise = await prisma.exercise.findFirst({
+            where: { authorId: userId, name: source.name },
+        })
+        if (!exercise) {
+            exercise = await prisma.exercise.create({
+                data: {
+                    name: source.name,
+                    description: source.description,
+                    muscleGroup: source.muscleGroup,
+                    equipment: source.equipment,
+                    authorId: userId,
+                },
+            })
+        }
+        await prisma.exercisesOnWorkouts.create({
+            data: { workoutId: newWorkout.id, exerciseId: exercise.id },
+        })
+    }
+
+    revalidatePath("/dashboard/workouts")
+    revalidatePath("/dashboard/exercises")
+    revalidatePath("/dashboard/runningworkout")
+    return { id: newWorkout.id }
+};
+
 export const editWorkout = async (workoutId:string, workoutName:string, workoutDescription:string) => {
     const id = workoutId
     const newName = workoutName
