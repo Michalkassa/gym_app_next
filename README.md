@@ -1,105 +1,119 @@
-# LockedIn — Fitness Tracker Web App
+<div align="center">
 
-LockedIn is a full-stack progressive web application designed to help users track workouts and monitor fitness progress over time.
+<img src="public/logo.png" alt="LockedIn logo" width="84" />
 
-Built with **Next.js and React**, the application allows users to securely log workouts, store fitness data, and visualize progress through interactive charts.
+# LockedIn
 
-The backend uses **PostgreSQL with Prisma ORM** to manage data, while **NextAuth credential authentication** provides secure user login. Performance is optimized using **server-side rendering and caching**.
+**A full-stack fitness tracker for logging workouts, tracking strength, and staying on top of your goals.**
 
-## Features
+![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=nextdotjs)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
+![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?logo=postgresql&logoColor=white)
+![Prisma](https://img.shields.io/badge/Prisma-ORM-2D3748?logo=prisma&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?logo=tailwindcss&logoColor=white)
+![Tested with Vitest](https://img.shields.io/badge/tested_with-Vitest-6E9F18?logo=vitest&logoColor=white)
 
-* **Workout & exercise logging** with automatic estimated one-rep-max (Brzycki formula)
-* **Exercise library** of 30+ movements tagged by muscle group and equipment
-* **Prebuilt programs** (PPL, StrongLifts 5×5, Starting Strength) you can copy into your account in one click
-* **Training analytics** — weekly volume trend and a GitHub-style activity heatmap
-* **Personal records** page tracking best weight, estimated 1RM and set volume per exercise
-* **Nutrition logging** of calories and macros with charts
-* **Gamification** — earn XP per set/workout and level up
-* **Data export** to CSV and a generated PDF progress report
-* **Bodyweight tracking**, PWA support, and a responsive mobile/desktop UI
+</div>
 
-Validated with a **Vitest** unit-test suite and runnable end-to-end with a single `docker compose up`.
+<p align="center">
+  <img src="docs/screenshots/landing.png" alt="LockedIn landing page" width="900" />
+</p>
 
-## Tech Stack
+LockedIn is a progressive web app built with **Next.js (App Router) and TypeScript**. Workouts and progress are stored in **PostgreSQL via Prisma**, auth is handled by **NextAuth**, and the whole stack runs with a single `docker compose up`.
 
-* TypeScript
-* Next.js
-* React
-* PostgreSQL
-* Prisma ORM
-* NextAuth
-* Chart.js
+---
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## ✨ Features
 
-## Run with Docker (recommended)
+### 📊 Dashboard
+Everything at a glance — quick actions, your bodyweight trend, most-trained exercises, weekly volume, and a GitHub-style activity heatmap that rolls to today.
 
-The whole stack (Next.js app + PostgreSQL) runs with a single command:
+<p align="center"><img src="docs/screenshots/dashboard.png" alt="Dashboard" width="900" /></p>
+
+### 🏋️ Workouts & a live set tracker
+Build workouts from your exercises and run a live session that records each set, shows your previous numbers, and awards XP when you finish.
+
+<p align="center"><img src="docs/screenshots/live-workout.png" alt="Live workout tracker" width="900" /></p>
+
+### 💪 Exercises & automatic 1RM
+Log weight × reps and LockedIn estimates your one-rep max (Brzycki formula) and charts it over time. Pick from a built-in library of 30+ exercises tagged by muscle group, or add your own.
+
+<p align="center"><img src="docs/screenshots/exercise.png" alt="Exercise detail with 1RM chart" width="900" /></p>
+
+### 📋 Prebuilt programs
+Start from proven programs — Push/Pull/Legs, StrongLifts 5×5, Starting Strength — and copy them into your account in one click.
+
+<p align="center"><img src="docs/screenshots/programs.png" alt="Programs" width="900" /></p>
+
+### 🏆 Personal records & data export
+Track your best weight, estimated 1RM and set volume per exercise, and export everything to CSV or a generated PDF progress report.
+
+<p align="center"><img src="docs/screenshots/records.png" alt="Personal records" width="900" /></p>
+
+### 🍎 Nutrition with daily goals
+Set a daily calorie & macro goal, log meals (enter calories or auto-calculate them from macros), and see what's remaining for the day.
+
+<p align="center"><img src="docs/screenshots/nutrition.png" alt="Nutrition tracking" width="900" /></p>
+
+### 🔥 Activity heatmap & gamification
+A full trailing-year contribution graph (with a year selector for history) plus an XP/level system that rewards consistency.
+
+<p align="center"><img src="docs/screenshots/heatmap.png" alt="Activity heatmap" width="900" /></p>
+
+---
+
+## 🧱 Tech stack
+
+| Layer | Tech |
+|------|------|
+| Framework | Next.js 14 (App Router, Server Actions) · React 18 · TypeScript |
+| Database | PostgreSQL · Prisma ORM |
+| Auth | NextAuth (credentials, bcrypt) |
+| UI | Tailwind CSS · MUI Joy · React Icons |
+| Charts | Chart.js · custom contribution heatmap |
+| Validation | Zod |
+| PDF / export | @react-pdf/renderer · CSV |
+| Testing | Vitest |
+| Tooling | Docker · docker-compose |
+
+---
+
+## 🚀 Getting started
+
+### Option A — Docker (recommended)
+
+Runs the app **and** PostgreSQL, applies migrations, and seeds the exercise library + programs automatically:
 
 ```bash
 docker compose up --build
 ```
 
-This builds the app, starts Postgres, applies the Prisma migrations automatically, and serves the app at [http://localhost:3000](http://localhost:3000). Override `AUTH_SECRET` via an `.env` file (see `.env.example`) for anything beyond local use.
+Then open **http://localhost:3000**. Set `AUTH_SECRET` via an `.env` file (see `.env.example`) for anything beyond local use — generate one with `openssl rand -base64 32`.
 
-## Testing
-
-Unit tests run with [Vitest](https://vitest.dev/):
+### Option B — Local
 
 ```bash
-npm run test        # run once
-npm run test:watch  # watch mode
-```
-
-## Getting Started (local, without Docker)
-
-Copy `.env.example` to `.env` and fill in `DATABASE_URL` and `AUTH_SECRET`, then run the development server:
-
-```bash
+cp .env.example .env          # set DATABASE_URL and AUTH_SECRET
+npm install
+npx prisma migrate deploy     # create the tables
+npm run seed                  # load the exercise library + programs
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-After updating prisma tables to actually create the tables in your database, you now can use the following command of the Prisma CLI:
+---
+
+## 🧪 Testing
+
+Unit tests (1RM math, validation, analytics, XP, nutrition, CSV) run with [Vitest](https://vitest.dev/):
 
 ```bash
-npx prisma db push
+npm run test          # run once
+npm run test:watch    # watch mode
 ```
 
-For Prisma Studio. Run the following command:
+---
 
-```bash
-npx prisma studio
-```
+## 📸 Screenshots
 
-Because Prisma Client is tailored to your own schema, you need to update it every time your Prisma schema file is changing by running the following command:
-
-```bash
-npx prisma generate
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+The images above live in [`docs/screenshots/`](docs/screenshots). See that folder's README for the exact filenames and a quick guide to (re)capturing them.
