@@ -1,6 +1,7 @@
 import { auth } from "@/app/api/auth/auth"
 import AddNutrition from "@/components/Nutrition/AddNutrition"
 import NutritionList from "@/components/Nutrition/NutritionList"
+import NutritionGoalCard from "@/components/Nutrition/NutritionGoalCard"
 import { redirect } from "next/navigation"
 
 export default async function Nutrition() {
@@ -13,6 +14,7 @@ export default async function Nutrition() {
         <h1 className="page-header">Nutrition</h1>
         <AddNutrition />
       </div>
+      <NutritionGoalCard />
       <div className="card">
         <NutritionList />
       </div>

@@ -651,6 +651,65 @@ export const deleteNutritionEntry = async (entryId: string) => {
     revalidatePath("/dashboard/nutrition")
 }
 
+export const getNutritionGoal = async () => {
+    const session = await auth();
+    if (!session?.user?.id) return null
+    return prisma.nutritionGoal.findUnique({ where: { authorId: session.user.id } })
+}
+
+export const setNutritionGoal = async (prevState:prevState, formData: FormData) => {
+    const session = await auth();
+    const userId = session?.user?.id
+    if (!userId) return { message: "Not signed in" }
+
+    const parsed = nutritionSchema.safeParse({
+        calories: formData.get('calories'),
+        protein: formData.get('protein'),
+        carbs: formData.get('carbs'),
+        fat: formData.get('fat'),
+    })
+    if (!parsed.success) {
+        return { message: firstError(parsed.error) }
+    }
+    const { calories, protein, carbs, fat } = parsed.data
+    await prisma.nutritionGoal.upsert({
+        where: { authorId: userId },
+        update: { calories, protein, carbs, fat },
+        create: { calories, protein, carbs, fat, authorId: userId },
+    })
+    revalidatePath("/dashboard/nutrition")
+    return { message: "", valid: true }
+}
+
+// The user's daily goal plus what they've already consumed *today*, so the UI
+// can show what's remaining.
+export const getNutritionSummary = async () => {
+    const session = await auth();
+    const userId = session?.user?.id
+    const empty = { calories: 0, protein: 0, carbs: 0, fat: 0 }
+    if (!userId) return { goal: null, consumed: empty }
+
+    const start = new Date()
+    start.setHours(0, 0, 0, 0)
+
+    const [goal, entries] = await Promise.all([
+        prisma.nutritionGoal.findUnique({ where: { authorId: userId } }),
+        prisma.nutritionEntry.findMany({ where: { authorId: userId, createdAt: { gte: start } } }),
+    ])
+
+    const consumed = entries.reduce(
+        (acc, e) => ({
+            calories: acc.calories + e.calories,
+            protein: acc.protein + e.protein,
+            carbs: acc.carbs + e.carbs,
+            fat: acc.fat + e.fat,
+        }),
+        { ...empty },
+    )
+
+    return { goal, consumed }
+}
+
 // ----- Gamification -----
 
 export const getUserStats = async () => {
