@@ -15,7 +15,7 @@ export default async function Navbar() {
       src={session?.user?.image || "/blankUserImage.webp"}
       width={50}
       height={50}
-      alt="Picture of the author"
+      alt="Your profile picture"
       className="rounded-xl hidden sm:flex"
     />}
               {session && <p className="hidden sm:flex">{session?.user?.email}</p>}

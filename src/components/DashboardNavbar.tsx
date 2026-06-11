@@ -19,7 +19,7 @@ export default async function DashboardNavbar(){
         src={session?.user?.image || "/blankUserImage.webp"}
         width={65}
         height={65}
-        alt="Picture of the author"
+        alt="Your profile picture"
         className="rounded-2xl"
         />}
         <div>

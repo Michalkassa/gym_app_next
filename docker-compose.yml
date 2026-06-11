@@ -1,0 +1,36 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: lockedin
+      POSTGRES_PASSWORD: lockedin
+      POSTGRES_DB: lockedin
+    ports:
+      - "5432:5432"
+    volumes:
+      - lockedin_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lockedin"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://lockedin:lockedin@db:5432/lockedin
+      AUTH_SECRET: ${AUTH_SECRET:-dev-only-secret-change-me}
+      AUTH_TRUST_HOST: "true"
+    ports:
+      - "3000:3000"
+    # Apply the schema, seed the exercise catalog/programs (idempotent), then serve.
+    command: sh -c "npx prisma migrate deploy && node prisma/seed.mjs && node server.js"
+
+volumes:
+  lockedin_pgdata:
