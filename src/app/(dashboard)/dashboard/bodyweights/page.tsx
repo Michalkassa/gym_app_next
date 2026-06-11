@@ -13,17 +13,28 @@ export default async function BodyWeights() {
   if (!session) return redirect("/")
     
   return (
-    <div className="flex md:flex-row md:h-full">
-      <div className="flex flex-col gap-10 justify-center align-middle min-w-full h-full">
-      <BodyWeightChart/>
-      <div className="flex justify-evenly">
+    <section className="flex flex-col gap-6">
+      <div className="flex items-center justify-between gap-4">
+        <h1 className="page-header">Body Weight</h1>
         <AddBodyWeight></AddBodyWeight>
-        <BodyWeightStats />
       </div>
-      <BodyWeightPercentages/>
-      <BodyWeightList></BodyWeightList>
+
+      <div className="card">
+        <h2 className="text-lg font-semibold text-white">Progress</h2>
+        <div className="mt-4 h-56">
+          <BodyWeightChart/>
+        </div>
       </div>
-    </div>
+
+      <div className="grid gap-4 md:grid-cols-2">
+        <div className="card"><BodyWeightStats /></div>
+        <div className="card"><BodyWeightPercentages/></div>
+      </div>
+
+      <div className="card">
+        <BodyWeightList></BodyWeightList>
+      </div>
+    </section>
   )
 }
 

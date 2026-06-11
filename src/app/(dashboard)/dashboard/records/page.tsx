@@ -8,15 +8,14 @@ export default async function Records() {
   if (!session) return redirect("/")
 
   return (
-    <section className="flex flex-col align-middle">
-      <div className="flex justify-around py-6">
-        <h1 className="text-5xl text-white">Personal Records</h1>
-      </div>
+    <section className="flex flex-col gap-6">
+      <header>
+        <h1 className="page-header">Personal Records</h1>
+        <p className="mt-1 text-gray-500">Your best lifts, and export your data.</p>
+      </header>
       <ExportButtons />
-      <div className="flex w-full justify-center">
-        <div className="max-w-4xl w-full p-3">
-          <RecordsList />
-        </div>
+      <div className="card">
+        <RecordsList />
       </div>
     </section>
   )

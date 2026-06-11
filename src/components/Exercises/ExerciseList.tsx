@@ -12,11 +12,10 @@ export default async function ExerciseList() {
     )
   }
   return (
-    <div className="flex flex-col justify-center items-center flex-wrap gap-1">
+    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {data.reverse().map((exercise) => (
             <Exercise key={exercise.id} id={exercise.id} name={exercise.name} description={exercise.description}/>
           ))}
     </div>
-    
   )
 } 

@@ -14,13 +14,13 @@ return(
     <Dialog open={modalOpen} as="div" className="relative z-10 focus:outline-none text-white" onClose={setModalOpen}>
       {/* The backdrop, rendered as a fixed sibling to the panel container */}
       <DialogBackdrop className="fixed inset-0 bg-black/65" />
-    <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+    <div className="fixed inset-0 z-10 w-screen overflow-y-auto p-4">
       <div className="flex min-h-full items-center justify-center">
         <DialogPanel
           transition
-          className="w-full max-w-md rounded-xl bg-white/5 p-12 backdrop-blur-2xl duration-300 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0"
+          className="relative w-full max-w-md rounded-2xl border border-white/10 bg-sleek_gray p-6 shadow-2xl duration-300 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0"
         >
-        <button className='btn btn-sm btn-circle absolute right-2 top-2' onClick={() => setModalOpen(false)} ><IoIosClose size={30} /></button>
+        <button aria-label="Close" className="absolute right-3 top-3 rounded-full p-1 text-gray-400 transition hover:bg-white/10 hover:text-white" onClick={() => setModalOpen(false)} ><IoIosClose size={26} /></button>
         {children}
         </DialogPanel>
       </div>

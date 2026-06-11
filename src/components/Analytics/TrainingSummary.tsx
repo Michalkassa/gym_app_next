@@ -21,19 +21,19 @@ export default async function TrainingSummary() {
   };
 
   return (
-    <div className="flex flex-col gap-4 bg-sleek_gray bg-opacity-40 rounded-3xl p-7 col-span-2">
+    <div className="card flex flex-col gap-6">
       <div>
-        <h1 className="text-white">Weekly Volume</h1>
+        <h2 className="text-lg font-semibold text-white">Weekly Volume</h2>
         {weekly.length > 0 ? (
-          <div className="h-56">
+          <div className="mt-4 h-56">
             <LineChart chartData={volumeChart} />
           </div>
         ) : (
-          <p className="text-gray-400">Log some sets to see your weekly volume.</p>
+          <p className="mt-2 text-gray-500">Log some sets to see your weekly volume.</p>
         )}
       </div>
       <div>
-        <h1 className="text-white pb-2">Activity</h1>
+        <h2 className="pb-3 text-lg font-semibold text-white">Activity</h2>
         <ActivityHeatmap activity={activity} />
       </div>
     </div>

@@ -14,17 +14,20 @@ export default function DashboardLayout({
 }>) {
 
   return (
-    <div className='w-screen flex flex-col md:grid md:grid-cols-dashboard md:grid-rows-1 md:gap-3 md:min-h-screen'>
-      <div className='w-screen md:h-screen md:min-h-full'>
-      <div className="hidden md:inline md:fixed md:min-h-full ">
-      <DashboardNavbar/>
-      </div>
-      <div className=" grid-rows-2 inline-flex min-w-full fixed bottom-0 justify-center md:hidden z-30">
-      <PhoneDashboardNavbar/>
-      </div>
-      </div>
-      <div className="mb-32">
-      {children}
+    <div className="min-h-screen md:grid md:grid-cols-dashboard">
+      {/* Desktop sidebar — sticky full-height column */}
+      <aside className="hidden md:block sticky top-0 h-screen">
+        <DashboardNavbar />
+      </aside>
+
+      {/* Content */}
+      <main className="mx-auto w-full max-w-6xl px-4 pb-28 pt-6 md:px-8 md:pb-12">
+        {children}
+      </main>
+
+      {/* Mobile bottom navigation */}
+      <div className="fixed inset-x-0 bottom-0 z-30 md:hidden">
+        <PhoneDashboardNavbar />
       </div>
     </div>
   )

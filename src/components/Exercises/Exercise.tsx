@@ -9,14 +9,9 @@ interface ExerciseProps {
 
 export default function Exercise({ id , name , description} : ExerciseProps) {
     return(
-        <Link className="min-w-full" href={`/dashboard/exercises/${id}`}>
-        <div key={id} className="">
-            <div className="flex flex-col p-2 text-white">
-                <h1 className="flex text-3xl justify-center">{name}</h1>
-                <p className="flex text-center justify-center text-md">{description.slice(0, 100)}... &zwnj; </p>
-            </div>
-            <hr className="text-light_gray text-xs"></hr>
-        </div>
+        <Link key={id} href={`/dashboard/exercises/${id}`} className="card block transition hover:border-white/10 hover:bg-white/[0.05]">
+            <h3 className="text-lg font-semibold text-white">{name}</h3>
+            <p className="mt-1 text-sm text-gray-400 limited-text">{description}</p>
         </Link>
     )
 }

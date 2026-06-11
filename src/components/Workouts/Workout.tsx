@@ -7,20 +7,14 @@ import { WorkoutProps } from "@/Props"
 export default async function Workout({ id , name , description} : WorkoutProps) {
      const ExercisesWorkoutPairs = await getExercisesWorkoutPairs(id)
     return(
-        <Link href={`/dashboard/workouts/${id}`}>
-        <div key={id} className="w-90 h-64 hover:scale-110 duration-200 p-3">
-            <div className="flex flex-col bg-sleek_gray p-10 justify-center text-white h-full">
-                <h1 className="flex text-3xl justify-center">{name}</h1>
-                <p className="flex text-center justify-center limited-text">{description.slice(0, 15)}...</p>
-                <ul>
-                        {ExercisesWorkoutPairs.map((pair: ExerciseWorkoutPairProps) => (
-                        <li key={pair.id}>
-                            <p className="text-sm">- {pair.exercise.name}</p>
-                        </li>
-                        ))}
-                </ul>
-            </div>
-        </div>
+        <Link key={id} href={`/dashboard/workouts/${id}`} className="card block transition hover:border-white/10 hover:bg-white/[0.05]">
+            <h3 className="text-lg font-semibold text-white">{name}</h3>
+            <p className="mt-1 text-sm text-gray-400 limited-text">{description}</p>
+            <ul className="mt-3 space-y-1">
+                {ExercisesWorkoutPairs.map((pair: ExerciseWorkoutPairProps) => (
+                    <li key={pair.id} className="text-sm text-gray-500">{pair.exercise.name}</li>
+                ))}
+            </ul>
         </Link>
     )
 }

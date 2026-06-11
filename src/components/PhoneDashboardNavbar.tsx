@@ -1,83 +1,28 @@
-import {auth} from "@/app/api/auth/auth"
-import Link from "next/link"
+import NavLink from "./NavLink"
 import { BsSkipStartFill } from "react-icons/bs";
-import { FaWeightScale } from "react-icons/fa6";
-import { FaDumbbell } from "react-icons/fa6";
+import { FaWeightScale, FaDumbbell } from "react-icons/fa6";
 import { IoBody } from "react-icons/io5";
-import { FaClipboardList } from "react-icons/fa";
-import { FaHome } from "react-icons/fa";
-import { FaTrophy } from "react-icons/fa";
-import { FaAppleAlt } from "react-icons/fa";
+import { FaClipboardList, FaHome, FaTrophy, FaAppleAlt } from "react-icons/fa";
 
-export default async function PhoneDashboardNavbar(){
-    const session = await auth()
+const ICON = 20;
 
-    return(
-            <ul className="flex justify-around items-start bg-sleek_gray min-w-full text-white min-h-26">
-                <li className="">
-                    <Link href="/dashboard">
-                        <div className="flex flex-col w-full justify-center items-center h-20 gap-2">
-                        <div className="flex justify-center items-center"><FaHome size={25}/></div>
-                        <div className="flex items-center text-xs">Dashboard</div>
-                        </div>
-                    </Link>
-                </li>
-                <li className="">
-                    <Link href="/dashboard/workouts">
-                        <div className="flex flex-col w-full justify-center items-center h-20 gap-2">
-                        <div className="flex justify-center items-center"><FaClipboardList size={25}/></div>
-                        <div className="flex items-center text-xs">Workouts</div>
-                        </div>
-                    </Link>
-                </li>
-                <li className="">
-                    <Link href="/dashboard/runningworkout">
-                        <div className="flex flex-col w-full justify-center items-center h-20 gap-2">
-                        <div className="flex justify-center items-center"><BsSkipStartFill size={30}/></div>
-                        <div className="flex items-center text-xs">Start Workout</div>
-                        </div>
-                </Link>
-                </li>
-                <li className="scale-100 hover:scale-105 duration-100">
-                    <Link href="/dashboard/programs">
-                        <div className="flex flex-col w-full justify-center items-center h-20 gap-2">
-                        <div className="flex justify-center items-center"><FaDumbbell size={25}/></div>
-                        <div className="flex items-center text-xs">Programs</div>
-                        </div>
-                    </Link>
-                </li>
-                <li className="scale-100 hover:scale-105 duration-100">
-                    <Link href="/dashboard/exercises">
-                        <div className="flex flex-col w-full justify-center items-center h-20 gap-2">
-                        <div className="flex justify-center items-center"><IoBody size={25}/></div>
-                        <div className="flex items-center text-sm" >Exercises</div>
-                        </div>
-                    </Link>
-                </li>
-                <li className="scale-100 hover:scale-105 duration-100">
-                    <Link href="/dashboard/records">
-                        <div className="flex flex-col w-full justify-center items-center h-20 gap-2">
-                        <div className="flex justify-center items-center"><FaTrophy size={25}/></div>
-                        <div className="flex items-center text-xs">Records</div>
-                        </div>
-                    </Link>
-                </li>
-                <li className="scale-100 hover:scale-105 duration-100">
-                    <Link href="/dashboard/bodyweights">
-                        <div className="flex flex-col w-full justify-center items-center h-20 gap-2">
-                        <div className="flex justify-center items-center"><FaWeightScale size={25}/></div>
-                        <div className="flex items-center text-xs">Body Weight</div>
-                        </div>
-                    </Link>
-                </li>
-                <li className="scale-100 hover:scale-105 duration-100">
-                    <Link href="/dashboard/nutrition">
-                        <div className="flex flex-col w-full justify-center items-center h-20 gap-2">
-                        <div className="flex justify-center items-center"><FaAppleAlt size={25}/></div>
-                        <div className="flex items-center text-xs">Nutrition</div>
-                        </div>
-                    </Link>
-                </li>
-            </ul>
-    )
+const navItems = [
+  { href: "/dashboard", label: "Home", icon: <FaHome size={ICON} /> },
+  { href: "/dashboard/runningworkout", label: "Start", icon: <BsSkipStartFill size={ICON} /> },
+  { href: "/dashboard/workouts", label: "Workouts", icon: <FaClipboardList size={ICON} /> },
+  { href: "/dashboard/programs", label: "Programs", icon: <FaDumbbell size={ICON} /> },
+  { href: "/dashboard/exercises", label: "Exercises", icon: <IoBody size={ICON} /> },
+  { href: "/dashboard/records", label: "Records", icon: <FaTrophy size={ICON} /> },
+  { href: "/dashboard/nutrition", label: "Nutrition", icon: <FaAppleAlt size={ICON} /> },
+  { href: "/dashboard/bodyweights", label: "Weight", icon: <FaWeightScale size={ICON} /> },
+];
+
+export default function PhoneDashboardNavbar() {
+  return (
+    <nav className="no-scrollbar flex w-screen items-stretch overflow-x-auto border-t border-white/10 bg-sleek_gray/95 backdrop-blur-md">
+      {navItems.map((item) => (
+        <NavLink key={item.href} href={item.href} label={item.label} icon={item.icon} variant="bottom" />
+      ))}
+    </nav>
+  )
 }

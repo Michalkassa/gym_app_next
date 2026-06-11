@@ -7,18 +7,12 @@ export default async function Programs() {
   if (!session) return redirect("/")
 
   return (
-    <section className="flex flex-col align-middle">
-      <div className="flex justify-around py-6">
-        <h1 className="text-5xl text-white">Programs</h1>
-      </div>
-      <p className="text-center text-gray-400 pb-4">
-        Pick a proven training program to copy into your workouts.
-      </p>
-      <div className="flex w-full justify-center">
-        <div className="max-w-6xl">
-          <ProgramList />
-        </div>
-      </div>
+    <section className="flex flex-col gap-6">
+      <header>
+        <h1 className="page-header">Programs</h1>
+        <p className="mt-1 text-gray-500">Pick a proven training program to copy into your workouts.</p>
+      </header>
+      <ProgramList />
     </section>
   )
 }

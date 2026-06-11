@@ -1,106 +1,66 @@
-import {auth} from "@/app/api/auth/auth"
-import Link from "next/link"
+import { auth } from "@/app/api/auth/auth"
 import Image from "next/image"
+import Link from "next/link"
 import { SignOutButton } from "./SignOutButton"
 import LevelBadge from "./LevelBadge"
+import NavLink from "./NavLink"
 import { BsSkipStartFill } from "react-icons/bs";
-import { FaWeightScale } from "react-icons/fa6";
-import { FaDumbbell } from "react-icons/fa6";
-import { FaAppleAlt } from "react-icons/fa";
+import { FaWeightScale, FaDumbbell } from "react-icons/fa6";
 import { IoBody } from "react-icons/io5";
-import { FaClipboardList } from "react-icons/fa";
-import { FaHome } from "react-icons/fa";
-import { FaTrophy } from "react-icons/fa";
+import { FaClipboardList, FaHome, FaTrophy, FaAppleAlt } from "react-icons/fa";
 
-export default async function DashboardNavbar(){
-    const session = await auth()
+const ICON = 20;
 
-    return(
-        <div className="flex flex-col bg-sleek_gray items-center text-white justify-between min-h-screen min-w-72">
-        <div>
-        <div className="flex justify-center items-center gap-5 h-24">
-        {session && <Image
-        src={session?.user?.image || "/blankUserImage.webp"}
-        width={65}
-        height={65}
-        alt="Your profile picture"
-        className="rounded-2xl"
-        />}
-        <div>
-        <p className="text-xs">{session && session?.user?.email}</p>
-        </div>
+const navItems = [
+  { href: "/dashboard", label: "Dashboard", icon: <FaHome size={ICON} /> },
+  { href: "/dashboard/runningworkout", label: "Start Workout", icon: <BsSkipStartFill size={ICON} /> },
+  { href: "/dashboard/workouts", label: "Workouts", icon: <FaClipboardList size={ICON} /> },
+  { href: "/dashboard/programs", label: "Programs", icon: <FaDumbbell size={ICON} /> },
+  { href: "/dashboard/exercises", label: "Exercises", icon: <IoBody size={ICON} /> },
+  { href: "/dashboard/records", label: "Records", icon: <FaTrophy size={ICON} /> },
+  { href: "/dashboard/nutrition", label: "Nutrition", icon: <FaAppleAlt size={ICON} /> },
+  { href: "/dashboard/bodyweights", label: "Body Weight", icon: <FaWeightScale size={ICON} /> },
+];
+
+export default async function DashboardNavbar() {
+  const session = await auth();
+
+  return (
+    <div className="flex h-screen w-72 flex-col border-r border-white/5 bg-sleek_gray">
+      {/* Brand */}
+      <Link href="/dashboard" className="flex items-center gap-2 px-6 py-5">
+        <Image src="/logo.png" alt="LockedIn logo" width={28} height={28} className="rounded" />
+        <span className="text-lg font-semibold tracking-tight text-white">LockedIn</span>
+      </Link>
+
+      {/* Profile + level */}
+      <div className="px-4 pb-2">
+        <div className="flex items-center gap-3 rounded-2xl bg-white/[0.03] p-3">
+          {session && (
+            <Image
+              src={session.user?.image || "/blankUserImage.webp"}
+              width={40}
+              height={40}
+              alt="Your profile picture"
+              className="rounded-full"
+            />
+          )}
+          <p className="truncate text-xs text-gray-400">{session?.user?.email}</p>
         </div>
         <LevelBadge />
-        <ul className="w-full">
-            <li className="scale-100 hover:scale-105 duration-100">
-            <Link href="/dashboard">
-                <div className="flex w-full h-24">
-                <div className="flex justify-center items-center" style={{flex:'40%'}} ><FaHome size={25}/></div>
-                <div className="flex items-center" style={{flex:'60%'}}>Dashboard</div>
-                </div>
-            </Link>
-            </li>
-            <li className="scale-100 hover:scale-105 duration-100">
-            <Link href="/dashboard/workouts">
-                <div className="flex w-full h-24   ">
-                <div className="flex justify-center items-center" style={{flex:'40%'}} ><FaClipboardList size={25}/></div>
-                <div className="flex items-center" style={{flex:'60%'}}>Workouts</div>
-                </div>
-            </Link>
-            </li>
-            <li className="scale-100 hover:scale-105 duration-100">
-            <Link href="/dashboard/programs">
-                <div className="flex w-full h-24   ">
-                <div className="flex justify-center items-center" style={{flex:'40%'}} ><FaDumbbell size={25}/></div>
-                <div className="flex items-center" style={{flex:'60%'}}>Programs</div>
-                </div>
-            </Link>
-            </li>
-            <li className="scale-100 hover:scale-105 duration-100">
-            <Link href="/dashboard/exercises">
-                <div className="flex w-full h-24   ">
-                <div className="flex justify-center items-center" style={{flex:'40%'}} ><IoBody size={25}/></div>
-                <div className="flex items-center" style={{flex:'60%'}}>Exercises</div>
-                </div>
-            </Link>
-            </li>
-            <li className="scale-100 hover:scale-105 duration-100">
-            <Link href="/dashboard/records">
-                <div className="flex w-full h-24   ">
-                <div className="flex justify-center items-center" style={{flex:'40%'}} ><FaTrophy size={25}/></div>
-                <div className="flex items-center" style={{flex:'60%'}}>Records</div>
-                </div>
-            </Link>
-            </li>
-            <li className="scale-100 hover:scale-105 duration-100">
-            <Link href="/dashboard/bodyweights">
-                <div className="flex w-full h-24   ">
-                <div className="flex justify-center items-center" style={{flex:'40%'}} ><FaWeightScale size={25}/></div>
-                <div className="flex items-center" style={{flex:'60%'}}>Body Weight</div>
-                </div>
-            </Link>
-            </li>
-            <li className="scale-100 hover:scale-105 duration-100">
-            <Link href="/dashboard/nutrition">
-                <div className="flex w-full h-24   ">
-                <div className="flex justify-center items-center" style={{flex:'40%'}} ><FaAppleAlt size={25}/></div>
-                <div className="flex items-center" style={{flex:'60%'}}>Nutrition</div>
-                </div>
-            </Link>
-            </li>
-            <li className="scale-100 hover:scale-105 duration-100">
-                <Link href="/dashboard/runningworkout">
-                <div className="flex w-full h-24   ">
-                <div className="flex justify-center items-center" style={{flex:'40%'}} ><BsSkipStartFill size={30}/></div>
-                <div className="flex items-center" style={{flex:'60%'}}>Start Workout</div>
-                </div>
-                </Link>
-            </li>
-        </ul>
-        </div>
-        <div className="w-full">
+      </div>
+
+      {/* Navigation */}
+      <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-2">
+        {navItems.map((item) => (
+          <NavLink key={item.href} href={item.href} label={item.label} icon={item.icon} />
+        ))}
+      </nav>
+
+      {/* Sign out */}
+      <div className="border-t border-white/5 p-3">
         <SignOutButton />
-        </div>
-        </div>
-    )
+      </div>
+    </div>
+  )
 }

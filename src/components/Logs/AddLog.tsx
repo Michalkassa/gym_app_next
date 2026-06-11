@@ -23,20 +23,17 @@ export default function AddLog (props : {exerciseId: string}){
   return (
     <div className="w-full">
       <div className="w-full flex justify-center">
-      <button onClick={() => setModalOpen(true)} className='w-auto bg-atlantis_blue rounded-md p-5'> Add new Log</button>
+      <button onClick={() => setModalOpen(true)} className="btn-primary"> Add new Log</button>
       </div>
       <Modal modalOpen={modalOpen} setModalOpen={setModalOpen}>
         <form autoComplete="off" action={formAction} className="flex flex-col gap-3">
           <h3 className="font-bold text-lg">Add new Log</h3>
           <div className="flex flex-col gap-3">
             <input type="hidden" id="exerciseId" name="exerciseId" value={props.exerciseId}/>
-            <input  autoComplete="false" id="weight" name="weight" type="number" step="0.01" aria-label="Weight in kilograms" placeholder="Weight... (kg)" className="input input-bordered w-full text-black p-3" min="0" ></input>
-            <input autoComplete="false" id="reps" name="reps" type="number" aria-label="Repetitions" placeholder="Repetitions... " className="input input-bordered w-full text-black p-3" min="0"></input>
-            <p className="text-red-600">{state?.message}</p>
-            <button
-              className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 p-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
-              type="submit"
-            >
+            <input  autoComplete="false" id="weight" name="weight" type="number" step="0.01" aria-label="Weight in kilograms" placeholder="Weight... (kg)" className="input-field" min="0" ></input>
+            <input autoComplete="false" id="reps" name="reps" type="number" aria-label="Repetitions" placeholder="Repetitions... " className="input-field" min="0"></input>
+            <p className="text-red-500 text-sm">{state?.message}</p>
+            <button className="btn-primary" type="submit">
               Submit
             </button>
 

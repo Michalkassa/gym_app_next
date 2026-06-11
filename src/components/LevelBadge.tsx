@@ -6,13 +6,13 @@ export default async function LevelBadge() {
   if (!stats) return null
 
   return (
-    <div className="px-4 py-2 w-full">
-      <div className="flex justify-between text-xs text-white mb-1">
-        <span>Level {stats.level}</span>
-        <span>{stats.current}/{stats.needed} XP</span>
+    <div className="w-full pt-3">
+      <div className="mb-1 flex justify-between text-xs">
+        <span className="font-medium text-white">Level {stats.level}</span>
+        <span className="text-gray-500">{stats.current}/{stats.needed} XP</span>
       </div>
-      <div className="w-full h-2 bg-gray-600 rounded-full overflow-hidden">
-        <div className="h-full bg-atlantis_blue" style={{ width: `${stats.percent}%` }} />
+      <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+        <div className="h-full rounded-full bg-atlantis_blue transition-all" style={{ width: `${stats.percent}%` }} />
       </div>
     </div>
   )

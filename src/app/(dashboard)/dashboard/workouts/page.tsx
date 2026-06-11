@@ -10,16 +10,12 @@ export default async function Workouts() {
 
   if (!session) return redirect("/")
   return (
-    <section className="flex flex-col align-middle" >
-        <div className="flex justify-around py-6">
-          <h1 className="text-5xl text-white">Workouts</h1>
-          <AddWorkout></AddWorkout>
-        </div>
-        <div className="flex w-screen justify-center w-full h-4/6">
-        <div className="max-w-6xl">
-        <WorkoutList></WorkoutList>
-        </div>
-        </div>
+    <section className="flex flex-col gap-6">
+      <div className="flex items-center justify-between gap-4">
+        <h1 className="page-header">Workouts</h1>
+        <AddWorkout></AddWorkout>
+      </div>
+      <WorkoutList></WorkoutList>
     </section>
   )
 }

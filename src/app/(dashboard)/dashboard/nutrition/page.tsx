@@ -8,15 +8,13 @@ export default async function Nutrition() {
   if (!session) return redirect("/")
 
   return (
-    <section className="flex flex-col align-middle">
-      <div className="flex justify-around py-6">
-        <h1 className="text-5xl text-white">Nutrition</h1>
+    <section className="flex flex-col gap-6">
+      <div className="flex items-center justify-between gap-4">
+        <h1 className="page-header">Nutrition</h1>
         <AddNutrition />
       </div>
-      <div className="flex w-full justify-center">
-        <div className="max-w-4xl w-full p-3">
-          <NutritionList />
-        </div>
+      <div className="card">
+        <NutritionList />
       </div>
     </section>
   )

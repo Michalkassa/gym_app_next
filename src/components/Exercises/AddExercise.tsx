@@ -76,7 +76,7 @@ export default function AddExercise (){
   return (
     <div className="w-full">
       <div className="w-full flex justify-center">
-      <button onClick={() => setModalOpen(true)} className='w-auto bg-atlantis_blue rounded-md p-3 text-lg text-white'> Add Exercise</button>
+      <button onClick={() => setModalOpen(true)} className="btn-primary"> Add Exercise</button>
       </div>
       <Modal modalOpen={modalOpen} setModalOpen={setModalOpen}>
         <form autoComplete="off" action={formAction} className="flex flex-col gap-3">
@@ -92,18 +92,15 @@ export default function AddExercise (){
               placeholder="Search the exercise library..."
               className="text-black"
             />
-            <input autoComplete="false" id="name" name="name" type="text" aria-label="Exercise name" placeholder="Type Name of the Exercise Here..." value={name} onChange={(e) => setName(e.target.value)} className="input input-bordered w-full text-black p-3"></input>
-            <textarea id="description" name="description" aria-label="Exercise description" placeholder="Description..." value={description} onChange={(e) => setDescription(e.target.value)} className="input input-bordered w-full h-36 text-black p-3"></textarea>
+            <input autoComplete="false" id="name" name="name" type="text" aria-label="Exercise name" placeholder="Type Name of the Exercise Here..." value={name} onChange={(e) => setName(e.target.value)} className="input-field"></input>
+            <textarea id="description" name="description" aria-label="Exercise description" placeholder="Description..." value={description} onChange={(e) => setDescription(e.target.value)} className="input-field h-36"></textarea>
             {muscleGroup && (
-              <p className="text-sm text-gray-600">{muscleGroup}{equipment ? ` · ${equipment}` : ""}</p>
+              <p className="text-sm text-gray-400">{muscleGroup}{equipment ? ` · ${equipment}` : ""}</p>
             )}
             <input type="hidden" name="muscleGroup" value={muscleGroup} />
             <input type="hidden" name="equipment" value={equipment} />
-            <p className="text-red-600">{state?.message}</p>
-            <button
-              className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 p-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
-              type="submit"
-            >
+            <p className="text-red-500 text-sm">{state?.message}</p>
+            <button className="btn-primary" type="submit">
               Submit
             </button>
 
